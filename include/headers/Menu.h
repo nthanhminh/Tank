@@ -23,11 +23,13 @@ private:
 	int sizeEnemyTankBulluets[10];
 	EnemyTank* listEnemyTank = new EnemyTank[5];
 	int numberOfEnemyTank;
+	int numberOfMenu=0;
 public:
 	Menu()
 	{
 		srand(time(0));
 		setNumberOfEnemyTank(5);
+		numberOfMenu=0;
 	}
 	int getSizeTankBullet()
 	{
@@ -112,7 +114,13 @@ public:
 		{
 			walls[i] = new Map[mapCols];
 		}
-		Map map("data.txt");
+		Map map;
+		if (numberOfMenu==0)
+			map.setPath("data/data.txt");
+		else if (numberOfMenu==1)
+		{
+			map.setPath("data/data.txt");
+		}
 		std::ifstream file;
         file.open(map.getPath());
 		for (int i = 0; i < mapRows; i++)

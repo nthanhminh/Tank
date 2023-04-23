@@ -37,6 +37,10 @@ public:
 	{
 		return this->path;
 	}
+	void setPath(std::string path)
+	{
+		this->path = path;
+	}
 	void loadMap()
 	{
 		if (this->value == 1)

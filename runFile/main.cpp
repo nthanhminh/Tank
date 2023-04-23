@@ -15,22 +15,13 @@
 bool gameStart = false;
 bool gameOver = false;
 bool gameWin = false;
-int cnt = 100;
+int cnt = 50;
 Menu menu1;
 Menu menu2;
 baseObject gBackground;
 baseObject waitingBg;
 baseObject gameOverBg;
 baseObject gameWinBg;
-// Tank tank("img/my_tank_2.png");
-// Map** walls = new Map * [13];
-// int sizeTankBullet = 0;
-// Bullet* Bullets = new Bullet[1000000];
-// int sizeEnemyTankBullet = 0;
-// EnemyBullet** EnemyBullets = new EnemyBullet*[5];
-// int sizeEnemyTankBulluets[5];
-// EnemyTank* listEnemyTank = new EnemyTank[5];
-//end
 bool InitData()
 {
     int ret = SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
@@ -73,29 +64,6 @@ bool InitData()
     }
     return true;
 }
-
-// bool loadBackground()
-// {
-//     bool ret = gBackground.loadImg("img/grass.png", g_screen);
-//     if (ret == false)
-//     {
-//         return false;
-//     }
-//     return true;
-
-// }
-// bool loadWall(baseObject &wall)
-// {
-//     bool ret = wall.loadImg("wall.png", g_screen);
-//     if (ret == false)
-//     {
-//         return false;
-//     }
-//     else
-//     {
-//         return true;
-//     }
-// }
 bool loadWaitingBg()
 {
     bool ret = waitingBg.loadImg("img//Tank-Wars-2D-Game-Kit.png",g_screen);
@@ -139,19 +107,6 @@ void close()
     g_screen = NULL;
     SDL_DestroyWindow(g_window);
     g_window = NULL;
-    // tank.free();
-    // for (int i = 0; i < sizeTankBullet; i++)
-    // {
-    //     Bullets[i].free();
-    // }
-    // delete []walls;
-    // delete []Bullets;
-    // delete[]listEnemyTank;
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     delete[]EnemyBullets[i];
-    // }
-    // delete[]EnemyBullets;
     IMG_Quit();
     SDL_Quit();
     Mix_Quit();
@@ -174,11 +129,6 @@ void checkListEnemyTankAlive(EnemyTank *list,int size) {
 }
 int main(int argc, char* argv[]) {
     //srand(std::time(nullptr));
-    // init bullet enermy
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     EnemyBullets[i] = new EnemyBullet[1000];
-    // }
     //Init Data
     if (!InitData())
     {
@@ -186,20 +136,39 @@ int main(int argc, char* argv[]) {
     }
     //set XY pos for tank
     //set Menu 1
-    menu1.setBgPath("img/grass.png");
-    menu1.loadBg();
-    menu1.initTank();
-    menu1.InitMap();
-    Tank tankMenu1 = menu1.getTank();
+    Menu menu[2];
+    menu[0].setBgPath("img/grass.png");
+    menu[0].loadBg();
+    menu[0].initTank();
+    menu[0].InitMap();
+    
+    // menu1.setBgPath("img/grass.png");
+    // menu1.loadBg();
+    // menu1.initTank();
+    // menu1.InitMap();
+    // Tank tankMenu1 = menu1.getTank();
+    // SDL_Rect healthBar = tankMenu1.getHealBar();
+    // baseObject bgMenu = menu1.getBg();
+    // Map** wallsMenu = menu1.getMap();
+    // int sizeTankBulletMenu = menu1.getSizeTankBullet();
+    // Bullet* BulletsMenu = menu1.getBullet();
+    // EnemyTank* listEnemyTankMenu = menu1.getListEnemyTank();
+    // int sizeTankEnemyMenu = menu1.getNumberofEnemyTank();
+    // int sizeTankEnemyBulletMenu[10]{};
+    // EnemyBullet** EnemyBulletMenu = menu1.getEnemyBullets();
+    
+
+
+    Tank tankMenu1 = menu[0].getTank();
     SDL_Rect healthBar = tankMenu1.getHealBar();
-    baseObject bgMenu = menu1.getBg();
-    Map** wallsMenu = menu1.getMap();
-    int sizeTankBulletMenu = menu1.getSizeTankBullet();
-    Bullet* BulletsMenu = menu1.getBullet();
-    EnemyTank* listEnemyTankMenu = menu1.getListEnemyTank();
-    int sizeTankEnemyMenu = menu1.getNumberofEnemyTank();
+    baseObject bgMenu = menu[0].getBg();
+    Map** wallsMenu = menu[0].getMap();
+    int sizeTankBulletMenu = menu[0].getSizeTankBullet();
+    Bullet* BulletsMenu = menu[0].getBullet();
+    EnemyTank* listEnemyTankMenu = menu[0].getListEnemyTank();
+    int sizeTankEnemyMenu = menu[0].getNumberofEnemyTank();
     int sizeTankEnemyBulletMenu[10]{};
-    EnemyBullet** EnemyBulletMenu = menu1.getEnemyBullets();
+    EnemyBullet** EnemyBulletMenu = menu[0].getEnemyBullets();
     if (loadWaitingBg() == false)
     {
         std::cout << "Can not load waitingBg" << std::endl;
@@ -371,6 +340,7 @@ int main(int argc, char* argv[]) {
         }
     }
     delete[] wallsMenu;
+    std::cout << "end game" << std::endl;
     close(); 
     return 0;
 }
