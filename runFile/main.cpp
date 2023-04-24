@@ -15,6 +15,8 @@
 bool gameStart = false;
 bool gameOver = false;
 bool gameWin = false;
+bool isPlaying = false;
+bool turnMenu = false;
 int cnt = 50;
 Menu menu1;
 Menu menu2;
@@ -22,6 +24,7 @@ baseObject gBackground;
 baseObject waitingBg;
 baseObject gameOverBg;
 baseObject gameWinBg;
+baseObject gameMenu;
 bool InitData()
 {
     int ret = SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
@@ -67,6 +70,19 @@ bool InitData()
 bool loadWaitingBg()
 {
     bool ret = waitingBg.loadImg("img//Tank-Wars-2D-Game-Kit.png",g_screen);
+    //bool ret = waitingBg.loadImg("img//menu.png",g_screen);
+    if (ret == false)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+bool loadMenuGame()
+{
+    bool ret=gameMenu.loadImg("img/1.png",g_screen);
     if (ret == false)
     {
         return false;
@@ -184,6 +200,11 @@ int main(int argc, char* argv[]) {
         std::cout << "can not load game win" << std::endl;
         return -1;
     }
+    if (loadMenuGame()==false)
+    {
+        std::cout << "can not load game menu" << std::endl;
+        return -1;
+    }
     // Game Loop
     bool isQuit = false;
     while (!isQuit) 
@@ -200,11 +221,22 @@ int main(int argc, char* argv[]) {
                 {
                     int x = g_event.button.x;
                     int y = g_event.button.y;
+                    std::cout << x << " " << y << std::endl;
                     if ((x >= 440 && x <= 760) && (y>=345 && y<=410))
                     {
-                        gameStart = true;
+                        //gameStart = true;
+                        turnMenu=true;
+                    }
+                    if (turnMenu)
+                    {
+                        if((x>=150 && x<=265) && (y>=150 && y<=220))
+                        {
+                            turnMenu=false;
+                            gameStart=true;
+                        }
                     }
                 }
+
             }
             if (gameStart==true)
             {
@@ -219,7 +251,17 @@ int main(int argc, char* argv[]) {
         //render background
         if (gameStart == false)
         {
-            waitingBg.render(g_screen, NULL);
+            waitingBg.render(g_screen,NULL);
+            // if (turnMenu==true)
+            // {   
+            //     SDL_RenderClear(g_screen);
+            //     gameMenu.render(g_screen,NULL);
+            // }
+            // else
+            // {
+            //     SDL_RenderClear(g_screen);
+            //     waitingBg.render(g_screen, NULL);
+            // }
             if (gameOver == true)
             {
                 SDL_RenderClear(g_screen);
@@ -229,6 +271,11 @@ int main(int argc, char* argv[]) {
             {
                 SDL_RenderClear(g_screen);
                 gameWinBg.render(g_screen, NULL);
+            }
+            else if (turnMenu==true)
+            {
+                SDL_RenderClear(g_screen);
+                gameMenu.render(g_screen, NULL);
             }
             else
             {
