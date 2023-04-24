@@ -114,7 +114,7 @@ public:
 			}
 		}
 	}
-	void handleAtiveTankEnemy(Tank &tank)
+	void handleAtiveTankEnemyA(Tank &tank)
 	{
 		setOriginalXpos(getXpos());
 		setOriginalypos(getYpos());
@@ -124,17 +124,17 @@ public:
 			enemy_move_count -= 1;
 			if (getAngle() == 0)
 			{
-				setvY(-v);
+				setvY(-vNormal);
 				if (rect_.y <= 0)
 				{
 					rect_.x = getOriginalXpos();
-					rect_.y = v;
+					rect_.y = vNormal;
 					enemy_move_count = 0;
 				}
 			}
 			else if (getAngle() == 180)
 			{
-				setvY(v);
+				setvY(vNormal);
 				if (rect_.y + rect_.h >= scrennHeight)
 				{
 					rect_.y = scrennHeight - rect_.h;
@@ -143,7 +143,7 @@ public:
 			}
 			else if (getAngle() == 90)
 			{
-				setvX(v);
+				setvX(vNormal);
 				if (rect_.x <= 0)
 				{
 					rect_.x = 0;
@@ -153,7 +153,338 @@ public:
 			}
 			else if (getAngle() == 270)
 			{
-				setvX(-v);
+				setvX(-vNormal);
+				if (rect_.x + rect_.w >= screenWidth)
+				{
+					rect_.x = screenWidth - rect_.w;
+					enemy_move_count = 0;
+				}
+			}
+		}
+		else if (x == 0)
+		{
+			enemy_move_count = 5;
+			setBulletActive(false);
+		}
+		else if (x == 1)
+		{
+			int thisEnemyTankPosX = getXpos();
+			int thisEnemyTankPosY = getYpos();
+			int TankPosX = tank.getXpos();
+			int TankPosY = tank.getYpos();
+			int randomAngle = rand() % 4;
+			if (randomAngle % 2 == 0)
+			{
+				if (thisEnemyTankPosX < TankPosX)
+				{
+					setAngle(90);
+				}
+				else
+				{
+					setAngle(270);
+				}
+			}
+			else
+			{
+				setvX(0);
+				if (thisEnemyTankPosY < TankPosY)
+				{
+					setAngle(180);
+				}
+				else
+				{
+					setAngle(0);
+				}
+			}
+			/*if (randomAngle == 0 || randomAngle == 2)
+			{
+				setvX(0);
+			}*/
+			//setAngle(randomAngle * 90);
+			setBulletActive(false); 
+		}
+		else if (x==2)
+		{
+			setvX(0);
+			setvY(0);
+			if (tank.getIsTankAlive() && enemy_count_bullet == 0)
+			{
+				setBulletActive(true);
+				enemy_count_bullet = 8;
+			}
+			else
+			{
+				enemy_count_bullet --;
+			}
+			enemy_move_count = 0;
+		}
+	}
+	void handleAtiveTankEnemyB(Tank &tank)
+	{
+		setOriginalXpos(getXpos());
+		setOriginalypos(getYpos());
+		int x = rand() % 3;
+		if (enemy_move_count > 0)
+		{
+			enemy_move_count -= 1;
+			if (getAngle() == 0)
+			{
+				setvY(-vSpeedUp);
+				if (rect_.y <= 0)
+				{
+					rect_.x = getOriginalXpos();
+					rect_.y = vSpeedUp;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 180)
+			{
+				setvY(vSpeedUp);
+				if (rect_.y + rect_.h >= scrennHeight)
+				{
+					rect_.y = scrennHeight - rect_.h;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 90)
+			{
+				setvX(vSpeedUp);
+				if (rect_.x <= 0)
+				{
+					rect_.x = 0;
+					rect_.y = getOriginalYpos();
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 270)
+			{
+				setvX(-vSpeedUp);
+				if (rect_.x + rect_.w >= screenWidth)
+				{
+					rect_.x = screenWidth - rect_.w;
+					enemy_move_count = 0;
+				}
+			}
+		}
+		else if (x == 0)
+		{
+			enemy_move_count = 5;
+			setBulletActive(false);
+		}
+		else if (x == 1)
+		{
+			int thisEnemyTankPosX = getXpos();
+			int thisEnemyTankPosY = getYpos();
+			int TankPosX = tank.getXpos();
+			int TankPosY = tank.getYpos();
+			int randomActive = rand() %100;
+			if (randomActive<80)
+			{
+				int randomAngle = rand() % 4;
+				if (randomAngle % 2 == 0)
+				{
+					if (thisEnemyTankPosX < TankPosX)
+					{
+						setAngle(90);
+					}
+					else
+					{
+						setAngle(270);
+					}
+				}
+				else
+				{
+					setvX(0);
+					if (thisEnemyTankPosY < TankPosY)
+					{
+						setAngle(180);
+					}
+					else
+					{
+						setAngle(0);
+					}
+				}
+			}
+			else
+			{
+				int randomAngle = rand() %4;
+				if (randomAngle == 0 || randomAngle == 2)
+				{
+					setvX(0);
+				}
+				setAngle(randomAngle * 90);
+			}
+			setBulletActive(false); 
+		}
+		else if (x==2)
+		{
+			setvX(0);
+			setvY(0);
+			if (tank.getIsTankAlive() && enemy_count_bullet == 0)
+			{
+				setBulletActive(true);
+				enemy_count_bullet = 8;
+			}
+			else
+			{
+				enemy_count_bullet --;
+			}
+			enemy_move_count = 0;
+		}
+	}
+	void handleAtiveTankEnemyC(Tank &tank)
+	{
+		setOriginalXpos(getXpos());
+		setOriginalypos(getYpos());
+		int x = rand() % 3;
+		if (enemy_move_count > 0)
+		{
+			enemy_move_count -= 1;
+			if (getAngle() == 0)
+			{
+				setvY(-vNormal);
+				if (rect_.y <= 0)
+				{
+					rect_.x = getOriginalXpos();
+					rect_.y = vNormal;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 180)
+			{
+				setvY(vNormal);
+				if (rect_.y + rect_.h >= scrennHeight)
+				{
+					rect_.y = scrennHeight - rect_.h;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 90)
+			{
+				setvX(vNormal);
+				if (rect_.x <= 0)
+				{
+					rect_.x = 0;
+					rect_.y = getOriginalYpos();
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 270)
+			{
+				setvX(-vNormal);
+				if (rect_.x + rect_.w >= screenWidth)
+				{
+					rect_.x = screenWidth - rect_.w;
+					enemy_move_count = 0;
+				}
+			}
+		}
+		else if (x == 0)
+		{
+			enemy_move_count = 5;
+			setBulletActive(false);
+		}
+		else if (x == 1)
+		{
+			int thisEnemyTankPosX = getXpos();
+			int thisEnemyTankPosY = getYpos();
+			int TankPosX = tank.getXpos();
+			int TankPosY = tank.getYpos();
+			int randomActive = rand() %100;
+			if (randomActive<50)
+			{
+				int randomAngle = rand() % 4;
+				if (randomAngle % 2 == 0)
+				{
+					if (thisEnemyTankPosX < TankPosX)
+					{
+						setAngle(90);
+					}
+					else
+					{
+						setAngle(270);
+					}
+				}
+				else
+				{
+					setvX(0);
+					if (thisEnemyTankPosY < TankPosY)
+					{
+						setAngle(180);
+					}
+					else
+					{
+						setAngle(0);
+					}
+				}
+			}
+			else
+			{
+				int randomAngle = rand() %4;
+				if (randomAngle == 0 || randomAngle == 2)
+				{
+					setvX(0);
+				}
+				setAngle(randomAngle * 90);
+			}
+			setBulletActive(false); 
+		}
+		else if (x==2)
+		{
+			setvX(0);
+			setvY(0);
+			if (tank.getIsTankAlive() && enemy_count_bullet == 0)
+			{
+				setBulletActive(true);
+				enemy_count_bullet = 8;
+			}
+			else
+			{
+				enemy_count_bullet --;
+			}
+			enemy_move_count = 0;
+		}
+	}
+	void handleAtiveTankEnemyD(Tank &tank)
+	{
+		setOriginalXpos(getXpos());
+		setOriginalypos(getYpos());
+		int x = rand() % 3;
+		if (enemy_move_count > 0)
+		{
+			enemy_move_count -= 1;
+			if (getAngle() == 0)
+			{
+				setvY(-vSpeedUp);
+				if (rect_.y <= 0)
+				{
+					rect_.x = getOriginalXpos();
+					rect_.y = vSpeedUp;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 180)
+			{
+				setvY(vSpeedUp);
+				if (rect_.y + rect_.h >= scrennHeight)
+				{
+					rect_.y = scrennHeight - rect_.h;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 90)
+			{
+				setvX(vSpeedUp);
+				if (rect_.x <= 0)
+				{
+					rect_.x = 0;
+					rect_.y = getOriginalYpos();
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 270)
+			{
+				setvX(-vSpeedUp);
 				if (rect_.x + rect_.w >= screenWidth)
 				{
 					rect_.x = screenWidth - rect_.w;

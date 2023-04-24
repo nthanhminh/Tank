@@ -304,7 +304,14 @@ int main(int argc, char* argv[]) {
             {
                if (listEnemyTankMenu[i].getIsTankAlive())
                {
-                   listEnemyTankMenu[i].handleAtiveTankEnemy(tankMenu1);
+                    if (i==1)
+                        listEnemyTankMenu[i].handleAtiveTankEnemyA(tankMenu1);
+                    else if (i==2)
+                        listEnemyTankMenu[i].handleAtiveTankEnemyB(tankMenu1);
+                    else if (i==3)
+                        listEnemyTankMenu[i].handleAtiveTankEnemyC(tankMenu1);
+                    else 
+                        listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
                }
                if (listEnemyTankMenu[i].getBulletActive() && listEnemyTankMenu[i].getIsTankAlive() && gameOver==false)
                {
