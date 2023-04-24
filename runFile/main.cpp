@@ -206,11 +206,14 @@ int main(int argc, char* argv[]) {
                     }
                 }
             }
-            tankMenu1.handleEvents(g_event,wallsMenu);
-            if (tankMenu1.getIsTankAlive())
+            if (gameStart==true)
             {
-                BulletsMenu[sizeTankBulletMenu].handleBulletEvents(g_event, tankMenu1, wallsMenu);
-                sizeTankBulletMenu+= 1;
+                tankMenu1.handleEvents(g_event,wallsMenu);
+                if (tankMenu1.getIsTankAlive())
+                {
+                    BulletsMenu[sizeTankBulletMenu].handleBulletEvents(g_event, tankMenu1, wallsMenu);
+                    sizeTankBulletMenu+= 1;
+                }
             }
         }
         //render background
