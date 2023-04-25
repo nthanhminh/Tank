@@ -17,6 +17,7 @@ bool gameOver = false;
 bool gameWin = false;
 bool isPlaying = false;
 bool turnMenu = false;
+bool gamePause = false;
 int cnt = 50;
 Menu menu1;
 Menu menu2;
@@ -25,6 +26,8 @@ baseObject waitingBg;
 baseObject gameOverBg;
 baseObject gameWinBg;
 baseObject gameMenu;
+baseObject pauseButton;
+baseObject gamePauseBg;
 bool InitData()
 {
     int ret = SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
@@ -66,6 +69,30 @@ bool InitData()
 
     }
     return true;
+}
+bool loadPauseButton()
+{
+    bool ret=pauseButton.loadImg("img/pause.png",g_screen);
+    pauseButton.setXYpos(0,0);
+    if (ret==false)
+    {
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+bool loadPauseBg()
+{
+    bool ret=gamePauseBg.loadImg("img/game_pause_bg.png",g_screen);
+    pauseButton.setXYpos(0,0);
+    if (ret==false)
+    {
+        return false;
+    }
+    else{
+        return true;
+    }
 }
 bool loadWaitingBg()
 {
@@ -143,6 +170,21 @@ void checkListEnemyTankAlive(EnemyTank *list,int size) {
         gameOver = false;
     }
 }
+
+// Init variables for game
+// Tank tankMenu1;
+// SDL_Rect healthBar;
+// baseObject bgMenu;
+// Map** wallsMenu;
+// int sizeTankBulletMenu;
+// Bullet* BulletsMenu;
+// EnemyTank* listEnemyTankMenu;
+// int sizeTankEnemyMenu;
+// int sizeTankEnemyBulletMenu[10]{};
+// EnemyBullet** EnemyBulletMenu;
+
+
+
 int main(int argc, char* argv[]) {
     //srand(std::time(nullptr));
     //Init Data
@@ -172,8 +214,6 @@ int main(int argc, char* argv[]) {
     // int sizeTankEnemyMenu = menu1.getNumberofEnemyTank();
     // int sizeTankEnemyBulletMenu[10]{};
     // EnemyBullet** EnemyBulletMenu = menu1.getEnemyBullets();
-    
-
 
     Tank tankMenu1 = menu[0].getTank();
     SDL_Rect healthBar = tankMenu1.getHealBar();
@@ -185,6 +225,27 @@ int main(int argc, char* argv[]) {
     int sizeTankEnemyMenu = menu[0].getNumberofEnemyTank();
     int sizeTankEnemyBulletMenu[10]{};
     EnemyBullet** EnemyBulletMenu = menu[0].getEnemyBullets();
+
+    // Tank tankMenu1;
+    // SDL_Rect healthBar;
+    // baseObject bgMenu;
+    // Map** wallsMenu;
+    // int sizeTankBulletMenu;
+    // Bullet* BulletsMenu;
+    // EnemyTank* listEnemyTankMenu;
+    // int sizeTankEnemyMenu;
+    // int sizeTankEnemyBulletMenu[10]{};
+    // EnemyBullet** EnemyBulletMenu;
+
+    // tankMenu1 = menu[0].getTank();
+    // healthBar = tankMenu1.getHealBar();
+    // bgMenu = menu[0].getBg();
+    // wallsMenu = menu[0].getMap();
+    // sizeTankBulletMenu = menu[0].getSizeTankBullet();
+    // BulletsMenu = menu[0].getBullet();
+    // listEnemyTankMenu = menu[0].getListEnemyTank();
+    // sizeTankEnemyMenu = menu[0].getNumberofEnemyTank();
+    // EnemyBulletMenu = menu[0].getEnemyBullets();
     if (loadWaitingBg() == false)
     {
         std::cout << "Can not load waitingBg" << std::endl;
@@ -203,6 +264,16 @@ int main(int argc, char* argv[]) {
     if (loadMenuGame()==false)
     {
         std::cout << "can not load game menu" << std::endl;
+        return -1;
+    }
+    if (loadPauseButton()==false)
+    {
+        std::cout << "can not load pause button" << std::endl;
+        return -1;
+    }
+    if (loadPauseBg() == false)
+    {
+        std::cout << "can not load pause bg" << std::endl;
         return -1;
     }
     // Game Loop
@@ -235,6 +306,23 @@ int main(int argc, char* argv[]) {
                             gameStart=true;
                         }
                     }
+                    if (gameStart==true)
+                    {
+                        if ((x>=0 && x<=60) && (y>=0 && y<=60))
+                        {
+                            gameStart=false;
+                            gamePause=true;
+                        }
+                    }
+                    else if (gamePause==true)
+                    {
+                        if ((x>=450 && x<=1050) && (y>=520 && y<=660))
+                        {
+                            gameStart=true;
+                            gamePause=false;
+                        }
+                    }
+
                 }
 
             }
@@ -252,16 +340,6 @@ int main(int argc, char* argv[]) {
         if (gameStart == false)
         {
             waitingBg.render(g_screen,NULL);
-            // if (turnMenu==true)
-            // {   
-            //     SDL_RenderClear(g_screen);
-            //     gameMenu.render(g_screen,NULL);
-            // }
-            // else
-            // {
-            //     SDL_RenderClear(g_screen);
-            //     waitingBg.render(g_screen, NULL);
-            // }
             if (gameOver == true)
             {
                 SDL_RenderClear(g_screen);
@@ -277,6 +355,11 @@ int main(int argc, char* argv[]) {
                 SDL_RenderClear(g_screen);
                 gameMenu.render(g_screen, NULL);
             }
+            else if (gamePause)
+            {
+                SDL_RenderClear(g_screen);
+                gamePauseBg.render(g_screen,NULL);
+            }
             else
             {
                 SDL_RenderClear(g_screen);
@@ -285,12 +368,13 @@ int main(int argc, char* argv[]) {
         }
         else if (gameStart == true)
         {
+
             SDL_RenderClear(g_screen);
             //start
             //test
             bgMenu.render(g_screen, NULL);
-            healthBar.x = tankMenu1.getXpos()-4;
-            healthBar.y = tankMenu1.getYpos()-10;
+            healthBar.x = tankMenu1.getXpos()+2;
+            healthBar.y = tankMenu1.getYpos()-15;
             healthBar.w = tankMenu1.getTankHp()*2;
             SDL_SetRenderDrawColor(g_screen, 255, 0, 0, 255); 
             if (tankMenu1.getIsTankAlive())
@@ -323,8 +407,6 @@ int main(int argc, char* argv[]) {
             tankMenu1.MyTankMoveY(wallsMenu);
             for (int i = 0; i < sizeTankEnemyMenu; i++)
             {
-                /*listEnemyTankMenu[i].myTankEnemyMoveX(wallsMenu);
-                listEnemyTankMenu[i].MyTankEnemyMoveY(wallsMenu);*/
                 listEnemyTankMenu[i].myTankMoveX(wallsMenu);
                 listEnemyTankMenu[i].MyTankMoveY(wallsMenu);
 
@@ -333,6 +415,9 @@ int main(int argc, char* argv[]) {
             {
                 if (listEnemyTankMenu[i].getIsTankAlive())
                 {
+                    listEnemyTankMenu[i].updateHealBar();
+                    SDL_Rect tmp=listEnemyTankMenu[i].getHealBar();
+                    SDL_RenderFillRect(g_screen,&tmp);
                     listEnemyTankMenu[i].renderRouteThink(g_screen, listEnemyTankMenu[i].getAngle(), NULL);
                 }
             }
@@ -376,6 +461,7 @@ int main(int argc, char* argv[]) {
                 }
             }
             checkListEnemyTankAlive(listEnemyTankMenu, sizeTankEnemyMenu);
+            pauseButton.render(g_screen,NULL);
             SDL_Delay(15);
         }
         // uapdate screen 

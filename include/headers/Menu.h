@@ -21,7 +21,7 @@ private:
 	int sizeEnemyTankBullet = 0;
 	EnemyBullet** EnemyBullets = new EnemyBullet * [numberOfEnemyTank];
 	int sizeEnemyTankBulluets[10];
-	EnemyTank* listEnemyTank = new EnemyTank[5];
+	EnemyTank* listEnemyTank = new EnemyTank[10];
 	int numberOfEnemyTank;
 	int numberOfMenu=0;
 public:
@@ -90,7 +90,7 @@ public:
 		{
 			std::cout << "Can not load tank";
 		}
-		tank.setXYpos(800, 600);
+		tank.setXYpos(1000, 650);
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
 			EnemyBullets[i] = new EnemyBullet[1000];

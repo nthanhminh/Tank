@@ -125,7 +125,7 @@ public:
 		}
 		else if (value == 13)
 		{
-			bool ret = loadImg("img/boom_2.png", g_screen);
+			bool ret = loadImg("img/boom_3.png", g_screen);
 			if (ret == 0)
 			{
 				std::cout << "Can not load map";
@@ -214,11 +214,19 @@ public:
 		}
 		else if (value == 31)
 		{
-		bool ret = loadImg("img/nade.png", g_screen);
-		if (ret == 0)
-		{
-			std::cout << "Can not load map";
+			bool ret = loadImg("img/nade.png", g_screen);
+			if (ret == 0)
+			{
+				std::cout << "Can not load map";
+			}
 		}
+		else if (value == 100 )
+		{
+			bool ret = loadImg("img/dragon.png",g_screen);
+			if (ret == 0)
+			{
+				std::cout << "Can not load my home" << std::endl;
+			}
 		}
 	}
 };

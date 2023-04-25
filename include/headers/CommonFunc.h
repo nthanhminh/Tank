@@ -3,6 +3,7 @@
 #define COMMON_FUNCTION_H_
 #include<Windows.h>
 #include<string>
+#include<vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
@@ -19,7 +20,7 @@ const int colorKeyR = 167;
 const int colorKeyG = 175;
 const int colorKeyB = 180;
 const int renderDrawColor = 0xff;
-const int vNormal = 3;
+const int vNormal = 4;
 const double v=vNormal;
 const double vSpeedUp=1.5*vNormal;
 const int health = 20;

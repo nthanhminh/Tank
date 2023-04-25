@@ -360,7 +360,7 @@ public:
 				setVy(0);
 				this->setXYpos(2000, 2000);
 				this->free();
-				int choice = rand() % 3;
+				int choice = rand() % 4;
 				if (choice == 1)
 				{
 					bool ret = tankEnemy.loadImg("img/weapon_2.png", g_screen);
@@ -379,7 +379,7 @@ public:
 					}
 					tankEnemy.setValue(52);
 				}
-				else {
+				else if (choice==3) {
 					bool ret = tankEnemy.loadImg("img/first_kit.png", g_screen);
 					if (ret == false)
 					{
@@ -387,8 +387,16 @@ public:
 					}
 					tankEnemy.setValue(53);
 				}
+				else {
+					bool ret = tankEnemy.loadImg("img/defender.png", g_screen);
+					if (ret == false)
+					{
+						std::cout << "can not load defender";
+					}
+					tankEnemy.setValue(54);
+				}
 			}
-			else if (tankEnemy.getValue()!=14 && tankEnemy.getValue() <= 50)
+			else if (tankEnemy.getValue()!=14 && tankEnemy.getValue() <= 50 && tankEnemy.getValue()!=13)
 			{
 				baseObject Effect;
 				if (Effect.loadImg("img/explosion4.png", g_screen) == false)
@@ -405,6 +413,33 @@ public:
 				setVy(0);
 				this->setXYpos(2000, 2000);
 				this->free();
+			}
+			else if (tankEnemy.getValue()==13)
+			{
+				baseObject Effect;
+				if (Effect.loadImg("img/boom_effect.png", g_screen) == false)
+				{
+					std::cout << "Can not load effect";
+				}
+				const int DISPLAY_TIME = 1000; // Thời gian hiển thị hình ảnh Effect (10 giây)
+				Uint32 start_time = SDL_GetTicks();
+
+				if (SDL_GetTicks() - start_time < 10000) {
+    				Effect.render(g_screen, NULL);
+				}
+
+				// Sau khi hiển thị xong, giải phóng hình ảnh
+				Effect.free();
+				Mix_Init(MIX_INIT_MP3);
+				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
+				Mix_PlayChannel(-1, sound, 0);
+				setVx(0);
+				setVy(0);
+				this->setXYpos(2000, 2000);
+				this->free();
+				tankEnemy.setXYpos(5000,5000);
+				tankEnemy.free();
 			}
 		}
 	}

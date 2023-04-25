@@ -25,9 +25,9 @@ public:
 		vX = 0;
 		vY = 0;
 		this->tank_hp = 20;
-		healthBar.x = getXpos();
-		healthBar.y = getYpos();
-		healthBar.w = 50;
+		healthBar.x = getXpos()+2;
+		healthBar.y = getYpos()-15;
+		healthBar.w = 2*getTankHp();
 		healthBar.h = 10;
 	}
 	SDL_Rect getHealBar()
@@ -41,6 +41,12 @@ public:
 	int getTankHp()
 	{
 		return this->tank_hp;
+	}
+	void updateHealBar()
+	{
+		this->healthBar.x = getXpos()+2;
+		this->healthBar.y=getYpos()-15;
+		this->healthBar.w =getTankHp()*2;
 	}
 	void setWeapon(int x)
 	{
@@ -220,7 +226,7 @@ public:
 		{
 			for (int j = 0; j < mapCols; j++)
 			{
-				if (walls[i][j].getValue()!=0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue()>20 && walls[i][j].getValue() <= 30))
+				if (walls[i][j].getValue()!=0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue()>20 && walls[i][j].getValue() <= 30) || (walls[i][j].getValue()==13))
 					handleTankObstacleCollision(walls[i][j]);
 				else if (walls[i][j].getValue() == 14)
 					handleTankLandmineCollistion(walls[i][j]);
@@ -255,7 +261,7 @@ public:
 			{
 				for (int j = 0; j < mapCols; j++)
 				{
-					if (walls[i][j].getValue() != 0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue() > 20 && walls[i][j].getValue() <= 30))
+					if (walls[i][j].getValue() != 0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue() > 20 && walls[i][j].getValue() <= 30) || (walls[i][j].getValue()==13))
 						handleTankObstacleCollision(walls[i][j]);
 					else if (walls[i][j].getValue() == 14)
 						handleTankLandmineCollistion(walls[i][j]);
@@ -285,24 +291,20 @@ public:
 		{
 			if (angle == 90)
 			{
-				setXYpos(obstacle.getXpos() - this->getWidth() -2, getOriginalYpos());
+				setXYpos(obstacle.getXpos() - this->getWidth() -1, getOriginalYpos());
 			}
 			else if (angle == 270)
 			{
-				setXYpos(obstacle.getXpos() + obstacle.getWidth() + 2, getOriginalYpos());
+				setXYpos(obstacle.getXpos() + obstacle.getWidth() + 1, getOriginalYpos());
 			}
 			else if (angle == 0)
 			{
-				setXYpos(getOriginalXpos(), obstacle.getYpos() + obstacle.getHeight() + 2);
+				setXYpos(getOriginalXpos(), obstacle.getYpos() + obstacle.getHeight() + 1);
 			}
 			else if (angle==180)
 			{
-				setXYpos(getOriginalXpos(), obstacle.getYpos() - this->getHeight() - 2);
+				setXYpos(getOriginalXpos(), obstacle.getYpos() - this->getHeight() - 1);
 			}
-			/*else
-			{
-				setXYpos(originalXpos, originalYpos);
-			}*/
 		}
 	}
 	void handleTankEnemyCollision(Tank& tankEnemy)
