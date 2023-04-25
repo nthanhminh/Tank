@@ -186,23 +186,30 @@ public:
 	}
 	bool checkCollision(SDL_Rect rect1, SDL_Rect rect2)
 	{
-		int left1 = rect1.x;
-		int right1 = rect1.x + rect1.w;
-		int top1 = rect1.y;
-		int bottom1 = rect1.y + rect1.h;
-		int left2 = rect2.x;
-		int right2 = rect2.x + rect2.w;
-		int top2 = rect2.y;
-		int bottom2 = rect2.y + rect2.h;
+		// int left1 = rect1.x;
+		// int right1 = rect1.x + rect1.w;
+		// int top1 = rect1.y;
+		// int bottom1 = rect1.y + rect1.h;
+		// int left2 = rect2.x;
+		// int right2 = rect2.x + rect2.w;
+		// int top2 = rect2.y;
+		// int bottom2 = rect2.y + rect2.h;
 
 		
-		if (left1 >= right2 || right1 <= left2 || top1 >= bottom2 || bottom1 <= top2)
-		{
-			return false;
-		}
-		else
+		// if (left1 >= right2 || right1 <= left2 || top1 >= bottom2 || bottom1 <= top2)
+		// {
+		// 	return false;
+		// }
+		// else
+		// {
+		// 	return true;
+		// }
+		if (SDL_HasIntersection(&rect1, &rect2))
 		{
 			return true;
+		}
+		else{
+			return false;
 		}
 	}
 	void myTankMoveX(Map** walls)
@@ -278,19 +285,19 @@ public:
 		{
 			if (angle == 90)
 			{
-				setXYpos(obstacle.getXpos() - this->getWidth() -1, getOriginalYpos());
+				setXYpos(obstacle.getXpos() - this->getWidth() -2, getOriginalYpos());
 			}
 			else if (angle == 270)
 			{
-				setXYpos(obstacle.getXpos() + obstacle.getWidth() + 1, getOriginalYpos());
+				setXYpos(obstacle.getXpos() + obstacle.getWidth() + 2, getOriginalYpos());
 			}
 			else if (angle == 0)
 			{
-				setXYpos(getOriginalXpos(), obstacle.getYpos() + obstacle.getHeight() + 1);
+				setXYpos(getOriginalXpos(), obstacle.getYpos() + obstacle.getHeight() + 2);
 			}
 			else if (angle==180)
 			{
-				setXYpos(getOriginalXpos(), obstacle.getYpos() - this->getHeight() - 1);
+				setXYpos(getOriginalXpos(), obstacle.getYpos() - this->getHeight() - 2);
 			}
 			/*else
 			{

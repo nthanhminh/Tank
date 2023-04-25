@@ -85,12 +85,12 @@ public:
 	}
 	void initTank()
 	{
-		tank.setPath("img//my_tank_1.png");
+		tank.setPath("img//tank_test.png");
 		if (!tank.loadTank())
 		{
 			std::cout << "Can not load tank";
 		}
-		tank.setXYpos(600, 600);
+		tank.setXYpos(800, 600);
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
 			EnemyBullets[i] = new EnemyBullet[1000];
@@ -98,7 +98,7 @@ public:
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
 			listEnemyTank[i].setXYpos(rand()%200, rand()%200);
-			listEnemyTank[i].setPath("img//tank_enemy_1.png");
+			listEnemyTank[i].setPath("img//tank_test.png");
 		}
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
@@ -137,7 +137,7 @@ public:
 			for (int j = 0; j < mapCols; j++)
 			{
 				std::cout << walls[i][j].getValue() << " ";
-				walls[i][j].setXYpos(j * 50, i * 52);
+				walls[i][j].setXYpos(j * 50, i * 50);
 				walls[i][j].loadMap();
 			}
 			std::cout << "\n";

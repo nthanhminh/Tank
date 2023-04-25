@@ -222,7 +222,7 @@ int main(int argc, char* argv[]) {
                     int x = g_event.button.x;
                     int y = g_event.button.y;
                     std::cout << x << " " << y << std::endl;
-                    if ((x >= 440 && x <= 760) && (y>=345 && y<=410))
+                    if ((x >= 560 && x <= 960) && (y>=400 && y<=500))
                     {
                         //gameStart = true;
                         turnMenu=true;
@@ -305,11 +305,11 @@ int main(int argc, char* argv[]) {
                if (listEnemyTankMenu[i].getIsTankAlive())
                {
                     if (i==1)
-                        listEnemyTankMenu[i].handleAtiveTankEnemyA(tankMenu1);
+                        listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
                     else if (i==2)
-                        listEnemyTankMenu[i].handleAtiveTankEnemyB(tankMenu1);
+                        listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
                     else if (i==3)
-                        listEnemyTankMenu[i].handleAtiveTankEnemyC(tankMenu1);
+                        listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
                     else 
                         listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
                }

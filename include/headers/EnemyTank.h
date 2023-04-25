@@ -10,6 +10,7 @@ class EnemyTank :public Tank {
 private:
 	int enemy_move_count = 0;
 	int enemy_count_bullet = 0;
+	int enemy_count_angleTime=0;
 	bool bulletActive = 0;
 	bool is_enemy_tank_alive = true;
 public:
@@ -175,14 +176,14 @@ public:
 			int randomAngle = rand() % 4;
 			if (randomAngle % 2 == 0)
 			{
-				if (thisEnemyTankPosX < TankPosX)
-				{
-					setAngle(90);
-				}
-				else
-				{
-					setAngle(270);
-				}
+					if (thisEnemyTankPosX < TankPosX)
+					{
+						setAngle(90);
+					}
+					else
+					{
+						setAngle(270);
+					}
 			}
 			else
 			{
@@ -504,6 +505,29 @@ public:
 			int TankPosX = tank.getXpos();
 			int TankPosY = tank.getYpos();
 			int randomAngle = rand() % 4;
+			if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX-tank.getWidth()/2)
+			{
+				if (thisEnemyTankPosY>=TankPosY)
+				{
+					setAngle(0);
+				}
+				else
+				{
+					setAngle(180);
+				}
+				setBulletActive(true);
+			}
+			if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY-tank.getHeight()/2)
+			{
+				if (thisEnemyTankPosX>=TankPosX)
+				{
+					setAngle(270);
+				}
+				else{
+					setAngle(90);
+				}
+				setBulletActive(true);
+			}
 			if (randomAngle % 2 == 0)
 			{
 				if (thisEnemyTankPosX < TankPosX)
@@ -527,28 +551,31 @@ public:
 					setAngle(0);
 				}
 			}
-			/*if (randomAngle == 0 || randomAngle == 2)
-			{
-				setvX(0);
-			}*/
-			//setAngle(randomAngle * 90);
-			setBulletActive(false); 
+			
 		}
 		else if (x==2)
 		{
 			setvX(0);
 			setvY(0);
-			if (tank.getIsTankAlive() && enemy_count_bullet == 0)
-			{
-				setBulletActive(true);
-				enemy_count_bullet = 8;
-			}
-			else
-			{
-				enemy_count_bullet --;
-			}
+			// if (tank.getIsTankAlive() && enemy_count_bullet == 0)
+			// {
+			// 	setBulletActive(true);
+			// 	enemy_count_bullet = 8;
+			// }
+			// else
+			// {
+			// 	enemy_count_bullet --;
+			// }
 			enemy_move_count = 0;
 		}
+	}
+	bool checkTankPosition(Tank &tank)
+	{
+		int thisEnemyTankPosX = getXpos();
+		int thisEnemyTankPosY = getYpos();
+		int TankPosX = tank.getXpos();
+		int TankPosY = tank.getYpos();
+		return true;
 	}
 	void handleTankEnemyLandmineCollistion(Map& obstacle)
 	{
