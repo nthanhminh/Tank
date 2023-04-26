@@ -226,7 +226,7 @@ public:
 		{
 			for (int j = 0; j < mapCols; j++)
 			{
-				if (walls[i][j].getValue()!=0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue()>20 && walls[i][j].getValue() <= 30) || (walls[i][j].getValue()==13))
+				if (walls[i][j].getValue()!=0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue()>20 && walls[i][j].getValue() <= 30) || (walls[i][j].getValue()==13) || (walls[i][j].getValue()==100))
 					handleTankObstacleCollision(walls[i][j]);
 				else if (walls[i][j].getValue() == 14)
 					handleTankLandmineCollistion(walls[i][j]);
@@ -261,7 +261,7 @@ public:
 			{
 				for (int j = 0; j < mapCols; j++)
 				{
-					if (walls[i][j].getValue() != 0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue() > 20 && walls[i][j].getValue() <= 30) || (walls[i][j].getValue()==13))
+					if (walls[i][j].getValue() != 0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue() > 20 && walls[i][j].getValue() <= 30) || (walls[i][j].getValue()==13) || (walls[i][j].getValue()==100))
 						handleTankObstacleCollision(walls[i][j]);
 					else if (walls[i][j].getValue() == 14)
 						handleTankLandmineCollistion(walls[i][j]);
@@ -371,7 +371,7 @@ public:
 				setWeapon(obstacle.getValue()-50);
 			if (obstacle.getValue()==53)
 			{
-				if (getTankHp() < 20)
+				if (getTankHp()+10 <= 20)
 					setTankHp(getTankHp() + 10);
 				else
 					setTankHp(health);
@@ -380,6 +380,16 @@ public:
 			obstacle.free();
 			std::cout << getWeapon() << std::endl;
 		}
+	}
+	void checkBoomEffect(Tank &tank,int &boomEffectPosX,int &boomEffectPosY)
+	{
+		int tankPosX=tank.getXpos();
+		int tankPosY=tank.getYpos();
+		if (tankPosX>=boomEffectPosX && tankPosX<=boomEffectPosX+300 && tankPosY>=boomEffectPosY && tankPosY<=boomEffectPosY+224)
+		{
+			tank.setIsTankAlive(false);
+		}  
+		// 300,224 là chiều rộng, chiều cao phạm vi nổ boom
 	}
 };
 #endif

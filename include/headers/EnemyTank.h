@@ -276,34 +276,34 @@ public:
 		{
 			int thisEnemyTankPosX = getXpos();
 			int thisEnemyTankPosY = getYpos();
-			int TankPosX = tank.getXpos();
-			int TankPosY = tank.getYpos();
+			int HomePosX = screenWidth/2;
+			int HomePosY = scrennHeight-100;
 			int randomActive = rand() %100;
 			if (randomActive<80)
 			{
 				int randomAngle = rand() % 4;
-				if (randomAngle % 2 == 0)
+				if (thisEnemyTankPosY>=HomePosY && thisEnemyTankPosY<=scrennHeight)
 				{
-					if (thisEnemyTankPosX < TankPosX)
+					if (thisEnemyTankPosX<HomePosX)
 					{
 						setAngle(90);
-					}
-					else
-					{
-						setAngle(270);
+						if (enemy_count_bullet==0)
+						{
+							setBulletActive(true);
+							enemy_count_bullet=20;
+						}
+						else
+						{
+							enemy_count_bullet--;
+						}
 					}
 				}
 				else
 				{
-					setvX(0);
-					if (thisEnemyTankPosY < TankPosY)
-					{
-						setAngle(180);
-					}
-					else
-					{
-						setAngle(0);
-					}
+						if(thisEnemyTankPosY<HomePosY)
+						{
+							setAngle(180);
+						}
 				}
 			}
 			else
@@ -395,6 +395,43 @@ public:
 			if (randomActive<50)
 			{
 				int randomAngle = rand() % 4;
+				if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX-tank.getWidth()/2)
+				{
+					if (thisEnemyTankPosY>=TankPosY)
+					{
+						setAngle(0);
+					}
+					else
+					{
+						setAngle(180);
+					}
+					if (enemy_count_bullet==0)
+					{
+						setBulletActive(true);
+						enemy_count_bullet=20;
+					}
+					else{
+						enemy_count_bullet--;
+					}
+				}
+				if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY-tank.getHeight()/2)
+				{
+					if (thisEnemyTankPosX>=TankPosX)
+					{
+						setAngle(270);
+					}
+					else{
+						setAngle(90);
+					}
+					if (enemy_count_bullet==0)
+					{
+						setBulletActive(true);
+						enemy_count_bullet=20;
+					}
+					else{
+						enemy_count_bullet--;
+					}
+				}
 				if (randomAngle % 2 == 0)
 				{
 					if (thisEnemyTankPosX < TankPosX)
@@ -515,7 +552,14 @@ public:
 				{
 					setAngle(180);
 				}
-				setBulletActive(true);
+				if (enemy_count_bullet==0)
+				{
+					setBulletActive(true);
+					enemy_count_bullet=20;
+				}
+				else{
+					enemy_count_bullet--;
+				}
 			}
 			if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY-tank.getHeight()/2)
 			{
@@ -526,7 +570,14 @@ public:
 				else{
 					setAngle(90);
 				}
-				setBulletActive(true);
+				if (enemy_count_bullet==0)
+				{
+					setBulletActive(true);
+					enemy_count_bullet=20;
+				}
+				else{
+					enemy_count_bullet--;
+				}
 			}
 			if (randomAngle % 2 == 0)
 			{

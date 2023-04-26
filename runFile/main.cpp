@@ -12,12 +12,12 @@
 #include "EnemyTank.h" 
 #include "Menu.h"
 //variable init
-bool gameStart = false;
-bool gameOver = false;
-bool gameWin = false;
-bool isPlaying = false;
-bool turnMenu = false;
-bool gamePause = false;
+// bool gameStart = false;
+// bool gameOver = false;
+// bool gameWin = false;
+// bool isPlaying = false;
+// bool turnMenu = false;
+// bool gamePause = false;
 int cnt = 50;
 Menu menu1;
 Menu menu2;
@@ -377,6 +377,14 @@ int main(int argc, char* argv[]) {
             healthBar.y = tankMenu1.getYpos()-15;
             healthBar.w = tankMenu1.getTankHp()*2;
             SDL_SetRenderDrawColor(g_screen, 255, 0, 0, 255); 
+            for (int i = 0; i < mapRows; i++)
+            {
+                for (int j = 0; j < mapCols; j++)
+                {
+                    if (wallsMenu[i][j].getValue()>0)
+                        wallsMenu[i][j].render(g_screen, NULL);
+                }
+            }
             if (tankMenu1.getIsTankAlive())
             {
                 SDL_RenderFillRect(g_screen, &healthBar);
@@ -388,14 +396,14 @@ int main(int argc, char* argv[]) {
             {
                if (listEnemyTankMenu[i].getIsTankAlive())
                {
-                    if (i==1)
-                        listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
-                    else if (i==2)
-                        listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
-                    else if (i==3)
-                        listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
-                    else 
-                        listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
+                    // if (i==1)
+                    //     listEnemyTankMenu[i].handleAtiveTankEnemyA(tankMenu1);
+                    // else if (i==2)
+                    //     listEnemyTankMenu[i].handleAtiveTankEnemyB(tankMenu1);
+                    // else if (i==3)
+                    //     listEnemyTankMenu[i].handleAtiveTankEnemyC(tankMenu1);
+                    // else 
+                    //     listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
                }
                if (listEnemyTankMenu[i].getBulletActive() && listEnemyTankMenu[i].getIsTankAlive() && gameOver==false)
                {
@@ -451,13 +459,6 @@ int main(int argc, char* argv[]) {
                         EnemyBulletMenu[i][j].moveAuto(tankMenu1, wallsMenu);
                         EnemyBulletMenu[i][j].renderRouteThink(g_screen, EnemyBulletMenu[i][j].getBulletAngle(), NULL);
                     }
-                }
-            }
-            for (int i = 0; i < mapRows; i++)
-            {
-                for (int j = 0; j < mapCols; j++)
-                {
-                    wallsMenu[i][j].render(g_screen, NULL);
                 }
             }
             checkListEnemyTankAlive(listEnemyTankMenu, sizeTankEnemyMenu);

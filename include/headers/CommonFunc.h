@@ -20,15 +20,22 @@ const int colorKeyR = 167;
 const int colorKeyG = 175;
 const int colorKeyB = 180;
 const int renderDrawColor = 0xff;
-const int vNormal = 4;
+const int vNormal = 3;
 const double v=vNormal;
-const double vSpeedUp=1.5*vNormal;
+const double vSpeedUp=1.2*vNormal;
 const int health = 20;
-const int v_bullet = 6;
+const int v_bullet = 8;
 const int tankSize = 25; 
 const int mapRows = 15;
 const int mapCols = 30;
 const int damge[3] = { 2,5,8 };
+const bool boom_effects=false;
+static bool gameStart = false;
+static bool gameOver = false;
+static bool gameWin = false;
+static bool isPlaying = false;
+static bool turnMenu = false;
+static bool gamePause = false;
 
 #define TITLE_SIZE 64
 #define maxMapX 400

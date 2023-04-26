@@ -18,6 +18,7 @@ private:
 	int status=0;
 	double bulletAngle = 0;
 	int choice_weapon = 0;
+	bool is_first=true;
 public:
 	Bullet()
 	{
@@ -278,6 +279,13 @@ public:
 					{
 						handleTankMapCollision(walls[i][j]);
 					}
+					// else
+					// {
+					// 	if (getChoiceWeapon()>=1)
+					// 	{
+					// 		handleTankMapCollision(walls[i][j]);
+					// 	}
+					// }
 				}
 			}
 			if (rect_.y > scrennHeight || rect_.y < 0)
@@ -323,7 +331,7 @@ public:
 
 		if (checkCollision(bulletRect, mapRect))
 		{
-			if (tankEnemy.getValue() < 10 && tankEnemy.getValue()!=0)
+			if (tankEnemy.getValue() < 10 && tankEnemy.getValue()!=0 || tankEnemy.getValue()==23)
 			{
 				baseObject Effect;
 				if (Effect.loadImg("img/explosion4.png", g_screen) == false)
@@ -332,6 +340,52 @@ public:
 				}
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
+				Effect.free();
+				Mix_Init(MIX_INIT_MP3);
+				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
+				Mix_PlayChannel(-1, sound, 0);
+				setVx(0);
+				setVy(0);
+				this->setXYpos(2000, 2000);
+				this->free();
+				tankEnemy.setXYpos(2000, 2000);
+				tankEnemy.free();
+			}
+			else if (tankEnemy.getValue()==100)
+			{
+				baseObject Effect;
+				if (Effect.loadImg("img/explosion4.png", g_screen) == false)
+				{
+					std::cout << "Can not load effect";
+				}
+				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
+				Effect.render(g_screen, NULL);
+				Effect.free();
+				Mix_Init(MIX_INIT_MP3);
+				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
+				Mix_PlayChannel(-1, sound, 0);
+				setVx(0);
+				setVy(0);
+				this->setXYpos(2000, 2000);
+				this->free();
+				tankEnemy.setXYpos(2000, 2000);
+				tankEnemy.free();
+				gameOver=true;
+				gameStart=false;
+				std::cout << gameOver << std::endl;
+			}
+			else if (tankEnemy.getValue()==26 || tankEnemy.getValue()==27)
+			{
+				baseObject Effect;
+				if (Effect.loadImg("img/explosion4.png", g_screen) == false)
+				{
+					std::cout << "Can not load effect";
+				}
+				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
+				Effect.render(g_screen, NULL);
+				Effect.free();
 				Mix_Init(MIX_INIT_MP3);
 				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
@@ -352,6 +406,7 @@ public:
 				}
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
+				Effect.free();
 				Mix_Init(MIX_INIT_MP3);
 				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
@@ -421,15 +476,8 @@ public:
 				{
 					std::cout << "Can not load effect";
 				}
-				const int DISPLAY_TIME = 1000; // Thời gian hiển thị hình ảnh Effect (10 giây)
-				Uint32 start_time = SDL_GetTicks();
-
-				if (SDL_GetTicks() - start_time < 10000) {
-    				Effect.render(g_screen, NULL);
-				}
-
-				// Sau khi hiển thị xong, giải phóng hình ảnh
-				Effect.free();
+				Effect.setXYpos(tankEnemy.getXpos() - Effect.getWidth() / 2, tankEnemy.getYpos() - Effect.getHeight() / 2);
+				Effect.render(g_screen,NULL);
 				Mix_Init(MIX_INIT_MP3);
 				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
@@ -440,6 +488,13 @@ public:
 				this->free();
 				tankEnemy.setXYpos(5000,5000);
 				tankEnemy.free();
+				is_first=true;
+				Effect.free();
+				// Sau khi hiển thị xong, giải phóng hình ảnh
+				// this->setXYpos(2000, 2000);
+				// this->free();
+				// tankEnemy.setXYpos(5000,5000);
+				// tankEnemy.free();
 			}
 		}
 	}
