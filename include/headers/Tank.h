@@ -15,6 +15,8 @@ private:
 	double angle = 0;
 	int enemy_move_count = 0;
 	bool is_tank_alive = true;
+	bool tankIsProtected = false;
+	int count_time_defender=100;
 	int weapon = 0;
 	int tank_hp = 20;
 	SDL_Rect healthBar;
@@ -33,6 +35,22 @@ public:
 	SDL_Rect getHealBar()
 	{
 		return healthBar;
+	}
+	void setTimeDefender(int time_defender)
+	{
+		count_time_defender=time_defender;
+	}
+	int getTimeDefender()
+	{
+		return count_time_defender;
+	}
+	void setTankIsProtected(bool check)
+	{
+		tankIsProtected = check;
+	}
+	bool getTankIsProtected()
+	{
+		return tankIsProtected;
 	}
 	void setTankHp(int x)
 	{
@@ -374,25 +392,30 @@ public:
 		{	
 			if (obstacle.getValue()<53)
 				setWeapon(obstacle.getValue()-50);
-			if (obstacle.getValue()==53)
+			else if (obstacle.getValue()==53)
 			{
 				if (getTankHp()+10 <= 20)
 					setTankHp(getTankHp() + 10);
 				else
 					setTankHp(health);
 			}
+			else if (obstacle.getValue()==54)
+			{
+				tankIsProtected=true;
+				count_time_defender=100;
+			}
 			obstacle.setValue(0);
 			obstacle.free();
 			std::cout << getWeapon() << std::endl;
 		}
 	}
-	void checkBoomEffect(Tank &tank,int &boomEffectPosX,int &boomEffectPosY)
+	void checkBoomEffect(int boomEffectPosX,int boomEffectPosY)
 	{
-		int tankPosX=tank.getXpos();
-		int tankPosY=tank.getYpos();
+		int tankPosX=this->getXpos();
+		int tankPosY=this->getYpos();
 		if (tankPosX>=boomEffectPosX && tankPosX<=boomEffectPosX+300 && tankPosY>=boomEffectPosY && tankPosY<=boomEffectPosY+224)
 		{
-			tank.setIsTankAlive(false);
+			this->setIsTankAlive(false);
 		}  
 		// 300,224 là chiều rộng, chiều cao phạm vi nổ boom
 	}

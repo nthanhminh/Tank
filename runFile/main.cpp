@@ -21,6 +21,7 @@ baseObject gameWinBg;
 baseObject gameMenu;
 baseObject pauseButton;
 baseObject gamePauseBg;
+baseObject tankDefender;
 bool InitData()
 {
     int ret = SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
@@ -89,7 +90,7 @@ bool loadPauseBg()
 }
 bool loadWaitingBg()
 {
-    bool ret = waitingBg.loadImg("img//Tank-Wars-2D-Game-Kit.png",g_screen);
+    bool ret = waitingBg.loadImg("img/Tank-Wars-2D-Game-Kit.png",g_screen);
     //bool ret = waitingBg.loadImg("img//menu.png",g_screen);
     if (ret == false)
     {
@@ -135,6 +136,12 @@ bool loadGameWinBg()
     {
         return true;
     }
+}
+bool loadTankDefender()
+{
+    bool ret = tankDefender.loadImg("img/protect.png",g_screen);
+    if (!ret) return false;
+    return true;
 }
 void close()
 {
@@ -260,6 +267,11 @@ int main(int argc, char* argv[]) {
         std::cout << "can not load pause bg" << std::endl;
         return -1;
     }
+    if (!loadTankDefender())
+    {
+        std::cout << "can not load tank defender" << std::endl;
+        return -1;
+    }
     // Game Loop
     bool isQuit = false;
     while (!isQuit) 
@@ -277,8 +289,9 @@ int main(int argc, char* argv[]) {
                     int x = g_event.button.x;
                     int y = g_event.button.y;
                     std::cout << x << " " << y << std::endl;
-                    if ((x >= 560 && x <= 960) && (y>=400 && y<=500))
+                    if ((x >= 560 && x <= 960) && (y>=400 && y<=500) && gamePause==false)
                     {
+                        
                         //gameStart = true;
                         turnMenu=true;
                     }
@@ -368,6 +381,19 @@ int main(int argc, char* argv[]) {
             {
                 SDL_RenderFillRect(g_screen, &healthBar);
                 menu[0].tank.renderRouteThink(g_screen, menu[0].tank.getAngle(), NULL);
+                if (menu[0].tank.getTankIsProtected())
+                {
+                    tankDefender.setXYpos(menu[0].tank.getXpos(),menu[0].tank.getYpos());
+                    tankDefender.render(g_screen,NULL);
+                    if (menu[0].tank.getTimeDefender()==0)
+                    {
+                        menu[0].tank.setTankIsProtected(false);
+                    }
+                    else
+                    {
+                        menu[0].tank.setTimeDefender(menu[0].tank.getTimeDefender()-1);
+                    }
+                }
             }
 
             //
@@ -412,7 +438,7 @@ int main(int argc, char* argv[]) {
             {
                 for (int i = 0; i < menu[0].sizeTankBullet; i++)
                 {
-                    menu[0].Bullets[i].move(menu[0].walls, menu[0].listEnemyTank,menu[0].numberOfEnemyTank);
+                    menu[0].Bullets[i].move(menu[0].walls, menu[0].listEnemyTank,menu[0].numberOfEnemyTank,menu[0].tank);
                     menu[0].Bullets[i].renderRouteThink(g_screen, menu[0].Bullets[i].getBulletAngle(), NULL);
                 }
             }
@@ -435,7 +461,7 @@ int main(int argc, char* argv[]) {
                 {
                     for (int j = 0; j < menu[0].sizeEnemyTankBulluets[i]; j++)
                     {
-                        menu[0].EnemyBullets[i][j].moveAuto(menu[0].tank, menu[0].walls);
+                        menu[0].EnemyBullets[i][j].moveAuto(menu[0].tank, menu[0].walls,menu[0].listEnemyTank[i]);
                         menu[0].EnemyBullets[i][j].renderRouteThink(g_screen, menu[0].EnemyBullets[i][j].getBulletAngle(), NULL);
                     }
                 }

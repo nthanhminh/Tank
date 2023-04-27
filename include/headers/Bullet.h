@@ -18,7 +18,6 @@ private:
 	int status=0;
 	double bulletAngle = 0;
 	int choice_weapon = 0;
-	bool is_first=true;
 public:
 	Bullet()
 	{
@@ -238,7 +237,7 @@ public:
 			}
 		}
 	}
-	void move(Map**walls,EnemyTank *tank,int sizeEnemyTank)
+	void move(Map**walls,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank)
 	{
 		if (status == 1)
 		{
@@ -250,7 +249,7 @@ public:
 				{
 					if (walls[i][j].getValue() != 0)
 					{
-						handleTankMapCollision(walls[i][j]);
+						handleTankMapCollision(walls[i][j],tank,sizeEnemyTank,this_tank);
 					}
 				}
 			}
@@ -277,7 +276,7 @@ public:
 				{
 					if (walls[i][j].getValue() != 0)
 					{
-						handleTankMapCollision(walls[i][j]);
+						handleTankMapCollision(walls[i][j],tank,sizeEnemyTank,this_tank);
 					}
 					// else
 					// {
@@ -323,7 +322,7 @@ public:
 			return true;
 		}
 	}
-	void handleTankMapCollision(Map& tankEnemy)
+	void handleTankMapCollision(Map& tankEnemy,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank)
 	{
 
 		SDL_Rect bulletRect = { getXpos(), getYpos(), getWidth(), getHeight() };
@@ -478,6 +477,11 @@ public:
 				}
 				Effect.setXYpos(tankEnemy.getXpos() - Effect.getWidth() / 2, tankEnemy.getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen,NULL);
+				this_tank.checkBoomEffect(Effect.getXpos(),Effect.getYpos());
+				for (int i=0;i<sizeEnemyTank;i++)
+				{
+					tank[i].checkBoomEffect(Effect.getXpos(),Effect.getYpos());
+				}
 				Mix_Init(MIX_INIT_MP3);
 				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
@@ -488,13 +492,7 @@ public:
 				this->free();
 				tankEnemy.setXYpos(5000,5000);
 				tankEnemy.free();
-				is_first=true;
 				Effect.free();
-				// Sau khi hiển thị xong, giải phóng hình ảnh
-				// this->setXYpos(2000, 2000);
-				// this->free();
-				// tankEnemy.setXYpos(5000,5000);
-				// tankEnemy.free();
 			}
 		}
 	}
