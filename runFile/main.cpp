@@ -11,13 +11,6 @@
 #include "EnemyBullet.h"
 #include "EnemyTank.h" 
 #include "Menu.h"
-//variable init
-// bool gameStart = false;
-// bool gameOver = false;
-// bool gameWin = false;
-// bool isPlaying = false;
-// bool turnMenu = false;
-// bool gamePause = false;
 int cnt = 50;
 Menu menu1;
 Menu menu2;
@@ -215,17 +208,8 @@ int main(int argc, char* argv[]) {
     // int sizeTankEnemyBulletMenu[10]{};
     // EnemyBullet** EnemyBulletMenu = menu1.getEnemyBullets();
 
-    Tank tankMenu1 = menu[0].getTank();
-    SDL_Rect healthBar = tankMenu1.getHealBar();
-    baseObject bgMenu = menu[0].getBg();
-    Map** wallsMenu = menu[0].getMap();
-    int sizeTankBulletMenu = menu[0].getSizeTankBullet();
-    Bullet* BulletsMenu = menu[0].getBullet();
-    EnemyTank* listEnemyTankMenu = menu[0].getListEnemyTank();
-    int sizeTankEnemyMenu = menu[0].getNumberofEnemyTank();
-    int sizeTankEnemyBulletMenu[10]{};
-    EnemyBullet** EnemyBulletMenu = menu[0].getEnemyBullets();
-
+    SDL_Rect healthBar = menu[0].tank.getHealBar();
+    
     // Tank tankMenu1;
     // SDL_Rect healthBar;
     // baseObject bgMenu;
@@ -328,11 +312,14 @@ int main(int argc, char* argv[]) {
             }
             if (gameStart==true)
             {
-                tankMenu1.handleEvents(g_event,wallsMenu);
-                if (tankMenu1.getIsTankAlive())
+                if (gameStart==true)
                 {
-                    BulletsMenu[sizeTankBulletMenu].handleBulletEvents(g_event, tankMenu1, wallsMenu);
-                    sizeTankBulletMenu+= 1;
+                    menu[0].tank.handleEvents(g_event,menu[0].walls);
+                    if (menu[0].tank.getIsTankAlive())
+                    {
+                        menu[0].Bullets[menu[0].sizeTankBullet].handleBulletEvents(g_event, menu[0].tank, menu[0].walls);
+                        menu[0].sizeTankBullet+= 1;
+                    }
                 }
             }
         }
@@ -372,69 +359,61 @@ int main(int argc, char* argv[]) {
             SDL_RenderClear(g_screen);
             //start
             //test
-            bgMenu.render(g_screen, NULL);
-            healthBar.x = tankMenu1.getXpos()+2;
-            healthBar.y = tankMenu1.getYpos()-15;
-            healthBar.w = tankMenu1.getTankHp()*2;
+            menu[0].background.render(g_screen, NULL);
+            healthBar.x = menu[0].tank.getXpos()+2;
+            healthBar.y = menu[0].tank.getYpos()-15;
+            healthBar.w = menu[0].tank.getTankHp()*2;
             SDL_SetRenderDrawColor(g_screen, 255, 0, 0, 255); 
-            for (int i = 0; i < mapRows; i++)
-            {
-                for (int j = 0; j < mapCols; j++)
-                {
-                    if (wallsMenu[i][j].getValue()>0)
-                        wallsMenu[i][j].render(g_screen, NULL);
-                }
-            }
-            if (tankMenu1.getIsTankAlive())
+            if (menu[0].tank.getIsTankAlive())
             {
                 SDL_RenderFillRect(g_screen, &healthBar);
-                tankMenu1.renderRouteThink(g_screen, tankMenu1.getAngle(), NULL);
+                menu[0].tank.renderRouteThink(g_screen, menu[0].tank.getAngle(), NULL);
             }
 
             //
-            for (int i = 0; i < sizeTankEnemyMenu; i++)
+            for (int i = 0; i < menu[0].numberOfEnemyTank; i++)
             {
-               if (listEnemyTankMenu[i].getIsTankAlive())
+               if (menu[0].listEnemyTank[i].getIsTankAlive())
                {
-                    // if (i==1)
-                    //     listEnemyTankMenu[i].handleAtiveTankEnemyA(tankMenu1);
-                    // else if (i==2)
-                    //     listEnemyTankMenu[i].handleAtiveTankEnemyB(tankMenu1);
-                    // else if (i==3)
-                    //     listEnemyTankMenu[i].handleAtiveTankEnemyC(tankMenu1);
-                    // else 
-                    //     listEnemyTankMenu[i].handleAtiveTankEnemyD(tankMenu1);
+                    if (i==1)
+                        menu[0].listEnemyTank[i].handleAtiveTankEnemyD(menu[0].tank);
+                    else if (i==2)
+                        menu[0].listEnemyTank[i].handleAtiveTankEnemyD(menu[0].tank);
+                    else if (i==3)
+                        menu[0].listEnemyTank[i].handleAtiveTankEnemyD(menu[0].tank);
+                    else 
+                        menu[0].listEnemyTank[i].handleAtiveTankEnemyD(menu[0].tank);
                }
-               if (listEnemyTankMenu[i].getBulletActive() && listEnemyTankMenu[i].getIsTankAlive() && gameOver==false)
+               if (menu[0].listEnemyTank[i].getBulletActive() && menu[0].listEnemyTank[i].getIsTankAlive() && gameOver==false)
                {
-                   EnemyBulletMenu[i][sizeTankEnemyBulletMenu[i]].handleAutomatic(listEnemyTankMenu[i]);
-                   sizeTankEnemyBulletMenu[i]++;
+                   menu[0].EnemyBullets[i][menu[0].sizeEnemyTankBulluets[i]].handleAutomatic(menu[0].listEnemyTank[i]);
+                   menu[0].sizeEnemyTankBulluets[i]++;
                }
             }
-            tankMenu1.myTankMoveX(wallsMenu);
-            tankMenu1.MyTankMoveY(wallsMenu);
-            for (int i = 0; i < sizeTankEnemyMenu; i++)
+            menu[0].tank.myTankMoveX(menu[0].walls);
+            menu[0].tank.MyTankMoveY(menu[0].walls);
+            for (int i = 0; i < menu[0].numberOfEnemyTank; i++)
             {
-                listEnemyTankMenu[i].myTankMoveX(wallsMenu);
-                listEnemyTankMenu[i].MyTankMoveY(wallsMenu);
+                menu[0].listEnemyTank[i].myTankMoveX(menu[0].walls);
+                menu[0].listEnemyTank[i].MyTankMoveY(menu[0].walls);
 
             }
-            for (int i = 0; i < sizeTankEnemyMenu; i++)
+            for (int i = 0; i < menu[0].numberOfEnemyTank; i++)
             {
-                if (listEnemyTankMenu[i].getIsTankAlive())
+                if (menu[0].listEnemyTank[i].getIsTankAlive())
                 {
-                    listEnemyTankMenu[i].updateHealBar();
-                    SDL_Rect tmp=listEnemyTankMenu[i].getHealBar();
+                    menu[0].listEnemyTank[i].updateHealBar();
+                    SDL_Rect tmp=menu[0].listEnemyTank[i].getHealBar();
                     SDL_RenderFillRect(g_screen,&tmp);
-                    listEnemyTankMenu[i].renderRouteThink(g_screen, listEnemyTankMenu[i].getAngle(), NULL);
+                    menu[0].listEnemyTank[i].renderRouteThink(g_screen, menu[0].listEnemyTank[i].getAngle(), NULL);
                 }
             }
-            if (tankMenu1.getIsTankAlive())
+            if (menu[0].tank.getIsTankAlive())
             {
-                for (int i = 0; i < sizeTankBulletMenu; i++)
+                for (int i = 0; i < menu[0].sizeTankBullet; i++)
                 {
-                    BulletsMenu[i].move(wallsMenu, listEnemyTankMenu,sizeTankEnemyMenu);
-                    BulletsMenu[i].renderRouteThink(g_screen, BulletsMenu[i].getBulletAngle(), NULL);
+                    menu[0].Bullets[i].move(menu[0].walls, menu[0].listEnemyTank,menu[0].numberOfEnemyTank);
+                    menu[0].Bullets[i].renderRouteThink(g_screen, menu[0].Bullets[i].getBulletAngle(), NULL);
                 }
             }
             else
@@ -450,40 +429,32 @@ int main(int argc, char* argv[]) {
                 }
             }
             // bullet enemy render
-            for (int i = 0; i < sizeTankEnemyMenu; i++)
+            for (int i = 0; i < menu[0].numberOfEnemyTank; i++)
             {
-                if (listEnemyTankMenu[i].getIsTankAlive())
+                if (menu[0].listEnemyTank[i].getIsTankAlive())
                 {
-                    for (int j = 0; j < sizeTankEnemyBulletMenu[i]; j++)
+                    for (int j = 0; j < menu[0].sizeEnemyTankBulluets[i]; j++)
                     {
-                        EnemyBulletMenu[i][j].moveAuto(tankMenu1, wallsMenu);
-                        EnemyBulletMenu[i][j].renderRouteThink(g_screen, EnemyBulletMenu[i][j].getBulletAngle(), NULL);
+                        menu[0].EnemyBullets[i][j].moveAuto(menu[0].tank, menu[0].walls);
+                        menu[0].EnemyBullets[i][j].renderRouteThink(g_screen, menu[0].EnemyBullets[i][j].getBulletAngle(), NULL);
                     }
                 }
             }
-            checkListEnemyTankAlive(listEnemyTankMenu, sizeTankEnemyMenu);
+            for (int i = 0; i < mapRows; i++)
+            {
+                for (int j = 0; j < mapCols; j++)
+                {
+                    menu[0].walls[i][j].render(g_screen, NULL);
+                }
+            }
+            checkListEnemyTankAlive(menu[0].listEnemyTank, menu[0].numberOfEnemyTank);
             pauseButton.render(g_screen,NULL);
             SDL_Delay(15);
         }
         // uapdate screen 
         SDL_RenderPresent(g_screen);
     }
-    delete[]listEnemyTankMenu;
-    //detroy bullet
-    for (int i = 0; i < sizeTankBulletMenu; i++)
-    {
-        BulletsMenu[i].free();
-    }
-    delete[]BulletsMenu;
-    //detroy map
-    for (int i = 0; i < mapRows; i++)
-    {
-        for (int j = 0; j < mapCols; j++)
-        {
-            wallsMenu[i][j].free();
-        }
-    }
-    delete[] wallsMenu;
+    menu[0].close();
     std::cout << "end game" << std::endl;
     close(); 
     return 0;

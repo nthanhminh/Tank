@@ -12,20 +12,20 @@
 #include <fstream>
 //test
 class Menu {
-private:
+public:
 	baseObject background;
 	std::string backgroundPath;	
 	Tank tank;
 	Map** walls = new Map * [mapRows];
 	int sizeTankBullet = 0;
-	Bullet* Bullets = new Bullet[1000000];
-	int sizeEnemyTankBullet = 0;
-	EnemyBullet** EnemyBullets = new EnemyBullet * [numberOfEnemyTank];
-	int sizeEnemyTankBulluets[10];
-	EnemyTank* listEnemyTank = new EnemyTank[10];
-	int numberOfEnemyTank;
 	int numberOfMenu=0;
-public:
+	int numberOfEnemyTank=5;
+	int sizeEnemyTankBullet = 0;
+	Bullet* Bullets = new Bullet[1000000];
+	EnemyBullet** EnemyBullets = new EnemyBullet * [numberOfEnemyTank];
+	int sizeEnemyTankBulluets[10]{};
+	EnemyTank* listEnemyTank = new EnemyTank[numberOfEnemyTank];
+	SDL_Rect healBar;
 	Menu()
 	{
 		srand(time(0));
@@ -143,6 +143,25 @@ public:
 			}
 			std::cout << "\n";
 		}
+	}
+	void close()
+	{
+		delete[]listEnemyTank;
+		//detroy bullet
+		for (int i = 0; i < sizeTankBullet; i++)
+		{
+		    Bullets[i].free();
+		}
+		delete[]Bullets;
+		//detroy map
+		for (int i = 0; i < mapRows; i++)
+		{
+		    for (int j = 0; j < mapCols; j++)
+		    {
+		        walls[i][j].free();
+		    }
+		}
+		delete[] walls;
 	}
 };
 #endif
