@@ -376,11 +376,11 @@ int main(int argc, char* argv[]) {
                if (menu[0].listEnemyTank[i].getIsTankAlive())
                {
                     if (i==1)
-                        menu[0].listEnemyTank[i].handleAtiveTankEnemyD(menu[0].tank);
+                        menu[0].listEnemyTank[i].handleAtiveTankEnemyA(menu[0].tank);
                     else if (i==2)
-                        menu[0].listEnemyTank[i].handleAtiveTankEnemyD(menu[0].tank);
+                        menu[0].listEnemyTank[i].handleAtiveTankEnemyB(menu[0].tank);
                     else if (i==3)
-                        menu[0].listEnemyTank[i].handleAtiveTankEnemyD(menu[0].tank);
+                        menu[0].listEnemyTank[i].handleAtiveTankEnemyC(menu[0].tank);
                     else 
                         menu[0].listEnemyTank[i].handleAtiveTankEnemyD(menu[0].tank);
                }

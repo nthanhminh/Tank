@@ -220,8 +220,8 @@ public:
 	}
 	void myTankMoveX(Map** walls)
 	{
-		rect_.x += getvX();
 		setOriginalXpos(getXpos());
+		rect_.x += getvX();
 		for (int i = 0; i < mapRows; i++)
 		{
 			for (int j = 0; j < mapCols; j++)
@@ -255,8 +255,8 @@ public:
 			{
 				setAngle(0);
 			}
-			rect_.y += getvY();
 			setOriginalypos(getYpos());
+			rect_.y += getvY();
 			for (int i = 0; i < mapRows; i++)
 			{
 				for (int j = 0; j < mapCols; j++)
@@ -269,10 +269,6 @@ public:
 						handleGiftCollistion(walls[i][j]);
 				}
 			}
-			/*for (int i = 0; i < enemySize; i++)
-			{
-				handleTankEnemyCollision(list[i]);
-			}*/
 			if (rect_.y + rect_.h >= scrennHeight)
 			{
 				rect_.y = scrennHeight - rect_.h;
@@ -289,22 +285,33 @@ public:
 		SDL_Rect mapRect = { obstacle.getXpos(), obstacle.getYpos(), obstacle.getWidth(), obstacle.getHeight()};
 		if (checkCollision(tankRect, mapRect))
 		{
-			if (angle == 90)
-			{
-				setXYpos(obstacle.getXpos() - this->getWidth() -1, getOriginalYpos());
-			}
-			else if (angle == 270)
-			{
-				setXYpos(obstacle.getXpos() + obstacle.getWidth() + 1, getOriginalYpos());
-			}
-			else if (angle == 0)
-			{
-				setXYpos(getOriginalXpos(), obstacle.getYpos() + obstacle.getHeight() + 1);
-			}
-			else if (angle==180)
-			{
-				setXYpos(getOriginalXpos(), obstacle.getYpos() - this->getHeight() - 1);
-			}
+			// if (angle == 90)
+			// {
+			// 	setXYpos(obstacle.getXpos() - this->getWidth() -2, getOriginalYpos());
+			// 	setvX(0);
+			// 	setvY(0);
+			// }
+			// else if (angle == 270)
+			// {
+			// 	setXYpos(obstacle.getXpos() + obstacle.getWidth() + 2, getOriginalYpos());
+			// 	setvX(0);
+			// 	setvY(0);
+			// }
+			// else if (angle == 0)
+			// {
+			// 	setXYpos(getOriginalXpos(), obstacle.getYpos() + obstacle.getHeight() + 2);
+			// 	setvX(0);
+			// 	setvY(0);
+			// }
+			// else if (angle==180)
+			// {
+			// 	setXYpos(getOriginalXpos(), obstacle.getYpos() - this->getHeight() - 2);
+			// 	setvX(0);
+			// 	setvY(0);
+			// }
+			vX=0;
+			vY=0;
+			setXYpos(getOriginalXpos(),getOriginalYpos());
 		}
 	}
 	void handleTankEnemyCollision(Tank& tankEnemy)
@@ -336,8 +343,6 @@ public:
 			setvX(0);
 			setvY(0);*/
 			setXYpos(getOriginalXpos(), getOriginalYpos());
-			vX = 0;
-			vY = 0;
 		}
 	}
 	void handleTankLandmineCollistion(Map& obstacle)
