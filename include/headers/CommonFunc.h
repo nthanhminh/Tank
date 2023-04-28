@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
@@ -36,6 +37,8 @@ static bool gameWin = false;
 static bool isPlaying = false;
 static bool turnMenu = false;
 static bool gamePause = false;
+static bool waiting=true;
+static int changeYposHoverBtn=5;
 
 #define TITLE_SIZE 64
 #define maxMapX 400

@@ -11,6 +11,7 @@
 #include "EnemyBullet.h"
 #include "EnemyTank.h" 
 #include "Menu.h"
+#include "ttf.h"
 int cnt = 50;
 Menu menu1;
 Menu menu2;
@@ -22,6 +23,8 @@ baseObject gameMenu;
 baseObject pauseButton;
 baseObject gamePauseBg;
 baseObject tankDefender;
+baseObject playBtn;
+bool change=true;
 bool InitData()
 {
     int ret = SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
@@ -76,6 +79,18 @@ bool loadPauseButton()
         return true;
     }
 }
+bool loadPlayButton()
+{
+    bool ret=playBtn.loadImg("img/playBtn.png",g_screen);
+    playBtn.setXYpos(0,0);
+    if (ret==false)
+    {
+        return false;
+    }
+    else{
+        return true;
+    }
+}
 bool loadPauseBg()
 {
     bool ret=gamePauseBg.loadImg("img/game_pause_bg.png",g_screen);
@@ -90,7 +105,7 @@ bool loadPauseBg()
 }
 bool loadWaitingBg()
 {
-    bool ret = waitingBg.loadImg("img/Tank-Wars-2D-Game-Kit.png",g_screen);
+    bool ret = waitingBg.loadImg("img/waitingTest.png",g_screen);
     //bool ret = waitingBg.loadImg("img//menu.png",g_screen);
     if (ret == false)
     {
@@ -199,7 +214,7 @@ int main(int argc, char* argv[]) {
     menu[0].loadBg();
     menu[0].initTank();
     menu[0].InitMap();
-    
+    TextRenderer textRenderer(g_screen, "ttf/OpenSans_Condensed-Bold.ttf", 48, {255, 0, 0, 180});
     // menu1.setBgPath("img/grass.png");
     // menu1.loadBg();
     // menu1.initTank();
@@ -216,6 +231,7 @@ int main(int argc, char* argv[]) {
     // EnemyBullet** EnemyBulletMenu = menu1.getEnemyBullets();
 
     SDL_Rect healthBar = menu[0].tank.getHealBar();
+    SDL_Rect hover({650,420,300,100});
     
     // Tank tankMenu1;
     // SDL_Rect healthBar;
@@ -272,6 +288,15 @@ int main(int argc, char* argv[]) {
         std::cout << "can not load tank defender" << std::endl;
         return -1;
     }
+    if (!loadPlayButton())
+    {
+        std::cout << "can not load play btn" << std::endl;
+        return -1;
+    }
+    else
+    {
+        playBtn.setXYpos(650,420);
+    }
     // Game Loop
     bool isQuit = false;
     while (!isQuit) 
@@ -321,7 +346,31 @@ int main(int argc, char* argv[]) {
                     }
 
                 }
-
+            }
+            else if (g_event.type==SDL_MOUSEMOTION)
+            {
+                if (waiting)
+                {
+                    int x = g_event.motion.x;
+                    int y = g_event.motion.y;
+                    std::cout<< x << " " << y << std::endl;
+                    if ((x>=665 && x<=780) && y>=420 && y<=465)
+                    {
+                        if (change==true)
+                        {
+                            playBtn.setXYpos(playBtn.getXpos(),playBtn.getYpos()-changeYposHoverBtn);
+                            change=false;
+                        }
+                    }
+                    else
+                    {
+                        if(change==false)
+                        {
+                            playBtn.setXYpos(playBtn.getXpos(),playBtn.getYpos()+changeYposHoverBtn);
+                            change=true;
+                        }
+                    }
+                }   
             }
             if (gameStart==true)
             {
@@ -339,7 +388,7 @@ int main(int argc, char* argv[]) {
         //render background
         if (gameStart == false)
         {
-            waitingBg.render(g_screen,NULL);
+            //waitingBg.render(g_screen,NULL);
             if (gameOver == true)
             {
                 SDL_RenderClear(g_screen);
@@ -360,10 +409,11 @@ int main(int argc, char* argv[]) {
                 SDL_RenderClear(g_screen);
                 gamePauseBg.render(g_screen,NULL);
             }
-            else
+            else if (waiting)
             {
                 SDL_RenderClear(g_screen);
-                waitingBg.render(g_screen, NULL);
+                waitingBg.render(g_screen, NULL);   
+                playBtn.render(g_screen,NULL);
             }
         }
         else if (gameStart == true)
