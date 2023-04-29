@@ -416,6 +416,8 @@ public:
 		if (tankPosX>=boomEffectPosX && tankPosX<=boomEffectPosX+300 && tankPosY>=boomEffectPosY && tankPosY<=boomEffectPosY+224)
 		{
 			this->setIsTankAlive(false);
+			this->setXYpos(5000,5000);
+			this->free();
 		}  
 		// 300,224 là chiều rộng, chiều cao phạm vi nổ boom
 	}

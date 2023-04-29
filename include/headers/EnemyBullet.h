@@ -15,6 +15,7 @@ private:
 public:
 	EnemyBullet()
 	{
+		srand(time(0));
 		setPath("img/bulletdark2.png");
 		setVx(0);
 		setVy(0);
