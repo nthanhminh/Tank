@@ -404,7 +404,8 @@ public:
 			std::cout << getXpos() << " " << getYpos() << " " << getWidth() << " " << getHeight() << std::endl;
 			if (tankEnemy.getTankHp() - damge[getChoiceWeapon()] > 0)
 			{
-				tankEnemy.setTankHp(tankEnemy.getTankHp() - damge[getChoiceWeapon()]);
+				if (tankEnemy.getTankIsProtected()==false)
+					tankEnemy.setTankHp(tankEnemy.getTankHp() - damge[getChoiceWeapon()]);
 				std::cout << tankEnemy.getTankHp() << std::endl;
 			}
 			else

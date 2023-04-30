@@ -290,7 +290,7 @@ public:
 						if (enemy_count_bullet==0)
 						{
 							setBulletActive(true);
-							enemy_count_bullet=20;
+							enemy_count_bullet=8;
 						}
 						else
 						{
@@ -408,7 +408,7 @@ public:
 					if (enemy_count_bullet==0)
 					{
 						setBulletActive(true);
-						enemy_count_bullet=20;
+						enemy_count_bullet=4;
 					}
 					else{
 						enemy_count_bullet--;
@@ -426,7 +426,7 @@ public:
 					if (enemy_count_bullet==0)
 					{
 						setBulletActive(true);
-						enemy_count_bullet=20;
+						enemy_count_bullet=4;
 					}
 					else{
 						enemy_count_bullet--;
@@ -555,7 +555,7 @@ public:
 				if (enemy_count_bullet==0)
 				{
 					setBulletActive(true);
-					enemy_count_bullet=20;
+					enemy_count_bullet=4;
 				}
 				else{
 					enemy_count_bullet--;
@@ -573,7 +573,7 @@ public:
 				if (enemy_count_bullet==0)
 				{
 					setBulletActive(true);
-					enemy_count_bullet=20;
+					enemy_count_bullet=4;
 				}
 				else{
 					enemy_count_bullet--;

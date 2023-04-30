@@ -401,8 +401,8 @@ public:
 			}
 			else if (obstacle.getValue()==54)
 			{
-				tankIsProtected=true;
-				count_time_defender=100;
+				this->tankIsProtected=true;
+				this->count_time_defender=100;
 			}
 			obstacle.setValue(0);
 			obstacle.free();

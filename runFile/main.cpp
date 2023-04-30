@@ -22,9 +22,11 @@ baseObject gameWinBg;
 baseObject gameMenu;
 baseObject pauseButton;
 baseObject gamePauseBg;
-baseObject tankDefender;
 baseObject playBtn;
-bool change=true;
+baseObject helpBtn;
+baseObject gameHelp;
+bool changePlayBtn=true;
+bool changeHelpBtn=true;
 bool InitData()
 {
     int ret = SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
@@ -79,6 +81,28 @@ bool loadPauseButton()
         return true;
     }
 }
+bool loadPHelpButton()
+{
+    bool ret=helpBtn.loadImg("img/help_button.png",g_screen);
+    if (ret==false)
+    {
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+bool loadHelpBg()
+{
+    bool ret=gameHelp.loadImg("img/help.png",g_screen);
+    if (ret==false)
+    {
+        return false;
+    }
+    else{
+        return true;
+    }
+}
 bool loadPlayButton()
 {
     bool ret=playBtn.loadImg("img/playBtn.png",g_screen);
@@ -105,7 +129,7 @@ bool loadPauseBg()
 }
 bool loadWaitingBg()
 {
-    bool ret = waitingBg.loadImg("img/waitingTest.png",g_screen);
+    bool ret = waitingBg.loadImg("img/waiting.png",g_screen);
     //bool ret = waitingBg.loadImg("img//menu.png",g_screen);
     if (ret == false)
     {
@@ -151,12 +175,6 @@ bool loadGameWinBg()
     {
         return true;
     }
-}
-bool loadTankDefender()
-{
-    bool ret = tankDefender.loadImg("img/protect.png",g_screen);
-    if (!ret) return false;
-    return true;
 }
 void close()
 {
@@ -283,11 +301,6 @@ int main(int argc, char* argv[]) {
         std::cout << "can not load pause bg" << std::endl;
         return -1;
     }
-    if (!loadTankDefender())
-    {
-        std::cout << "can not load tank defender" << std::endl;
-        return -1;
-    }
     if (!loadPlayButton())
     {
         std::cout << "can not load play btn" << std::endl;
@@ -296,6 +309,20 @@ int main(int argc, char* argv[]) {
     else
     {
         playBtn.setXYpos(650,420);
+    }
+    if (!loadPHelpButton())
+    {
+        std::cout << "can not load help btn" << std::endl;
+        return -1;
+    }
+    else
+    {
+        helpBtn.setXYpos(650,500);
+    }
+    if (!loadHelpBg())
+    {
+        std::cout << "can not load help bg" << std::endl;
+        return -1;
     }
     // Game Loop
     bool isQuit = false;
@@ -314,11 +341,16 @@ int main(int argc, char* argv[]) {
                     int x = g_event.button.x;
                     int y = g_event.button.y;
                     std::cout << x << " " << y << std::endl;
-                    if ((x >= 560 && x <= 960) && (y>=400 && y<=500) && gamePause==false)
+                    if (waiting)
                     {
-                        
-                        //gameStart = true;
-                        turnMenu=true;
+                        if (x>=665 && x<=780 && y>=420 && y<=465)
+                        {
+                            turnMenu=true;
+                        }
+                        else if (x>=665 && x<=780 && y>=500 && y<=570)
+                        {
+                            turnHelp=true;
+                        }
                     }
                     if (turnMenu)
                     {
@@ -334,6 +366,15 @@ int main(int argc, char* argv[]) {
                         {
                             gameStart=false;
                             gamePause=true;
+                            waiting=false;
+                        }
+                    }
+                    else  if (turnHelp)
+                    {
+                        if (x>=35 && x<=250 && y>=25 && y<=80)
+                        {
+                            turnHelp=false;
+                            waiting=true;
                         }
                     }
                     else if (gamePause==true)
@@ -354,20 +395,35 @@ int main(int argc, char* argv[]) {
                     int x = g_event.motion.x;
                     int y = g_event.motion.y;
                     std::cout<< x << " " << y << std::endl;
-                    if ((x>=665 && x<=780) && y>=420 && y<=465)
+                    if (x>=665 && x<=780 && y>=420 && y<=465)
                     {
-                        if (change==true)
+                        if (changePlayBtn==true)
                         {
                             playBtn.setXYpos(playBtn.getXpos(),playBtn.getYpos()-changeYposHoverBtn);
-                            change=false;
+                            changePlayBtn=false;
                         }
                     }
                     else
                     {
-                        if(change==false)
+                        if(changePlayBtn==false)
                         {
                             playBtn.setXYpos(playBtn.getXpos(),playBtn.getYpos()+changeYposHoverBtn);
-                            change=true;
+                            changePlayBtn=true;
+                        }
+                    }
+                    if ((x>=665 && x<=780) && y>=500 && y<=570)
+                    {
+                        if (changeHelpBtn==true)
+                        {
+                            helpBtn.setXYpos(helpBtn.getXpos(),helpBtn.getYpos()-changeYposHoverBtn);
+                            changeHelpBtn=false;
+                        }
+                    }
+                    else{
+                        if (changeHelpBtn==false)
+                        {
+                            helpBtn.setXYpos(helpBtn.getXpos(),helpBtn.getYpos()+changeYposHoverBtn);
+                            changeHelpBtn=true;
                         }
                     }
                 }   
@@ -394,6 +450,11 @@ int main(int argc, char* argv[]) {
                 SDL_RenderClear(g_screen);
                 gameOverBg.render(g_screen,NULL);
             }
+            else if (turnHelp)
+            {
+                SDL_RenderClear(g_screen);
+                gameHelp.render(g_screen,NULL);
+            }
             else if (gameWin == true)
             {
                 SDL_RenderClear(g_screen);
@@ -414,6 +475,7 @@ int main(int argc, char* argv[]) {
                 SDL_RenderClear(g_screen);
                 waitingBg.render(g_screen, NULL);   
                 playBtn.render(g_screen,NULL);
+                helpBtn.render(g_screen,NULL);
             }
         }
         else if (gameStart == true)
@@ -425,16 +487,21 @@ int main(int argc, char* argv[]) {
             menu[0].background.render(g_screen, NULL);
             healthBar.x = menu[0].tank.getXpos()+2;
             healthBar.y = menu[0].tank.getYpos()-15;
-            healthBar.w = menu[0].tank.getTankHp()*2;
-            SDL_SetRenderDrawColor(g_screen, 255, 0, 0, 255); 
+            healthBar.w = menu[0].tank.getTankHp()*2; 
             if (menu[0].tank.getIsTankAlive())
             {
+                if (menu[0].tank.getTankIsProtected())
+                {
+                     SDL_SetRenderDrawColor(g_screen, 255, 255, 0, 255);
+                }
+                else
+                {
+                     SDL_SetRenderDrawColor(g_screen, 255, 0, 0, 255);
+                }
                 SDL_RenderFillRect(g_screen, &healthBar);
                 menu[0].tank.renderRouteThink(g_screen, menu[0].tank.getAngle(), NULL);
                 if (menu[0].tank.getTankIsProtected())
                 {
-                    tankDefender.setXYpos(menu[0].tank.getXpos(),menu[0].tank.getYpos());
-                    tankDefender.render(g_screen,NULL);
                     if (menu[0].tank.getTimeDefender()==0)
                     {
                         menu[0].tank.setTankIsProtected(false);
@@ -480,7 +547,25 @@ int main(int argc, char* argv[]) {
                 {
                     menu[0].listEnemyTank[i].updateHealBar();
                     SDL_Rect tmp=menu[0].listEnemyTank[i].getHealBar();
-                    SDL_RenderFillRect(g_screen,&tmp);
+
+                    if (menu[0].listEnemyTank[i].getTankIsProtected())
+                    {
+                        SDL_SetRenderDrawColor(g_screen, 255, 255, 0, 255);
+                        SDL_RenderFillRect(g_screen,&tmp);
+                        if (menu[0].listEnemyTank[i].getTimeDefender()==0)
+                        {
+                            menu[0].listEnemyTank[i].setTankIsProtected(false);
+                        }   
+                        else
+                        {
+                            menu[0].listEnemyTank[i].setTimeDefender(menu[0].listEnemyTank[i].getTimeDefender()-1);
+                        }
+                    }
+                    else
+                    {
+                        SDL_SetRenderDrawColor(g_screen, 255, 0, 0, 255);
+                        SDL_RenderFillRect(g_screen,&tmp);
+                    }
                     menu[0].listEnemyTank[i].renderRouteThink(g_screen, menu[0].listEnemyTank[i].getAngle(), NULL);
                 }
             }

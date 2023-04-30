@@ -29,15 +29,17 @@ const int v_bullet = 8;
 const int tankSize = 25; 
 const int mapRows = 15;
 const int mapCols = 30;
-const int damge[3] = { 2,5,8 };
+const int damge[3] = { 4,6,8 };
 const bool boom_effects=false;
 static bool gameStart = false;
 static bool gameOver = false;
 static bool gameWin = false;
 static bool isPlaying = false;
 static bool turnMenu = false;
+static bool turnHelp = false;
 static bool gamePause = false;
 static bool waiting=true;
+static int choiceOfmenu=0;
 static int changeYposHoverBtn=5;
 
 #define TITLE_SIZE 64
