@@ -372,6 +372,7 @@ public:
 				tankEnemy.setXYpos(2000, 2000);
 				tankEnemy.free();
 				gameOver=true;
+				time_turn_restart=5000;
 				std::cout << gameOver << std::endl;
 			}
 			else if (tankEnemy.getValue()==26 || tankEnemy.getValue()==27)
@@ -520,7 +521,8 @@ public:
 			free();
 			if (tankEnemy.getTankHp() - damge[getChoiceWeapon()] > 0)
 			{
-				tankEnemy.setTankHp(tankEnemy.getTankHp() - damge[getChoiceWeapon()]);
+				if (tankEnemy.getTankIsProtected() == false)
+					tankEnemy.setTankHp(tankEnemy.getTankHp() - damge[getChoiceWeapon()]);
 			}
 			else
 			{

@@ -13,7 +13,6 @@
 #include "Menu.h"
 #include "ttf.h"
 int cnt = 50;
-int time_turn_restart = 10000;
 Menu menu1;
 Menu menu2;
 baseObject gBackground;
@@ -486,6 +485,7 @@ int main(int argc, char* argv[]) {
                         else if (x>=585 && x<=820 && y>=510 && y<=575 )
                         {
                             SDL_RenderClear(g_screen);
+                            menu[choiceOfmenu].free();
                             menu[choiceOfmenu].loadBg();
                             menu[choiceOfmenu].initTank();
                             menu[choiceOfmenu].InitMap();

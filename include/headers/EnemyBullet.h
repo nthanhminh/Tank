@@ -251,7 +251,7 @@ public:
 				tankEnemy.setXYpos(2000, 2000);
 				tankEnemy.free();
 				gameOver=true;
-				gameStart=false;
+				time_turn_restart=5000;
 				std::cout << gameOver << std::endl;
 			}
 			else if (tankEnemy.getValue()==26 || tankEnemy.getValue()==27)

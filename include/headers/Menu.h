@@ -40,6 +40,10 @@ public:
 	{
 		this->mapPath=path;
 	}
+	std::string getMapPath()
+	{
+		this->mapPath;
+	}
 	int getSizeTankBullet()
 	{
 		return this->sizeTankBullet;
@@ -159,6 +163,34 @@ public:
 			std::cout << "\n";
 		}
 	}
+	void free()
+	{
+		for (int i = 0; i < sizeTankBullet; i++)
+		{
+			Bullets[i].setXYpos(2000,2000);
+		    Bullets[i].free();
+			Bullets[i].setVx(0);
+			Bullets[i].setVy(0);
+		}
+		for (int i=0;i<numberOfEnemyTank; i++)
+		{
+			for (int j=0;j<sizeEnemyTankBulluets[i]; j++)
+			{
+				EnemyBullets[i][j].setXYpos(2000,2000);
+				EnemyBullets[i][j].free();
+				EnemyBullets[i][j].setVx(0);
+				EnemyBullets[i][j].setVy(0);
+			}
+		}
+		for (int i = 0; i < mapRows; i++)
+		{
+		    for (int j = 0; j < mapCols; j++)
+		    {
+				walls[i][j].setXYpos(2000,2000);
+		        walls[i][j].free();
+		    }
+		}
+	}
 	void close()
 	{
 		delete[]listEnemyTank;
@@ -166,6 +198,13 @@ public:
 		for (int i = 0; i < sizeTankBullet; i++)
 		{
 		    Bullets[i].free();
+		}
+		for (int i=0;i<numberOfEnemyTank; i++)
+		{
+			for (int j=0;j<sizeEnemyTankBulluets[i]; j++)
+			{
+				EnemyBullets[i][j].free();
+			}
 		}
 		delete[]Bullets;
 		//detroy map
