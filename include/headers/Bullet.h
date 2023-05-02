@@ -526,6 +526,7 @@ public:
 			else
 			{
 				tankEnemy.setIsTankAlive(false);
+				tankEnemy.setXYpos(5000,5000);
 				tankEnemy.free();
 			}
 		}

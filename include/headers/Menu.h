@@ -15,6 +15,8 @@ class Menu {
 public:
 	baseObject background;
 	std::string backgroundPath;	
+	std::string tankPath;
+	std::string mapPath;
 	Tank tank;
 	Map** walls = new Map * [mapRows];
 	int sizeTankBullet = 0;
@@ -30,7 +32,13 @@ public:
 	{
 		srand(time(0));
 		setNumberOfEnemyTank(5);
+		tankPath="img//tank_test.png";
+		mapPath="data/data_1.txt";
 		numberOfMenu=0;
+	}
+	void setMapPath(std::string path)
+	{
+		this->mapPath=path;
 	}
 	int getSizeTankBullet()
 	{
@@ -68,6 +76,14 @@ public:
 	{
 		this->numberOfEnemyTank = x;
 	}
+	std::string getTankPath()
+	{
+		this->tankPath;
+	}
+	void setTankPath(std::string path)
+	{
+		this->tankPath=path;
+	}
 	std::string getBgPath()
 	{
 		return this->backgroundPath;
@@ -86,7 +102,9 @@ public:
 	}
 	void initTank()
 	{
-		tank.setPath("img//tank_test.png");
+		tank.setPath(this->tankPath);
+		tank.setIsTankAlive(true);
+		tank.setTankHp(health);
 		if (!tank.loadTank())
 		{
 			std::cout << "Can not load tank";
@@ -100,6 +118,8 @@ public:
 		{
 			listEnemyTank[i].setXYpos(rand()%200, rand()%200);
 			listEnemyTank[i].setPath("img//tank_test.png");
+			listEnemyTank[i].setIsTankAlive(true);
+			listEnemyTank[i].setTankHp(health);
 		}
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
@@ -116,12 +136,7 @@ public:
 			walls[i] = new Map[mapCols];
 		}
 		Map map;
-		if (numberOfMenu==0)
-			map.setPath("data/data.txt");
-		else if (numberOfMenu==1)
-		{
-			map.setPath("data/data.txt");
-		}
+		map.setPath(this->mapPath);
 		std::ifstream file;
         file.open(map.getPath());
 		for (int i = 0; i < mapRows; i++)
