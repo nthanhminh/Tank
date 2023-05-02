@@ -483,6 +483,15 @@ int main(int argc, char* argv[]) {
                             gameStart=true;
                             turnGameStart=false;
                         }
+                        else if (x>=585 && x<=820 && y>=510 && y<=575 )
+                        {
+                            SDL_RenderClear(g_screen);
+                            menu[choiceOfmenu].loadBg();
+                            menu[choiceOfmenu].initTank();
+                            menu[choiceOfmenu].InitMap();
+                            gameStart=true;
+                            turnGameStart=false;
+                        }
                     }
 
                 }
