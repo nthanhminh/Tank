@@ -26,8 +26,11 @@ baseObject playBtn;
 baseObject helpBtn;
 baseObject gameHelp;
 baseObject gameRestart;
+baseObject gameChoseTank;
 bool changePlayBtn=true;
 bool changeHelpBtn=true;
+bool turnChoseTank=false;
+std::string tankPathChose="img/tank_1.png";
 bool InitData()
 {
     int ret = SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
@@ -69,6 +72,15 @@ bool InitData()
 
     }
     return true;
+}
+bool loadGameChoseTank()
+{
+    bool ret=gameChoseTank.loadImg("img/choseMyTank.png",g_screen);
+    if(ret)
+    {
+        return true;
+    }
+    return false;
 }
 bool loadPauseButton()
 {
@@ -239,13 +251,15 @@ int main(int argc, char* argv[]) {
     }
     //set XY pos for tank
     //set Menu 1
-    Menu menu[3];
+    Menu menu[6];
     menu[0].setBgPath("img/grass.png");
     menu[0].setMapPath("data/data.txt");
     menu[1].setBgPath("img/background_1.png");
     menu[1].setMapPath("data/data_1.txt");
-    menu[2].setBgPath("img/grass.png");
+    menu[2].setBgPath("img/background_2.png");
     menu[2].setMapPath("data/data_2.txt");
+    menu[3].setBgPath("img/background_3.png");
+    menu[3].setMapPath("data/data_3.txt");
     // menu setup end
     SDL_Rect healthBar = menu[choiceOfmenu].tank.getHealBar();
     if (loadWaitingBg() == false)
@@ -306,6 +320,11 @@ int main(int argc, char* argv[]) {
         std::cout << "can not load restart bg" << std::endl;
         return -1;
     }
+    if(!loadGameChoseTank())
+    {
+        std::cout << "can not load chose tank bg" << std::endl;
+        return -1;
+    }
     // Game Loop
     bool isQuit = false;
     while (!isQuit) 
@@ -341,6 +360,7 @@ int main(int argc, char* argv[]) {
                         if(x>=425 && x<=545 && y>=230 && y<=350)
                         {
                             choiceOfmenu=0;
+                            menu[choiceOfmenu].setTankPath(tankPathChose);
                             menu[0].loadBg();
                             menu[0].initTank();
                             menu[0].InitMap();
@@ -354,6 +374,7 @@ int main(int argc, char* argv[]) {
                             turnGameStart=false;
                             turnMenu=false;
                             gameStart=true;
+                            menu[choiceOfmenu].setTankPath(tankPathChose);
                             menu[1].loadBg();
                             menu[1].initTank();
                             menu[1].InitMap();
@@ -364,6 +385,7 @@ int main(int argc, char* argv[]) {
                             turnGameStart=false;
                             turnMenu=false;
                             gameStart=true;
+                            menu[choiceOfmenu].setTankPath(tankPathChose);
                             menu[2].loadBg();
                             menu[2].initTank();
                             menu[2].InitMap();
@@ -374,6 +396,10 @@ int main(int argc, char* argv[]) {
                             turnGameStart=false;
                             turnMenu=false;
                             gameStart=true;
+                            menu[choiceOfmenu].setTankPath(tankPathChose);
+                            menu[3].loadBg();
+                            menu[3].initTank();
+                            menu[3].InitMap();
                         }
                         else if (x>=675 && x<=800 && y>=390 && y<=515)
                         {
@@ -393,6 +419,32 @@ int main(int argc, char* argv[]) {
                         {
                             waiting=true;
                             turnMenu=false;
+                        }
+                        else if (x>=685 && x<=1435 && y>=30 && y<=90)
+                        {
+                            turnChoseTank=true;
+                            turnMenu=false;
+                        }
+                    }
+                    else if (turnChoseTank)
+                    {
+                        if (x>=210 && x<=535 && y>=485 && y<=545)
+                        {
+                            tankPathChose="img/tank_1.png";
+                            turnChoseTank=false;
+                            turnMenu=true;
+                        }
+                        else if (x>=620 && x<=945 && y>=485 && y<=545)
+                        {
+                            tankPathChose="img/tank_2.png";
+                            turnChoseTank=false;
+                            turnMenu=true;
+                        }
+                        else if (x>=1030 && x<=1355 && y>=485 && y<=545)
+                        {
+                            tankPathChose="img/tank_3.png";
+                            turnChoseTank=false;
+                            turnMenu=true;
                         }
                     }
                     if (gameStart==true)
@@ -430,6 +482,7 @@ int main(int argc, char* argv[]) {
                         else if (x>=790 && x<=1000 && y>=350 && y<=402)
                         {
                             choiceOfmenu++;
+                            menu[choiceOfmenu].setTankPath(tankPathChose);
                             menu[choiceOfmenu].loadBg();
                             menu[choiceOfmenu].initTank();
                             menu[choiceOfmenu].InitMap();
@@ -440,6 +493,7 @@ int main(int argc, char* argv[]) {
                         {
                             SDL_RenderClear(g_screen);
                             menu[choiceOfmenu].free();
+                            menu[choiceOfmenu].setTankPath(tankPathChose);
                             menu[choiceOfmenu].loadBg();
                             menu[choiceOfmenu].initTank();
                             menu[choiceOfmenu].InitMap();
@@ -533,6 +587,11 @@ int main(int argc, char* argv[]) {
             {
                 SDL_RenderClear(g_screen);
                 gameRestart.render(g_screen,NULL);
+            }
+            else if (turnChoseTank)
+            {
+                SDL_RenderClear(g_screen);
+                gameChoseTank.render(g_screen,NULL);
             }
         }
         else if (gameStart == true)
