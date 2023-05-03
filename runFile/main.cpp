@@ -242,58 +242,12 @@ int main(int argc, char* argv[]) {
     Menu menu[3];
     menu[0].setBgPath("img/grass.png");
     menu[0].setMapPath("data/data.txt");
-    // menu[0].loadBg();
-    // menu[0].initTank();
-    // menu[0].InitMap();
     menu[1].setBgPath("img/background_1.png");
     menu[1].setMapPath("data/data_1.txt");
-    // menu[1].loadBg();
-    // menu[1].initTank();
-    // menu[1].InitMap();
     menu[2].setBgPath("img/grass.png");
     menu[2].setMapPath("data/data_2.txt");
-    // menu[2].loadBg();
-    // menu[2].initTank();
-    // menu[2].InitMap();
-    TextRenderer textRenderer(g_screen, "ttf/OpenSans_Condensed-Bold.ttf", 48, {255, 0, 0, 180});
-    // menu1.setBgPath("img/grass.png");
-    // menu1.loadBg();
-    // menu1.initTank();
-    // menu1.InitMap();
-    // Tank tankMenu1 = menu1.getTank();
-    // SDL_Rect healthBar = tankMenu1.getHealBar();
-    // baseObject bgMenu = menu1.getBg();
-    // Map** wallsMenu = menu1.getMap();
-    // int sizeTankBulletMenu = menu1.getSizeTankBullet();
-    // Bullet* BulletsMenu = menu1.getBullet();
-    // EnemyTank* listEnemyTankMenu = menu1.getListEnemyTank();
-    // int sizeTankEnemyMenu = menu1.getNumberofEnemyTank();
-    // int sizeTankEnemyBulletMenu[10]{};
-    // EnemyBullet** EnemyBulletMenu = menu1.getEnemyBullets();
-
+    // menu setup end
     SDL_Rect healthBar = menu[choiceOfmenu].tank.getHealBar();
-    SDL_Rect hover({650,420,300,100});
-    
-    // Tank tankMenu1;
-    // SDL_Rect healthBar;
-    // baseObject bgMenu;
-    // Map** wallsMenu;
-    // int sizeTankBulletMenu;
-    // Bullet* BulletsMenu;
-    // EnemyTank* listEnemyTankMenu;
-    // int sizeTankEnemyMenu;
-    // int sizeTankEnemyBulletMenu[10]{};
-    // EnemyBullet** EnemyBulletMenu;
-
-    // tankMenu1 = menu[choiceOfmenu].getTank();
-    // healthBar = tankMenu1.getHealBar();
-    // bgMenu = menu[choiceOfmenu].getBg();
-    // wallsMenu = menu[choiceOfmenu].getMap();
-    // sizeTankBulletMenu = menu[choiceOfmenu].getSizeTankBullet();
-    // BulletsMenu = menu[choiceOfmenu].getBullet();
-    // listEnemyTankMenu = menu[choiceOfmenu].getListEnemyTank();
-    // sizeTankEnemyMenu = menu[choiceOfmenu].getNumberofEnemyTank();
-    // EnemyBulletMenu = menu[choiceOfmenu].getEnemyBullets();
     if (loadWaitingBg() == false)
     {
         std::cout << "Can not load waitingBg" << std::endl;

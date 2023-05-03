@@ -121,7 +121,7 @@ public:
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
 			listEnemyTank[i].setXYpos(rand()%1500, rand()%100);
-			listEnemyTank[i].setPath("img//tank_test.png");
+			listEnemyTank[i].setPath("img//enemy_tank_test.png");
 			listEnemyTank[i].setIsTankAlive(true);
 			listEnemyTank[i].setTankHp(health);
 		}
