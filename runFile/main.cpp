@@ -1,17 +1,3 @@
-#include <iostream>
-#include "CommonFunc.h"
-#include "BaseObject.h"
-#include <vector>
-#include <cstdlib>
-#include <ctime>
-#include <fstream>
-#include "Map.h"
-#include "Tank.h"
-#include "Bullet.h"
-#include "EnemyBullet.h"
-#include "EnemyTank.h" 
-#include "Menu.h"
-#include "ttf.h"
 #include "Game.h"
 Game game;
 bool InitData()
@@ -73,8 +59,8 @@ int main(int argc, char* argv[]) {
     {
         return -1;
     }
-    game.loadData();
-    game.run();
+    game.loadData(g_screen);
+    game.run(g_screen);
     close(); 
     return 0;
 }
