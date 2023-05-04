@@ -40,6 +40,7 @@ static bool turnHelp = false;
 static bool turnGameStart=false;
 static bool gamePause = false;
 static bool waiting=true;
+static bool turnChoseTank=false;
 static int choiceOfmenu=0;
 static int changeYposHoverBtn=5;
 static int time_turn_restart = 10000;
