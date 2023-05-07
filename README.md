@@ -31,7 +31,7 @@
 
 **Play** ***để bắt đầu trò chơi***
 
-**Help** ***để xem hướng dẫn chơi ***
+**Help** ***để xem hướng dẫn chơi***
 
 #### Sau khi ấn Play màn hình Menu chứa các Level sẽ hiện ra. 
 
