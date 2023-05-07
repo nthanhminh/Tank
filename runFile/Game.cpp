@@ -19,15 +19,6 @@
         }
         
     }
-    bool Game::loadMusicMenu()
-    {
-
-        if (!musicMenu.loadSound("sound/main.wav"))
-        {
-            return false;
-        } 
-        return true;
-    }
     bool Game::loadGameChoseTank(SDL_Renderer *g_screen)
     {
         bool ret=gameChoseTank.loadImg("img/chooseMyTank.png",g_screen);
@@ -172,84 +163,128 @@
         } 
         return false;
     }
+
+
+    // load music
+    bool Game::loadMusicRestart()
+    {
+        if (!musicRestart.loadSound("sound/restart.wav"))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    bool Game::loadMusicMenu()
+    {
+
+        if (!musicMenu.loadSound("sound/menu.wav"))
+        {
+            return false;
+        } 
+        return true;
+    }
+
+    bool Game::loadMusicGameWin()
+    {
+        if(!musicGameWin.loadSound("sound/win.wav"))
+        {   
+            return false;
+        }
+        return true;
+    }
+
+    bool Game::loadMusicGameOver()
+    {
+        if(!musicGameOver.loadSound("sound/gameOver.wav"))
+        {
+            return false;
+        }
+        return true;
+    }
+
     void Game::loadData(SDL_Renderer *g_screen)
     {
-    if (loadWaitingBg(g_screen) == false)
-    {
-        std::cout << "Can not load waitingBg" << std::endl;
-    }
-    if (loadGameOverBg(g_screen) == false)
-    {
-        std::cout << "Can not load GameOver" << std::endl;
-    }
-    if (loadGameWinBg(g_screen) == false)
-    {
-        std::cout << "can not load game win" << std::endl;
-    }
-    if (loadMenuGame(g_screen)==false)
-    {
-        std::cout << "can not load game menu" << std::endl;
-    }
-    if (loadPauseButton(g_screen)==false)
-    {
-        std::cout << "can not load pause button" << std::endl;
-    }
-    if (loadPauseBg(g_screen) == false)
-    {
-        std::cout << "can not load pause bg" << std::endl;
-    }
-    if (!loadPlayButton(g_screen))
-    {
-        std::cout << "can not load play btn" << std::endl;
-
-    }
-    else
-    {
-        playBtn.setXYpos(650,420);
-    }
-    if (!loadPHelpButton(g_screen))
-    {
-        std::cout << "can not load help btn" << std::endl;
-    }
-    else
-    {
-        helpBtn.setXYpos(650,500);
-    }
-    if (!loadHelpBg(g_screen))
-    {
-        std::cout << "can not load help bg" << std::endl;
-    }
-    if (!loadGameRestart(g_screen))
-    {
-        std::cout << "can not load restart bg" << std::endl;
-    }
-    if(!loadGameChoseTank(g_screen))
-    {
-        std::cout << "can not load chose tank bg" << std::endl;
-    }
-    if(!loadMusicMenu())
-    {
-        std::cout << "can not load music menu" << std::endl;
-    }
-    }
-    void Game::loadMusic()
-    {
-        if (gameStart==false)
+        if (loadWaitingBg(g_screen) == false)
         {
-            Mix_Init(MIX_INIT_MP3);
-            Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-            Mix_Chunk* sound = Mix_LoadWAV("sound/main.wav");
-            Mix_PlayChannel(-1, sound, 0);
-            SDL_PauseAudio(0);
+            std::cout << "Can not load waitingBg" << std::endl;
+        }
+        if (loadGameOverBg(g_screen) == false)
+        {
+            std::cout << "Can not load GameOver" << std::endl;
+        }
+        if (loadGameWinBg(g_screen) == false)
+        {
+            std::cout << "can not load game win" << std::endl;
+        }
+        if (loadMenuGame(g_screen)==false)
+        {
+            std::cout << "can not load game menu" << std::endl;
+        }
+        if (loadPauseButton(g_screen)==false)
+        {
+            std::cout << "can not load pause button" << std::endl;
+        }
+        if (loadPauseBg(g_screen) == false)
+        {
+            std::cout << "can not load pause bg" << std::endl;
+        }
+        if (!loadPlayButton(g_screen))
+        {
+            std::cout << "can not load play btn" << std::endl;
+
         }
         else
         {
-            SDL_PauseAudio(1);
+            playBtn.setXYpos(650,420);
         }
+        if (!loadPHelpButton(g_screen))
+        {
+            std::cout << "can not load help btn" << std::endl;
+        }
+        else
+        {
+            helpBtn.setXYpos(650,500);
+        }
+        if (!loadHelpBg(g_screen))
+        {
+            std::cout << "can not load help bg" << std::endl;
+        }
+        if (!loadGameRestart(g_screen))
+        {
+            std::cout << "can not load restart bg" << std::endl;
+        }
+        if(!loadGameChoseTank(g_screen))
+        {
+            std::cout << "can not load chose tank bg" << std::endl;
+        }
+        if(!loadMusicMenu())
+        {
+            std::cout << "can not load music menu" << std::endl;
+        }
+        if(!loadMusicRestart())
+        {
+            std::cout << "can not load restart music restart" << std::endl; 
+        }
+        if(!loadMusicGameWin())
+        {
+            std::cout << "can not load win music " << std::endl;
+        }
+        if(!loadMusicGameOver())
+        {
+            std::cout << "can not load game over" << std::endl;
+        }
+
     }
     void Game::run(SDL_Renderer* g_screen)
     {
         musicMenu.playSound();
+        musicRestart.playSound();
+        musicRestart.pauseSound();
+        musicGameWin.playSound();
+        musicGameWin.pauseSound();
+        musicGameOver.playSound();
+        musicGameOver.pauseSound();
         while (!isQuit) 
     {
         while (SDL_PollEvent(&g_event) != 0)
@@ -504,21 +539,14 @@
         //render background
         if (gameStart == false)
         {
-            //waitingBg.render(g_screen,NULL);
-            // Mix_Chunk* sound = Mix_LoadWAV("sound/main.wav");
-            // if (sound == NULL) {
-            //     std::cout << "sound not found" << std::endl;
-            //     exit(1);
-            // }
-
-            // Mix_PlayChannel(-1, sound, 0);
-
-            // Mix_FreeChunk(sound);
-            // std::cout << musicMenu.IsMusicPlaying() << std::endl;
-            // if(!musicMenu.IsMusicPlaying())
-            // {
-            //     musicMenu.playSound();
-            // }
+            if(!Mix_Paused(musicGameWin.getChannel()))
+            {
+                musicGameWin.pauseSound();
+            }
+            if(!Mix_Paused(musicGameOver.getChannel()))
+            {
+                musicGameOver.pauseSound();
+            }
             if (waiting)
             {
                 SDL_RenderClear(g_screen);
@@ -535,6 +563,14 @@
             {
                 SDL_RenderClear(g_screen);
                 gameMenu.render(g_screen, NULL);
+                if (Mix_Paused(musicMenu.getChannel())==1)
+                {
+                    musicMenu.restartSound();
+                }   
+                if (!Mix_Paused(musicRestart.getChannel()))
+                {
+                    musicRestart.pauseSound();
+                }   
             }
             else if (gamePause)
             {
@@ -545,6 +581,10 @@
             {
                 SDL_RenderClear(g_screen);
                 gameRestart.render(g_screen,NULL);
+                if(Mix_Paused(musicRestart.getChannel())==1)
+                {
+                    musicRestart.restartSound();
+                }
             }
             else if (turnChoseTank)
             {
@@ -554,12 +594,20 @@
         }
         else if (gameStart == true)
         {
-            if (Mix_Playing(-1))
+            if (!Mix_Paused(musicMenu.getChannel()))
             {
                 musicMenu.pauseSound();
             }   
+            if (!Mix_Paused(musicRestart.getChannel()))
+            {
+                musicRestart.pauseSound();
+            }   
             if (gameOver == true)
             {
+                if(Mix_Paused(musicGameOver.getChannel()))
+                {
+                    musicGameOver.restartSound();
+                }
                 SDL_RenderClear(g_screen);
                 gameOverBg.render(g_screen,NULL);
                 menu[choiceOfmenu].free();
@@ -576,6 +624,10 @@
             }
             else if (gameWin == true)
             {
+                if(Mix_Paused(musicGameWin.getChannel()))
+                {
+                    musicGameWin.restartSound();
+                }
                 SDL_RenderClear(g_screen);
                 menu[choiceOfmenu].free();
                 gameWinBg.render(g_screen, NULL);

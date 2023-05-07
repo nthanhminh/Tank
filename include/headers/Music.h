@@ -12,9 +12,13 @@ public:
     void playSound();
     void pauseSound();
     void stopSound();
+    void resumeSound();
+    void restartSound();
     bool IsMusicPlaying();
     bool IsMusicPaused();
     Mix_Chunk* getSound();
+    void setChannel(int channel);
+    int getChannel();
 private:
     Mix_Chunk* m_sound;
     int m_channel;

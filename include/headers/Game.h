@@ -22,6 +22,9 @@ private:
     Menu menu1;
     Menu menu2;
     AudioManager musicMenu;
+    AudioManager musicRestart;
+    AudioManager musicGameWin;
+    AudioManager musicGameOver;
     baseObject gBackground;
     baseObject waitingBg;
     baseObject gameOverBg;
@@ -55,7 +58,9 @@ public:
     bool loadGameWinBg(SDL_Renderer *g_screen);
     bool checkListEnemyTankAlive(EnemyTank *list,int size);
     bool loadMusicMenu();
-    void loadMusic();
+    bool loadMusicRestart();
+    bool loadMusicGameWin();
+    bool loadMusicGameOver();
     void loadData(SDL_Renderer *g_screen);
     void run(SDL_Renderer *g_screen);
 };

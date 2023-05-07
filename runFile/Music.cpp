@@ -38,10 +38,23 @@ void AudioManager::pauseSound() {
     }
 }
 
+void AudioManager::resumeSound() {
+    if (m_channel != -1) {
+        Mix_Resume(m_channel);
+    }
+}
+
 void AudioManager::stopSound() {
     if (m_channel != -1) {
         Mix_HaltChannel(m_channel);
         m_channel = -1;
+    }
+}
+
+void AudioManager::restartSound() {
+    if (m_channel!=-1)
+    {
+        Mix_PlayChannel(m_channel,m_sound,0);
     }
 }
 
@@ -56,4 +69,14 @@ bool AudioManager::IsMusicPaused() {
 Mix_Chunk* AudioManager::getSound()
 {
     return this->m_sound;
+}
+
+int AudioManager::getChannel()
+{
+    return this->m_channel;
+}
+
+void AudioManager::setChannel(int channel)
+{
+    this->m_channel=channel;
 }
