@@ -81,6 +81,6 @@ Sau đây là 1 vài bối cảnh trong Game :
 ***
 
 
-Chúc bạn có những trải ngiệm tuyệt vời với tựa game này
+#Chúc bạn có những trải ngiệm tuyệt vời với tựa game này
 
 
