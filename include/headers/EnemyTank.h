@@ -9,6 +9,7 @@
 class EnemyTank :public Tank {
 private:
 	int enemy_move_count = 0;
+	int enemyStep=0;
 	int enemy_count_bullet = 0;
 	int enemy_count_angleTime=0;
 	bool bulletActive = 0;
@@ -33,5 +34,9 @@ public:
 	void handleAtiveTankEnemyD(Tank &tank);
 	bool checkTankPosition(Tank &tank);
 	void handleTankEnemyLandmineCollistion(Map& obstacle,SDL_Renderer *g_screen);
+	void handleTankEnemyMap();
+	void EnemyTankMoveX(Map** walls,SDL_Renderer *g_screen);
+	void EnemyTankMoveY(Map** walls,SDL_Renderer *g_screen);
+	void EnemyCheckMap(Map& obstacle);
 };
 #endif

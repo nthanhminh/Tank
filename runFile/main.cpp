@@ -37,7 +37,11 @@ bool InitData()
 
             }
         }
-
+        if (Mix_Init(MIX_INIT_MP3) != MIX_INIT_MP3) 
+        {
+           std::cout << "Failed to initialize SDL_mixer" << Mix_GetError();
+           return false;
+        }
 
     }
     return true;
@@ -50,6 +54,7 @@ void close()
     g_window = NULL;
     IMG_Quit();
     SDL_Quit();
+    Mix_CloseAudio();
     Mix_Quit();
 }
 

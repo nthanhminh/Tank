@@ -15,12 +15,13 @@
 #include "EnemyTank.h" 
 #include "Menu.h"
 #include "ttf.h"
-
+#include "Music.h"
 class Game {
 private:
     int cnt = 50;
     Menu menu1;
     Menu menu2;
+    AudioManager musicMenu;
     baseObject gBackground;
     baseObject waitingBg;
     baseObject gameOverBg;
@@ -35,7 +36,7 @@ private:
     baseObject gameChoseTank;
     bool changePlayBtn=true;
     bool changeHelpBtn=true;
-    std::string tankPathChose="img/tank_1.png";
+    std::string tankPathChoose="img/tank_1.png";
     bool isQuit = false;
     bool check[6];
     Menu menu[6];
@@ -53,6 +54,8 @@ public:
     bool loadGameOverBg(SDL_Renderer *g_screen);
     bool loadGameWinBg(SDL_Renderer *g_screen);
     bool checkListEnemyTankAlive(EnemyTank *list,int size);
+    bool loadMusicMenu();
+    void loadMusic();
     void loadData(SDL_Renderer *g_screen);
     void run(SDL_Renderer *g_screen);
 };

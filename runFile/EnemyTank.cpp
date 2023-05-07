@@ -559,8 +559,112 @@
 			ani.render(g_screen, NULL);
 			setXYpos(5000, 5000);
 			free();
-			setIsTankAlive(false);
 			//obstacle.setValue(32);
 			obstacle.free();
+		}
+	}
+	void EnemyTank::handleTankEnemyMap()
+	{
+		int randomchoice=rand()%100;
+		if (randomchoice <40)
+		{
+			setBulletActive(true);
+		}
+		else
+		{
+			int randomAngle=rand()%100;
+			int anglePresent=getAngle();
+			if (randomAngle<25 && getAngle()!=90)
+			{
+				setAngle(90);
+			}
+			else if (randomAngle>=25 && getAngle()!=180 && randomAngle<50)
+			{
+				setAngle(180);
+			}
+			else if (randomAngle>=50 && randomAngle<75 && getAngle()!=270)
+			{
+				setAngle(270);
+			}
+			else if (randomAngle>=75 && randomAngle<=99 && getAngle()!=0)
+			{
+				setAngle(0);
+			}
+		}
+	}
+	void EnemyTank::EnemyTankMoveX(Map** walls,SDL_Renderer *g_screen)
+	{
+		setOriginalXpos(getXpos());
+		rect_.x += getvX();
+		for (int i = 0; i < mapRows; i++)
+		{
+			for (int j = 0; j < mapCols; j++)
+			{
+				if (walls[i][j].getValue()!=0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue()>20 && walls[i][j].getValue() <= 30) || (walls[i][j].getValue()==13) || (walls[i][j].getValue()==100))
+					handleTankObstacleCollision(walls[i][j]);
+				else if (walls[i][j].getValue() == 14)
+					handleTankLandmineCollistion(walls[i][j],g_screen);
+				else if (walls[i][j].getValue()>50 )
+					handleGiftCollistion(walls[i][j]);
+			}
+		}
+		if (rect_.x + rect_.w >= screenWidth)
+		{
+			rect_.x = screenWidth - rect_.w;
+		}
+		if (rect_.x <= 0)
+		{
+			rect_.x = 0;
+		}
+	}
+	void EnemyTank::EnemyTankMoveY(Map** walls,SDL_Renderer *g_screen)
+	{
+		if (getvX() == 0)
+		{
+			if (getvY() > 0)
+			{
+				setAngle(180);
+			}
+			else if (getvY() < 0)
+			{
+				setAngle(0);
+			}
+			setOriginalypos(getYpos());
+			rect_.y += getvY();
+			for (int i = 0; i < mapRows; i++)
+			{
+				for (int j = 0; j < mapCols; j++)
+				{
+					if (walls[i][j].getValue() != 0 && walls[i][j].getValue() < 11 || (walls[i][j].getValue() > 20 && walls[i][j].getValue() <= 30) || (walls[i][j].getValue()==13) || (walls[i][j].getValue()==100))
+					{	
+						handleTankObstacleCollision(walls[i][j]);
+						EnemyCheckMap(walls[i][j]);
+					}
+					else if (walls[i][j].getValue() == 14)
+					{
+						handleTankLandmineCollistion(walls[i][j],g_screen);
+						//EnemyCheckMap(walls[i][j]);
+					}
+					else if (walls[i][j].getValue() > 50)
+						handleGiftCollistion(walls[i][j]);
+				}
+			}
+			if (rect_.y + rect_.h >= scrennHeight)
+			{
+				rect_.y = scrennHeight - rect_.h;
+			}
+			if (rect_.y <= 0)
+			{
+				rect_.y = 0;
+			}
+		}
+	}
+	void EnemyTank::EnemyCheckMap(Map& obstacle)
+	{
+		SDL_Rect tankRect = { getXpos(), getYpos(), getWidth(), getHeight()};
+		SDL_Rect mapRect = { obstacle.getXpos(), obstacle.getYpos(), obstacle.getWidth(), obstacle.getHeight()};
+		if (checkCollision(tankRect, mapRect))
+		{
+			handleTankEnemyMap();
 		}
 	}

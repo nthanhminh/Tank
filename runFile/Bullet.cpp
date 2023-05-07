@@ -353,7 +353,8 @@
 				this->free();
 				tankEnemy.setXYpos(2000, 2000);
 				tankEnemy.free();
-				gameOver=true;
+				//gameOver=true;
+				this_tank.setIsTankAlive(false);
 				time_turn_restart=5000;
 				std::cout << gameOver << std::endl;
 			}

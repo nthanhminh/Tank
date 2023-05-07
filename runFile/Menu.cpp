@@ -93,7 +93,7 @@
 		}
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
-			listEnemyTank[i].setXYpos(rand()%1500, rand()%100);
+			listEnemyTank[i].setXYpos(rand()%1500, rand()%50);
 			listEnemyTank[i].setPath("img//enemy_tank_test.png");
 			listEnemyTank[i].setIsTankAlive(true);
 			listEnemyTank[i].setTankHp(health);
@@ -139,6 +139,11 @@
 	}
 	void Menu::free()
 	{
+		sizeTankBullet=0;
+		for (int i=0;i<numberOfEnemyTank;i++)
+		{
+			sizeEnemyTankBulluets[i]=0;
+		}
 		for (int i = 0; i < sizeTankBullet; i++)
 		{
 			Bullets[i].setXYpos(2000,2000);
