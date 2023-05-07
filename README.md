@@ -1,6 +1,6 @@
 # Welcome to my Game "Tank Battle"
 
-Game sử dụng thư viện đồ họa SDL 2 và C++
+#### Game sử dụng thư viện đồ họa SDL 2 và C++
 
 ---
 ***
@@ -8,48 +8,48 @@ Game sử dụng thư viện đồ họa SDL 2 và C++
 
 # Tải Game
 
-Hãy chọn Dowload Zip để tải xuống tệp Zip
+#### Hãy chọn Dowload Zip để tải xuống tệp Zip
 
 
 ![how to install my game](imgForReadme/1.png)
 
 
-Sau Khi giải nén thành công hãy mở file main.exe để bắt đầu trải nghiệm trò chơi
+#### Sau Khi giải nén thành công hãy mở file main.exe để bắt đầu trải nghiệm trò chơi
 
 ![runGame](imgForReadme/9.png)
 
 ---
 ***
 
-Chơi Game
+#### Chơi Game
 
-Khi khở động game bạn sẽ thấy màn hình chờ của game.
+#### Khi khở động game bạn sẽ thấy màn hình chờ của game.
 
 ![waitingBg](imgForReadme/2.png)
 
-Bạn chọn:
+#### Bạn chọn:
 
-**Play** để bắt đầu trò chơi
+**Play** ***để bắt đầu trò chơi***
 
-**Help** để xem hướng dẫn chơi 
+**Help** ***để xem hướng dẫn chơi ***
 
-Sau khi ấn Play màn hình Menu chứa các Level sẽ hiện ra. 
+#### Sau khi ấn Play màn hình Menu chứa các Level sẽ hiện ra. 
 
-Có 6 levels để người chơi có thể khám phá và trải nghiệm
+#### Có 6 levels để người chơi có thể khám phá và trải nghiệm
 
 
 ![menuBg](imgForReadme/4.png)
 
 
-Bạn cũng có thể lựa chọn xe Tank theo ý mình
+#### Bạn cũng có thể lựa chọn xe Tank theo ý mình
 
-Chúng tôi cung cấp cho bạn 3 mẫu xe để bạn có thể lựa chọn
+#### Chúng tôi cung cấp cho bạn 3 mẫu xe để bạn có thể lựa chọn
 
 ![tank](imgForReadme/5.png)
 
-Sau khi chọn Tank hãy chọn Levels và trải nghiệm trò chơi
+#### Sau khi chọn Tank hãy chọn Levels và trải nghiệm trò chơi
 
-Sau đây là 1 vài bối cảnh trong Game :
+#### Sau đây là 1 vài bối cảnh trong Game :
 
 ![menu](imgForReadme/6.png)
 
@@ -81,6 +81,6 @@ Sau đây là 1 vài bối cảnh trong Game :
 ***
 
 
-#Chúc bạn có những trải ngiệm tuyệt vời với tựa game này
+# Chúc bạn có những trải ngiệm tuyệt vời với tựa game này
 
 
