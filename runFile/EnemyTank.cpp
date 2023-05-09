@@ -205,11 +205,12 @@
 						if (enemy_count_bullet==0)
 						{
 							setBulletActive(true);
-							enemy_count_bullet=8;
+						enemy_count_bullet = 4;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							setBulletActive(false);
+							enemy_count_bullet --;
 						}
 					}
 				}
@@ -239,10 +240,11 @@
 			if (tank.getIsTankAlive() && enemy_count_bullet == 0)
 			{
 				setBulletActive(true);
-				enemy_count_bullet = 8;
+				enemy_count_bullet = 4;
 			}
 			else
 			{
+				setBulletActive(false);
 				enemy_count_bullet --;
 			}
 			enemy_move_count = 0;
@@ -532,6 +534,7 @@
 			// {
 			// 	enemy_count_bullet --;
 			// }
+			setBulletActive(true);
 			enemy_move_count = 0;
 		}
 	}
@@ -678,6 +681,10 @@
 		SDL_Rect enemyTankRect = { EnemyTank.getXpos(), EnemyTank.getYpos(), EnemyTank.getWidth(), EnemyTank.getHeight()};
 		if(checkCollision(tankRect, enemyTankRect))
 		{
+			setvX(0);
+			setvY(0);
+			EnemyTank.setvX(0);
+			EnemyTank.setvY(0);
 			setXYpos(getOriginalXpos(),getOriginalYpos());
 			EnemyTank.setXYpos(EnemyTank.getOriginalXpos(),EnemyTank.getOriginalYpos());
 		}
@@ -691,4 +698,711 @@
 				handleTankEnemyCollistion(listEnemy[i]);
 			}
 		}
+	}
+	void EnemyTank::handleTankAI_2(Map **walls,Tank& tank)
+	{
+		int x=rand()%3;
+		if(enemy_move_count>0)
+		{
+			enemy_move_count--;
+			if (getAngle() == 0)
+			{
+				setvY(-vNormal);
+				if (rect_.y <= 0)
+				{
+					rect_.x = getOriginalXpos();
+					rect_.y = vNormal;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 180)
+			{
+				setvY(vNormal);
+				if (rect_.y + rect_.h >= scrennHeight)
+				{
+					rect_.y = scrennHeight - rect_.h;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 90)
+			{
+				setvX(vNormal);
+				if (rect_.x <= 0)
+				{
+					rect_.x = 0;
+					rect_.y = getOriginalYpos();
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 270)
+			{
+				setvX(-vNormal);
+				if (rect_.x + rect_.w >= screenWidth)
+				{
+					rect_.x = screenWidth - rect_.w;
+					enemy_move_count = 0;
+				}
+			}
+		}
+		else
+		{
+			int choice = rand()%100;
+			bool check=false;
+			for (int i=0;i<mapRows;i++)
+			{
+				for (int j=0;j<mapCols;j++)
+				{
+					if(checkMapCollision(walls[i][j]))
+					{
+						check=true;
+						break;
+					}
+				}
+			}
+			check_map_collision=check;
+			if(check_map_collision)
+			{
+				int choice=rand()%100;
+				if(choice<60)
+				{	
+					int randomAngle=rand()%4;
+					setAngle(randomAngle*90);
+				}
+				else
+				{
+					setBulletActive(true);
+				}	
+				enemy_move_count=1;
+				//}
+			}
+			else 
+			{
+					int thisEnemyTankPosX = getXpos();
+					int thisEnemyTankPosY = getYpos();
+					int TankPosX = tank.getXpos();
+					int TankPosY = tank.getYpos();
+					if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
+					{
+						if (thisEnemyTankPosY>=TankPosY)
+						{
+							setAngle(0);
+						}
+						else
+						{
+							setAngle(180);
+						}
+						if(enemy_count_bullet==0)
+						{
+							setBulletActive(true); 
+							enemy_count_bullet=2;
+						}
+						else
+						{
+							enemy_count_bullet--;
+							setBulletActive(false); 
+						}
+					}
+					if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY)
+					{
+						if (thisEnemyTankPosX>=TankPosX)
+						{
+							setAngle(270);
+						}
+						else{
+							setAngle(90);
+						}
+						if(enemy_count_bullet==0)
+						{
+							setBulletActive(true); 
+							enemy_count_bullet=2;
+						}
+						else
+						{
+							enemy_count_bullet--;
+							setBulletActive(false); 
+						}
+					}
+				if (x == 0)
+				{
+					enemy_move_count = 20;
+					setBulletActive(false);
+				}
+				else if (x == 1)
+				{
+					int randomAngle = rand() % 4;
+					if (randomAngle % 2 == 0)
+					{
+						if (thisEnemyTankPosX < TankPosX)
+						{
+							setAngle(90);
+						}
+						else
+						{
+							setAngle(270);
+						}
+					}
+					else
+					{
+						setvX(0);
+						if (thisEnemyTankPosY < TankPosY)
+						{
+							setAngle(180);
+						}
+						else
+						{
+							setAngle(0);
+						}
+					}	
+				}
+				else if (x==2)
+				{
+					setvX(0);
+					setvY(0);
+					if(enemy_count_bullet==0)
+					{
+						setBulletActive(true); 
+						enemy_count_bullet=2;
+					}
+					else
+					{
+						enemy_count_bullet--;
+						setBulletActive(false); 
+					}
+					enemy_move_count = 0;
+				}
+			}
+		}
+	}
+	void EnemyTank::handleTankAI_4(Map **walls,Tank& tank)
+	{
+		int x=rand()%3;
+		if(enemy_move_count>0)
+		{
+			enemy_move_count--;
+			if (getAngle() == 0)
+			{
+				setvY(-vNormal);
+				if (rect_.y <= 0)
+				{
+					rect_.x = getOriginalXpos();
+					rect_.y = vNormal;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 180)
+			{
+				setvY(vNormal);
+				if (rect_.y + rect_.h >= scrennHeight)
+				{
+					rect_.y = scrennHeight - rect_.h;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 90)
+			{
+				setvX(vNormal);
+				if (rect_.x <= 0)
+				{
+					rect_.x = 0;
+					rect_.y = getOriginalYpos();
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 270)
+			{
+				setvX(-vNormal);
+				if (rect_.x + rect_.w >= screenWidth)
+				{
+					rect_.x = screenWidth - rect_.w;
+					enemy_move_count = 0;
+				}
+			}
+		}
+		else
+		{
+			int choice = rand()%100;
+			bool check=false;
+			for (int i=0;i<mapRows;i++)
+			{
+				for (int j=0;j<mapCols;j++)
+				{
+					if(checkMapCollision(walls[i][j]))
+					{
+						check=true;
+						break;
+					}
+				}
+			}
+			check_map_collision=check;
+			if(check_map_collision)
+			{
+				int choice=rand()%100;
+				if(choice<60)
+				{	
+					int randomAngle=rand()%4;
+					setAngle(randomAngle*90);
+				}
+				else
+				{
+					setBulletActive(true);
+				}	
+				enemy_move_count=1;
+				//}
+			}
+			else 
+			{
+					int thisEnemyTankPosX = getXpos();
+					int thisEnemyTankPosY = getYpos();
+					int TankPosX = tank.getXpos();
+					int TankPosY = tank.getYpos();
+					if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
+					{
+						if (thisEnemyTankPosY>=TankPosY)
+						{
+							setAngle(0);
+						}
+						else
+						{
+							setAngle(180);
+						}
+						if(enemy_count_bullet==0)
+						{
+							setBulletActive(true); 
+							enemy_count_bullet=4;
+						}
+						else
+						{
+							enemy_count_bullet--;
+							setBulletActive(false); 
+						}
+					}
+					if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY)
+					{
+						if (thisEnemyTankPosX>=TankPosX)
+						{
+							setAngle(270);
+						}
+						else{
+							setAngle(90);
+						}
+						if(enemy_count_bullet==0)
+						{
+							setBulletActive(true); 
+							enemy_count_bullet=4;
+						}
+						else
+						{
+							enemy_count_bullet--;
+							setBulletActive(false); 
+						}
+					}
+				if (x == 0)
+				{
+					enemy_move_count = 20;
+					setBulletActive(false);
+				}
+				else if (x == 1)
+				{
+					int randomAngle = rand() % 4;
+					if (randomAngle % 2 == 0)
+					{
+						if (thisEnemyTankPosX < TankPosX)
+						{
+							setAngle(90);
+						}
+						else
+						{
+							setAngle(270);
+						}
+					}
+					else
+					{
+						setvX(0);
+						if (thisEnemyTankPosY < TankPosY)
+						{
+							setAngle(180);
+						}
+						else
+						{
+							setAngle(0);
+						}
+					}	
+				}
+				else if (x==2)
+				{
+					setvX(0);
+					setvY(0);
+					if(enemy_count_bullet==0)
+					{
+						setBulletActive(true); 
+						enemy_count_bullet=4;
+					}
+					else
+					{
+						enemy_count_bullet--;
+						setBulletActive(false); 
+					}
+					enemy_move_count = 0;
+				}
+			}
+		}
+	}
+	void EnemyTank::handleTankAI_6(Map **walls,Tank& tank)
+	{
+		int x=rand()%3;
+		if(enemy_move_count>0)
+		{
+			enemy_move_count--;
+			if (getAngle() == 0)
+			{
+				setvY(-vNormal);
+				if (rect_.y <= 0)
+				{
+					rect_.x = getOriginalXpos();
+					rect_.y = vNormal;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 180)
+			{
+				setvY(vNormal);
+				if (rect_.y + rect_.h >= scrennHeight)
+				{
+					rect_.y = scrennHeight - rect_.h;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 90)
+			{
+				setvX(vNormal);
+				if (rect_.x <= 0)
+				{
+					rect_.x = 0;
+					rect_.y = getOriginalYpos();
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 270)
+			{
+				setvX(-vNormal);
+				if (rect_.x + rect_.w >= screenWidth)
+				{
+					rect_.x = screenWidth - rect_.w;
+					enemy_move_count = 0;
+				}
+			}
+		}
+		else
+		{
+			int choice = rand()%100;
+			bool check=false;
+			for (int i=0;i<mapRows;i++)
+			{
+				for (int j=0;j<mapCols;j++)
+				{
+					if(checkMapCollision(walls[i][j]))
+					{
+						check=true;
+						break;
+					}
+				}
+			}
+			check_map_collision=check;
+			if(check_map_collision)
+			{
+				int choice=rand()%100;
+				if(choice<60)
+				{	
+					int randomAngle=rand()%4;
+					setAngle(randomAngle*90);
+				}
+				else
+				{
+					setBulletActive(true);
+				}	
+				enemy_move_count=1;
+				//}
+			}
+			else 
+			{
+					int thisEnemyTankPosX = getXpos();
+					int thisEnemyTankPosY = getYpos();
+					int TankPosX = tank.getXpos();
+					int TankPosY = tank.getYpos();
+					if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
+					{
+						if (thisEnemyTankPosY>=TankPosY)
+						{
+							setAngle(0);
+						}
+						else
+						{
+							setAngle(180);
+						}
+						if(enemy_count_bullet==0)
+						{
+							setBulletActive(true); 
+							enemy_count_bullet=6;
+						}
+						else
+						{
+							enemy_count_bullet--;
+							setBulletActive(false); 
+						}
+					}
+					if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY)
+					{
+						if (thisEnemyTankPosX>=TankPosX)
+						{
+							setAngle(270);
+						}
+						else{
+							setAngle(90);
+						}
+						if(enemy_count_bullet==0)
+						{
+							setBulletActive(true); 
+							enemy_count_bullet=6;
+						}
+						else
+						{
+							enemy_count_bullet--;
+							setBulletActive(false); 
+						}
+					}
+				if (x == 0)
+				{
+					enemy_move_count = 20;
+					setBulletActive(false);
+				}
+				else if (x == 1)
+				{
+					int randomAngle = rand() % 4;
+					if (randomAngle % 2 == 0)
+					{
+						if (thisEnemyTankPosX < TankPosX)
+						{
+							setAngle(90);
+						}
+						else
+						{
+							setAngle(270);
+						}
+					}
+					else
+					{
+						setvX(0);
+						if (thisEnemyTankPosY < TankPosY)
+						{
+							setAngle(180);
+						}
+						else
+						{
+							setAngle(0);
+						}
+					}	
+				}
+				else if (x==2)
+				{
+					setvX(0);
+					setvY(0);
+					if(enemy_count_bullet==0)
+					{
+						setBulletActive(true); 
+						enemy_count_bullet=6;
+					}
+					else
+					{
+						enemy_count_bullet--;
+						setBulletActive(false); 
+					}
+					enemy_move_count = 0;
+				}
+			}
+		}
+	}
+	void EnemyTank::handleTankAI_8(Map **walls,Tank& tank)
+	{
+		int x=rand()%3;
+		if(enemy_move_count>0)
+		{
+			enemy_move_count--;
+			if (getAngle() == 0)
+			{
+				setvY(-vNormal);
+				if (rect_.y <= 0)
+				{
+					rect_.x = getOriginalXpos();
+					rect_.y = vNormal;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 180)
+			{
+				setvY(vNormal);
+				if (rect_.y + rect_.h >= scrennHeight)
+				{
+					rect_.y = scrennHeight - rect_.h;
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 90)
+			{
+				setvX(vNormal);
+				if (rect_.x <= 0)
+				{
+					rect_.x = 0;
+					rect_.y = getOriginalYpos();
+					enemy_move_count = 0;
+				}
+			}
+			else if (getAngle() == 270)
+			{
+				setvX(-vNormal);
+				if (rect_.x + rect_.w >= screenWidth)
+				{
+					rect_.x = screenWidth - rect_.w;
+					enemy_move_count = 0;
+				}
+			}
+		}
+		else
+		{
+			int choice = rand()%100;
+			bool check=false;
+			for (int i=0;i<mapRows;i++)
+			{
+				for (int j=0;j<mapCols;j++)
+				{
+					if(checkMapCollision(walls[i][j]))
+					{
+						check=true;
+						break;
+					}
+				}
+			}
+			check_map_collision=check;
+			if(check_map_collision)
+			{
+				int choice=rand()%100;
+				if(choice<60)
+				{	
+					int randomAngle=rand()%4;
+					setAngle(randomAngle*90);
+				}
+				else
+				{
+					setBulletActive(true);
+				}	
+				enemy_move_count=1;
+				//}
+			}
+			else 
+			{
+					int thisEnemyTankPosX = getXpos();
+					int thisEnemyTankPosY = getYpos();
+					int TankPosX = tank.getXpos();
+					int TankPosY = tank.getYpos();
+					if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
+					{
+						if (thisEnemyTankPosY>=TankPosY)
+						{
+							setAngle(0);
+						}
+						else
+						{
+							setAngle(180);
+						}
+						if(enemy_count_bullet==0)
+						{
+							setBulletActive(true); 
+							enemy_count_bullet=8;
+						}
+						else
+						{
+							enemy_count_bullet--;
+							setBulletActive(false); 
+						}
+					}
+					if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY)
+					{
+						if (thisEnemyTankPosX>=TankPosX)
+						{
+							setAngle(270);
+						}
+						else{
+							setAngle(90);
+						}
+						if(enemy_count_bullet==0)
+						{
+							setBulletActive(true); 
+							enemy_count_bullet=8;
+						}
+						else
+						{
+							enemy_count_bullet--;
+							setBulletActive(false); 
+						}
+					}
+				if (x == 0)
+				{
+					enemy_move_count = 20;
+					setBulletActive(false);
+				}
+				else if (x == 1)
+				{
+					int randomAngle = rand() % 4;
+					if (randomAngle % 2 == 0)
+					{
+						if (thisEnemyTankPosX < TankPosX)
+						{
+							setAngle(90);
+						}
+						else
+						{
+							setAngle(270);
+						}
+					}
+					else
+					{
+						setvX(0);
+						if (thisEnemyTankPosY < TankPosY)
+						{
+							setAngle(180);
+						}
+						else
+						{
+							setAngle(0);
+						}
+					}	
+				}
+				else if (x==2)
+				{
+					setvX(0);
+					setvY(0);
+					if(enemy_count_bullet==0)
+					{
+						setBulletActive(true); 
+						enemy_count_bullet=8;
+					}
+					else
+					{
+						enemy_count_bullet--;
+						setBulletActive(false); 
+					}
+					enemy_move_count = 0;
+				}
+			}
+		}
+	}
+
+	bool EnemyTank::checkMapCollision(Map& obstacle)
+	{
+		SDL_Rect tank_rect = {getXpos(),getYpos(),getWidth(),getHeight()};
+		SDL_Rect map_rect={obstacle.getXpos(),obstacle.getYpos(),obstacle.getWidth(),obstacle.getHeight()};
+		if (checkCollision(tank_rect,map_rect))
+		{
+			return true;
+		}
+		return false;
 	}

@@ -357,14 +357,15 @@
                     std::cout << x << " " << y << std::endl;
                     if (waiting)
                     {
-                        musicClick.playSoundNoRepeat();
                         if (x>=665 && x<=780 && y>=420 && y<=465)
                         {
+                            musicClick.playSoundNoRepeat();
                             turnMenu=true;
                             waiting=false;
                         }
                         else if (x>=665 && x<=780 && y>=500 && y<=570)
                         {
+                            musicClick.playSoundNoRepeat();
                             turnHelp=true;
                             waiting=false;
                         }
@@ -758,16 +759,16 @@
             {
                if (menu[choiceOfmenu].listEnemyTank[i].getIsTankAlive())
                {
-                    if (i==0)
-                        menu[choiceOfmenu].listEnemyTank[i].handleAtiveTankEnemyA(menu[choiceOfmenu].tank);
+                     if (i==0)
+                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_4(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
                     else if (i==1)
-                        menu[choiceOfmenu].listEnemyTank[i].handleAtiveTankEnemyB(menu[choiceOfmenu].tank);
-                    else if (i==2)
-                        menu[choiceOfmenu].listEnemyTank[i].handleAtiveTankEnemyC(menu[choiceOfmenu].tank);
+                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_6(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
                     else if (i==3)
-                        menu[choiceOfmenu].listEnemyTank[i].handleAtiveTankEnemyD(menu[choiceOfmenu].tank);
+                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_8(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
+                    else if (i==4 || i==5)
+                        menu[choiceOfmenu].listEnemyTank[i].handleAtiveTankEnemyB(menu[choiceOfmenu].tank);
                     else 
-                        menu[choiceOfmenu].listEnemyTank[i].handleAtiveTankEnemyD(menu[choiceOfmenu].tank);
+                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_2(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
                }
                if (menu[choiceOfmenu].listEnemyTank[i].getBulletActive() && menu[choiceOfmenu].listEnemyTank[i].getIsTankAlive() && gameOver==false)
                {

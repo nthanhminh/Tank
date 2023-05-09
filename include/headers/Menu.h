@@ -23,7 +23,7 @@ public:
 	Map** walls = new Map * [mapRows];
 	int sizeTankBullet = 0;
 	int numberOfMenu=0;
-	int numberOfEnemyTank=5;
+	int numberOfEnemyTank=8;
 	int sizeEnemyTankBullet = 0;
 	Bullet* Bullets = new Bullet[1000000];
 	EnemyBullet** EnemyBullets = new EnemyBullet * [numberOfEnemyTank];

@@ -15,6 +15,7 @@ private:
 	int enemy_count_angleTime=0;
 	bool bulletActive = 0;
 	bool is_enemy_tank_alive = true;
+	bool check_map_collision = false;
 public:
 	EnemyTank();
 	EnemyTank(std::string str);
@@ -41,5 +42,10 @@ public:
 	void EnemyTankMoveY(Map** walls,SDL_Renderer *g_screen,Tank& tankEnemy,EnemyTank *listenEnemy,int sizeOfTankEnemy,int index);
 	void EnemyCheckMap(Map& obstacle);
 	void handleListTankEnemyCollistion(EnemyTank *listEnemy,int sizeOfTankEnemy,int index);
+	void handleTankAI_2(Map **walls,Tank& tank);
+	void handleTankAI_4(Map **walls,Tank& tank);
+	void handleTankAI_6(Map **walls,Tank& tank);
+	void handleTankAI_8(Map **walls,Tank& tank);
+	bool checkMapCollision(Map& obstacle);
 };
 #endif

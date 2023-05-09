@@ -3,7 +3,7 @@
     Menu::Menu()
 	{
 		srand(time(0));
-		setNumberOfEnemyTank(5);
+		setNumberOfEnemyTank(8);
 		tankPath="img//tank_test.png";
 		mapPath="data/data_1.txt";
 		numberOfMenu=0;
@@ -93,7 +93,7 @@
 		}
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
-			listEnemyTank[i].setXYpos(rand()%1500, 0);
+			listEnemyTank[i].setXYpos(screenWidth/numberOfEnemyTank*i, 0);
 			listEnemyTank[i].setPath("img//enemy_tank_test.png");
 			listEnemyTank[i].setIsTankAlive(true);
 			listEnemyTank[i].setTankHp(health);
