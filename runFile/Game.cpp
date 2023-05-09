@@ -12,8 +12,7 @@
         menu[3].setMapPath("data/data_3.txt");
         menu[4].setBgPath("img/background_4.png");
         menu[4].setMapPath("data/data_4.txt");
-        check[0]=true;
-        for (int i=1;i<6;i++)
+        for (int i=0;i<5;i++)
         {
             check[i]=false;
         }
@@ -27,6 +26,18 @@
             return true;
         }
         return false;
+    }
+    bool Game::loadBlock(SDL_Renderer *g_screen)
+    {
+        for (int i=0;i<5;i++)
+        {
+            bool ret=block[i].loadImg("img/block.png",g_screen);
+            if(!ret)
+            {
+                return false;
+            }
+        }
+        return true;
     }
     bool Game::loadPauseButton(SDL_Renderer *g_screen)
     {
@@ -194,6 +205,15 @@
         return true;
     }
 
+    bool Game::loadMusicClick()
+    {
+        if(!musicClick.loadSound("sound/click_1.wav"))
+        {
+            return false;
+        }
+        return true;
+    }
+
     bool Game::loadMusicGameOver()
     {
         if(!musicGameOver.loadSound("sound/gameOver.wav"))
@@ -274,7 +294,42 @@
         {
             std::cout << "can not load game over" << std::endl;
         }
-
+        if (!loadMusicClick())
+        {
+            std::cout << "can not load music click" << std::endl;
+        }
+        if(!loadBlock(g_screen))
+        {
+            std::cout << "can not load block png" << std::endl;
+        }
+    }
+    void Game::renderBlocks(SDL_Renderer *g_screen)
+    {
+        block[0].setXYpos(675,230);
+        block[1].setXYpos(925,230);
+        block[2].setXYpos(425,390);
+        block[3].setXYpos(675,390);
+        block[4].setXYpos(925,390);
+        if (!check[0])
+        {
+            block[0].render(g_screen);
+        }
+        if (!check[1])
+        {
+            block[1].render(g_screen);
+        }
+        if (!check[2])
+        {
+            block[2].render(g_screen);
+        }
+        if (!check[3])
+        {
+            block[3].render(g_screen);
+        }
+        if (!check[4])
+        {
+            block[4].render(g_screen);
+        }
     }
     void Game::run(SDL_Renderer* g_screen)
     {
@@ -302,6 +357,7 @@
                     std::cout << x << " " << y << std::endl;
                     if (waiting)
                     {
+                        musicClick.playSoundNoRepeat();
                         if (x>=665 && x<=780 && y>=420 && y<=465)
                         {
                             turnMenu=true;
@@ -317,6 +373,7 @@
                     {
                         if(x>=425 && x<=545 && y>=230 && y<=350)
                         {
+                            musicClick.playSoundNoRepeat();
                             choiceOfmenu=0;
                             menu[choiceOfmenu].setTankPath(tankPathChoose);
                             menu[0].loadBg(g_screen);
@@ -326,8 +383,9 @@
                             turnMenu=false;
                             gameStart=true;
                         }
-                        else if (x>=675 && x<=800 && y>=230 && y<=350)
+                        else if (x>=675 && x<=800 && y>=230 && y<=350 && check[0])
                         {
+                            musicClick.playSoundNoRepeat();
                             choiceOfmenu=1;
                             turnGameStart=false;
                             turnMenu=false;
@@ -337,8 +395,9 @@
                             menu[1].initTank(g_screen);
                             menu[1].InitMap(g_screen);
                         }
-                        else if (x>=925 && x<=1045 && y>=230 && y<=350)
+                        else if (x>=925 && x<=1045 && y>=230 && y<=350 && check[1])
                         {
+                            musicClick.playSoundNoRepeat();
                             choiceOfmenu=2;
                             turnGameStart=false;
                             turnMenu=false;
@@ -348,8 +407,9 @@
                             menu[2].initTank(g_screen);
                             menu[2].InitMap(g_screen);
                         }
-                        else if (x>=425 && x<=545 && y>=390 && y<=515)
+                        else if (x>=425 && x<=545 && y>=390 && y<=515 && check[2])
                         {
+                            musicClick.playSoundNoRepeat();
                             choiceOfmenu=3;
                             turnGameStart=false;
                             turnMenu=false;
@@ -359,8 +419,9 @@
                             menu[3].initTank(g_screen);
                             menu[3].InitMap(g_screen);
                         }
-                        else if (x>=675 && x<=800 && y>=390 && y<=515)
+                        else if (x>=675 && x<=800 && y>=390 && y<=515 && check[3])
                         {
+                            musicClick.playSoundNoRepeat();
                             choiceOfmenu=4;
                             turnGameStart=false;
                             turnMenu=false;
@@ -370,8 +431,9 @@
                             menu[4].initTank(g_screen);
                             menu[4].InitMap(g_screen);
                         }
-                        else if (x>=925 && x<=1045 && y>=390 && y<=515)
+                        else if (x>=925 && x<=1045 && y>=390 && y<=515 && check[4])
                         {
+                            musicClick.playSoundNoRepeat();
                             choiceOfmenu=5;
                             turnGameStart=false;
                             turnMenu=false;
@@ -379,11 +441,13 @@
                         }
                         else if (x>=35 && x<=245 && y>=25 && y<=80)
                         {
+                            musicClick.playSoundNoRepeat();
                             waiting=true;
                             turnMenu=false;
                         }
                         else if (x>=685 && x<=1435 && y>=30 && y<=90)
                         {
+                            musicClick.playSoundNoRepeat();
                             turnChoseTank=true;
                             turnMenu=false;
                         }
@@ -392,18 +456,21 @@
                     {
                         if (x>=210 && x<=535 && y>=485 && y<=545)
                         {
+                            musicClick.playSoundNoRepeat();
                             tankPathChoose="img/tank_1.png";
                             turnChoseTank=false;
                             turnMenu=true;
                         }
                         else if (x>=620 && x<=945 && y>=485 && y<=545)
                         {
+                            musicClick.playSoundNoRepeat();
                             tankPathChoose="img/tank_2.png";
                             turnChoseTank=false;
                             turnMenu=true;
                         }
                         else if (x>=1030 && x<=1355 && y>=485 && y<=545)
                         {
+                            musicClick.playSoundNoRepeat();
                             tankPathChoose="img/tank_3.png";
                             turnChoseTank=false;
                             turnMenu=true;
@@ -413,6 +480,7 @@
                     {
                         if ((x>=0 && x<=60) && (y>=0 && y<=60))
                         {
+                            musicClick.playSoundNoRepeat();
                             gameStart=false;
                             gamePause=true;
                             waiting=false;
@@ -422,6 +490,7 @@
                     {
                         if (x>=35 && x<=250 && y>=25 && y<=80)
                         {
+                            musicClick.playSoundNoRepeat();
                             turnHelp=false;
                             waiting=true;
                         }
@@ -430,17 +499,20 @@
                     {
                         if ((x>=340 && x<=1160) && (y>=380 && y<=615))
                         {
+                            musicClick.playSoundNoRepeat();
                             gameStart=true;
                             gamePause=false;
                         }
                         else if (x>=185 && x<=595 && y>=120 && y<=260)
                         {
+                            musicClick.playSoundNoRepeat();
                             turnMenu=true;
                             gamePause=false;
                         }
                         else if (x>+915 && x<=1322 && y>=120 && y<=260)
                         {
                             //SDL_RenderClear(g_screen);
+                            musicClick.playSoundNoRepeat();
                             menu[choiceOfmenu].free();
                             menu[choiceOfmenu].setTankPath(tankPathChoose);
                             menu[choiceOfmenu].loadBg(g_screen);
@@ -455,11 +527,13 @@
                     {
                         if (x>=380 && x<=600 && y>=350 && y<=402)
                         {
+                            musicClick.playSoundNoRepeat();
                             turnMenu=true;
                             turnGameStart=false;
                         }
-                        else if (x>=790 && x<=1000 && y>=350 && y<=402)
+                        else if (x>=790 && x<=1000 && y>=350 && y<=402 && check[choiceOfmenu] && choiceOfmenu<5)
                         {
+                            musicClick.playSoundNoRepeat();
                             choiceOfmenu++;
                             menu[choiceOfmenu].setTankPath(tankPathChoose);
                             menu[choiceOfmenu].loadBg(g_screen);
@@ -470,6 +544,7 @@
                         }
                         else if (x>=585 && x<=820 && y>=510 && y<=575 )
                         {
+                            musicClick.playSoundNoRepeat();
                             SDL_RenderClear(g_screen);
                             menu[choiceOfmenu].free();
                             menu[choiceOfmenu].setTankPath(tankPathChoose);
@@ -563,6 +638,7 @@
             {
                 SDL_RenderClear(g_screen);
                 gameMenu.render(g_screen, NULL);
+                renderBlocks(g_screen);
                 if (Mix_Paused(musicMenu.getChannel())==1)
                 {
                     musicMenu.restartSound();
@@ -624,6 +700,7 @@
             }
             else if (gameWin == true)
             {
+                check[choiceOfmenu]=true;
                 if(Mix_Paused(musicGameWin.getChannel()))
                 {
                     musicGameWin.restartSound();
@@ -659,7 +736,7 @@
                 }
                 else
                 {
-                    SDL_SetRenderDrawColor(g_screen, 255, 0, 0, 255);
+                    SDL_SetRenderDrawColor(g_screen, 255, 165, 0, 255);
                     SDL_RenderFillRect(g_screen, &tmp);
                 }
                 menu[choiceOfmenu].tank.renderRouteThink(g_screen, menu[choiceOfmenu].tank.getAngle(), NULL);
@@ -696,14 +773,18 @@
                {
                    menu[choiceOfmenu].EnemyBullets[i][menu[choiceOfmenu].sizeEnemyTankBulluets[i]].handleAutomatic(menu[choiceOfmenu].listEnemyTank[i],g_screen);
                    menu[choiceOfmenu].sizeEnemyTankBulluets[i]++;
+                   if (menu[choiceOfmenu].sizeEnemyTankBulluets[i]>=1000)
+                   {
+                        menu[choiceOfmenu].setSizeEnemyTankBullet(i);
+                   }
                }
             }
             menu[choiceOfmenu].tank.myTankMoveX(menu[choiceOfmenu].walls,g_screen);
             menu[choiceOfmenu].tank.MyTankMoveY(menu[choiceOfmenu].walls,g_screen);
             for (int i = 0; i < menu[choiceOfmenu].numberOfEnemyTank; i++)
             {
-                menu[choiceOfmenu].listEnemyTank[i].EnemyTankMoveX(menu[choiceOfmenu].walls,g_screen);
-                menu[choiceOfmenu].listEnemyTank[i].EnemyTankMoveY(menu[choiceOfmenu].walls,g_screen);
+                menu[choiceOfmenu].listEnemyTank[i].EnemyTankMoveX(menu[choiceOfmenu].walls,g_screen,menu[choiceOfmenu].tank,menu[choiceOfmenu].listEnemyTank,menu[choiceOfmenu].numberOfEnemyTank,i);
+                menu[choiceOfmenu].listEnemyTank[i].EnemyTankMoveY(menu[choiceOfmenu].walls,g_screen,menu[choiceOfmenu].tank,menu[choiceOfmenu].listEnemyTank,menu[choiceOfmenu].numberOfEnemyTank,i);
 
             }
             for (int i = 0; i < menu[choiceOfmenu].numberOfEnemyTank; i++)

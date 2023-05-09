@@ -53,7 +53,6 @@ public:
 	void myTankMoveX(Map** walls,SDL_Renderer *g_screen);
 	void MyTankMoveY(Map** walls,SDL_Renderer *g_screen);
 	void handleTankObstacleCollision (Map& obstacle);
-	void handleTankEnemyCollision(Tank& tankEnemy);
 	void handleTankLandmineCollistion(Map& obstacle,SDL_Renderer *g_screen);
 	void handleGiftCollistion(Map& obstacle);
 	void checkBoomEffect(int boomEffectPosX,int boomEffectPosY);

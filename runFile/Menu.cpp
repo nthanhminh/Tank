@@ -93,7 +93,7 @@
 		}
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
-			listEnemyTank[i].setXYpos(rand()%1500, rand()%50);
+			listEnemyTank[i].setXYpos(rand()%1500, 0);
 			listEnemyTank[i].setPath("img//enemy_tank_test.png");
 			listEnemyTank[i].setIsTankAlive(true);
 			listEnemyTank[i].setTankHp(health);
@@ -136,6 +136,14 @@
 			}
 			std::cout << "\n";
 		}
+	}
+	void Menu::setSizeTankBullet()
+	{
+		sizeTankBullet=0;
+	}
+	void Menu::setSizeEnemyTankBullet(int i)
+	{
+		sizeEnemyTankBulluets[i]=0;
 	}
 	void Menu::free()
 	{

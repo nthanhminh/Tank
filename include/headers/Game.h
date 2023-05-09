@@ -25,6 +25,7 @@ private:
     AudioManager musicRestart;
     AudioManager musicGameWin;
     AudioManager musicGameOver;
+    AudioManager musicClick;
     baseObject gBackground;
     baseObject waitingBg;
     baseObject gameOverBg;
@@ -37,15 +38,17 @@ private:
     baseObject gameHelp;
     baseObject gameRestart;
     baseObject gameChoseTank;
+    baseObject block[5];
     bool changePlayBtn=true;
     bool changeHelpBtn=true;
     std::string tankPathChoose="img/tank_1.png";
     bool isQuit = false;
-    bool check[6];
+    bool check[5];
     Menu menu[6];
 public:
     Game();
     bool loadGameChoseTank(SDL_Renderer *g_screen);
+    bool loadBlock(SDL_Renderer* g_screen);
     bool loadPauseButton(SDL_Renderer *g_screen);
     bool loadGameRestart(SDL_Renderer *g_screen);
     bool loadPHelpButton(SDL_Renderer *g_screen);
@@ -61,7 +64,10 @@ public:
     bool loadMusicRestart();
     bool loadMusicGameWin();
     bool loadMusicGameOver();
+    bool loadMusicClick();
     void loadData(SDL_Renderer *g_screen);
+    void renderBlocks(SDL_Renderer *g_screen);
+
     void run(SDL_Renderer *g_screen);
 };
 #endif

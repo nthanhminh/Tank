@@ -282,64 +282,9 @@
 		SDL_Rect mapRect = { obstacle.getXpos(), obstacle.getYpos(), obstacle.getWidth(), obstacle.getHeight()};
 		if (checkCollision(tankRect, mapRect))
 		{
-			// if (angle == 90)
-			// {
-			// 	setXYpos(obstacle.getXpos() - this->getWidth() -2, getOriginalYpos());
-			// 	setvX(0);
-			// 	setvY(0);
-			// }
-			// else if (angle == 270)
-			// {
-			// 	setXYpos(obstacle.getXpos() + obstacle.getWidth() + 2, getOriginalYpos());
-			// 	setvX(0);
-			// 	setvY(0);
-			// }
-			// else if (angle == 0)
-			// {
-			// 	setXYpos(getOriginalXpos(), obstacle.getYpos() + obstacle.getHeight() + 2);
-			// 	setvX(0);
-			// 	setvY(0);
-			// }
-			// else if (angle==180)
-			// {
-			// 	setXYpos(getOriginalXpos(), obstacle.getYpos() - this->getHeight() - 2);
-			// 	setvX(0);
-			// 	setvY(0);
-			// }
 			vX=0;
 			vY=0;
 			setXYpos(getOriginalXpos(),getOriginalYpos());
-		}
-	}
-	void Tank::handleTankEnemyCollision(Tank& tankEnemy)
-	{
-		/*setOriginalXpos(getXpos());
-		setOriginalypos(getYpos());*/
-		SDL_Rect tankRect = { getXpos(), getYpos(), getWidth(), getHeight() };
-		SDL_Rect mapRect = { tankEnemy.getXpos(), tankEnemy.getYpos(), tankEnemy.getWidth(), tankEnemy.getHeight() };
-		if (checkCollision(tankRect, mapRect))
-		{
-			/*if (getAngle() == 90)
-			{
-				setXYpos(tankEnemy.getXpos() - tankEnemy.getWidth() - 3, getOriginalYpos());
-			}
-			else if (getAngle() == 270)
-			{
-				setXYpos(tankEnemy.getXpos() + tankEnemy.getWidth() + 3, getOriginalYpos());
-			}
-			else if (getAngle() == 0)
-			{
-				setXYpos(getOriginalXpos(), tankEnemy.getYpos() + tankEnemy.getHeight() + 3);
-			}
-			else if (getAngle() == 180)
-			{
-				setXYpos(getOriginalXpos(), tankEnemy.getYpos() - tankEnemy.getHeight() - 3);
-			}*/
-			/*tankEnemy.setvX(0);
-			tankEnemy.setvY(0);
-			setvX(0);
-			setvY(0);*/
-			setXYpos(getOriginalXpos(), getOriginalYpos());
 		}
 	}
 	void Tank::handleTankLandmineCollistion(Map& obstacle,SDL_Renderer *g_screen)

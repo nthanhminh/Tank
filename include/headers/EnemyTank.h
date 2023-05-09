@@ -6,6 +6,7 @@
 #include "Map.h"
 #include "Tank.h"
 #include "Bullet.h"
+#include <cmath>
 class EnemyTank :public Tank {
 private:
 	int enemy_move_count = 0;
@@ -34,9 +35,11 @@ public:
 	void handleAtiveTankEnemyD(Tank &tank);
 	bool checkTankPosition(Tank &tank);
 	void handleTankEnemyLandmineCollistion(Map& obstacle,SDL_Renderer *g_screen);
+	void handleTankEnemyCollistion(Tank &EnemyTank);
 	void handleTankEnemyMap();
-	void EnemyTankMoveX(Map** walls,SDL_Renderer *g_screen);
-	void EnemyTankMoveY(Map** walls,SDL_Renderer *g_screen);
+	void EnemyTankMoveX(Map** walls,SDL_Renderer *g_screen,Tank& tankEnemy,EnemyTank *listenEnemy,int sizeOfTankEnemy,int index);
+	void EnemyTankMoveY(Map** walls,SDL_Renderer *g_screen,Tank& tankEnemy,EnemyTank *listenEnemy,int sizeOfTankEnemy,int index);
 	void EnemyCheckMap(Map& obstacle);
+	void handleListTankEnemyCollistion(EnemyTank *listEnemy,int sizeOfTankEnemy,int index);
 };
 #endif

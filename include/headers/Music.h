@@ -10,6 +10,7 @@ public:
 
     bool loadSound(std::string filePath);
     void playSound();
+    void playSoundNoRepeat();
     void pauseSound();
     void stopSound();
     void resumeSound();

@@ -592,7 +592,7 @@
 			}
 		}
 	}
-	void EnemyTank::EnemyTankMoveX(Map** walls,SDL_Renderer *g_screen)
+	void EnemyTank::EnemyTankMoveX(Map** walls,SDL_Renderer *g_screen,Tank &tankEnemy,EnemyTank *listenEnemy,int sizeOfTankEnemy,int index)
 	{
 		setOriginalXpos(getXpos());
 		rect_.x += getvX();
@@ -608,6 +608,8 @@
 					handleGiftCollistion(walls[i][j]);
 			}
 		}
+		handleTankEnemyCollistion(tankEnemy); 
+		handleListTankEnemyCollistion(listenEnemy,sizeOfTankEnemy,index);
 		if (rect_.x + rect_.w >= screenWidth)
 		{
 			rect_.x = screenWidth - rect_.w;
@@ -617,7 +619,7 @@
 			rect_.x = 0;
 		}
 	}
-	void EnemyTank::EnemyTankMoveY(Map** walls,SDL_Renderer *g_screen)
+	void EnemyTank::EnemyTankMoveY(Map** walls,SDL_Renderer *g_screen,Tank &tankEnemy,EnemyTank *listenEnemy,int sizeOfTankEnemy,int index)
 	{
 		if (getvX() == 0)
 		{
@@ -649,6 +651,8 @@
 						handleGiftCollistion(walls[i][j]);
 				}
 			}
+			handleTankEnemyCollistion(tankEnemy); 
+			handleListTankEnemyCollistion(listenEnemy,sizeOfTankEnemy,index);
 			if (rect_.y + rect_.h >= scrennHeight)
 			{
 				rect_.y = scrennHeight - rect_.h;
@@ -666,5 +670,25 @@
 		if (checkCollision(tankRect, mapRect))
 		{
 			handleTankEnemyMap();
+		}
+	}
+	void EnemyTank::handleTankEnemyCollistion(Tank &EnemyTank)
+	{
+		SDL_Rect tankRect = { getXpos(), getYpos(), getWidth(), getHeight()};
+		SDL_Rect enemyTankRect = { EnemyTank.getXpos(), EnemyTank.getYpos(), EnemyTank.getWidth(), EnemyTank.getHeight()};
+		if(checkCollision(tankRect, enemyTankRect))
+		{
+			setXYpos(getOriginalXpos(),getOriginalYpos());
+			EnemyTank.setXYpos(EnemyTank.getOriginalXpos(),EnemyTank.getOriginalYpos());
+		}
+	}
+	void EnemyTank::handleListTankEnemyCollistion(EnemyTank *listEnemy,int sizeOfTankEnemy,int index)
+	{
+		for(int i = 0; i < sizeOfTankEnemy;i++)
+		{
+			if(i!=index)
+			{
+				handleTankEnemyCollistion(listEnemy[i]);
+			}
 		}
 	}

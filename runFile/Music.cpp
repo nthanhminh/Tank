@@ -26,6 +26,17 @@ void AudioManager::playSound() {
         std::cout << "Error: No sound loaded" << std::endl;
         return;
     }
+    m_channel = Mix_PlayChannel(-1, m_sound, -1);
+    if (m_channel == -1) {
+        std::cout << "Error: Failed to play sound" << std::endl;
+    }
+}
+
+void AudioManager::playSoundNoRepeat() {
+    if (m_sound == nullptr) {
+        std::cout << "Error: No sound loaded" << std::endl;
+        return;
+    }
     m_channel = Mix_PlayChannel(-1, m_sound, 0);
     if (m_channel == -1) {
         std::cout << "Error: Failed to play sound" << std::endl;
@@ -54,7 +65,7 @@ void AudioManager::stopSound() {
 void AudioManager::restartSound() {
     if (m_channel!=-1)
     {
-        Mix_PlayChannel(m_channel,m_sound,0);
+        Mix_PlayChannel(m_channel,m_sound,-1);
     }
 }
 

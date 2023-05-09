@@ -49,6 +49,8 @@ public:
 	void loadBg(SDL_Renderer *g_screen);
 	void initTank(SDL_Renderer *g_screen);
 	void InitMap(SDL_Renderer *g_screen);
+	void setSizeTankBullet();
+	void setSizeEnemyTankBullet(int i);
 	void free();
 	void close();
 };
