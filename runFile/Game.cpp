@@ -12,6 +12,8 @@
         menu[3].setMapPath("data/data_3.txt");
         menu[4].setBgPath("img/background_4.png");
         menu[4].setMapPath("data/data_4.txt");
+        menu[5].setBgPath("img/background_5.png");
+        menu[5].setMapPath("data/data_5.txt");
         for (int i=0;i<5;i++)
         {
             check[i]=false;
@@ -155,6 +157,14 @@
             return true;
         }
     }
+    bool Game::loadEndGame(SDL_Renderer *g_screen)
+    {
+        if(!endGame.loadImg("img/end_game.png", g_screen))
+        {
+            return false;
+        }
+        return true;
+    }
     bool Game::checkListEnemyTankAlive(EnemyTank *list,int size) 
     {
         int cnt = 0;
@@ -269,6 +279,10 @@
         if (!loadHelpBg(g_screen))
         {
             std::cout << "can not load help bg" << std::endl;
+        }
+        if(!loadEndGame(g_screen))
+        {
+            std::cout << "can not load end game bg" << std::endl;
         }
         if (!loadGameRestart(g_screen))
         {
@@ -432,13 +446,17 @@
                             menu[4].initTank(g_screen);
                             menu[4].InitMap(g_screen);
                         }
-                        else if (x>=925 && x<=1045 && y>=390 && y<=515 && check[4])
+                        else if (x>=925 && x<=1045 && y>=390 && y<=515)
                         {
                             musicClick.playSoundNoRepeat();
                             choiceOfmenu=5;
                             turnGameStart=false;
                             turnMenu=false;
                             gameStart=true;
+                            menu[choiceOfmenu].setTankPath(tankPathChoose);
+                            menu[5].loadBg(g_screen);
+                            menu[5].initTank(g_screen);
+                            menu[5].InitMap(g_screen);
                         }
                         else if (x>=35 && x<=245 && y>=25 && y<=80)
                         {
@@ -708,10 +726,24 @@
                 }
                 SDL_RenderClear(g_screen);
                 menu[choiceOfmenu].free();
-                gameWinBg.render(g_screen, NULL);
+                if(choiceOfmenu!=5)
+                {
+                    gameWinBg.render(g_screen, NULL);
+                }
+                else
+                {
+                    endGame.render(g_screen, NULL);
+                }
                 if (time_turn_restart==0)
                 { 
-                    turnGameStart=true;
+                    if(choiceOfmenu!=5)
+                    {
+                        turnGameStart=true;
+                    }
+                    else
+                    {
+                        turnMenu=true;
+                    }
                     gameWin=false;
                     gameStart = false;
                 }

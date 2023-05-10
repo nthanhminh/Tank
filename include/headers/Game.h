@@ -38,6 +38,7 @@ private:
     baseObject gameHelp;
     baseObject gameRestart;
     baseObject gameChoseTank;
+    baseObject endGame;
     baseObject block[5];
     bool changePlayBtn=true;
     bool changeHelpBtn=true;
@@ -59,6 +60,7 @@ public:
     bool loadMenuGame(SDL_Renderer *g_screen);
     bool loadGameOverBg(SDL_Renderer *g_screen);
     bool loadGameWinBg(SDL_Renderer *g_screen);
+    bool loadEndGame(SDL_Renderer *g_screen);
     bool checkListEnemyTankAlive(EnemyTank *list,int size);
     bool loadMusicMenu();
     bool loadMusicRestart();
