@@ -151,6 +151,7 @@
 		{
 			Bullets[i].setXYpos(2000,2000);
 		    Bullets[i].free();
+			Bullets[i].setPath("img//bulletblue2.png");
 			Bullets[i].setVx(0);
 			Bullets[i].setVy(0);
 		}
@@ -160,6 +161,7 @@
 			{
 				EnemyBullets[i][j].setXYpos(2000,2000);
 				EnemyBullets[i][j].free();
+				EnemyBullets[i][j].setPath("img/bulletdark2.png");
 				EnemyBullets[i][j].setVx(0);
 				EnemyBullets[i][j].setVy(0);
 			}
