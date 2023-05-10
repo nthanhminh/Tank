@@ -120,7 +120,7 @@
 
 		this->setXYpos(originalXpos, originalYpos);
 	}
-	void Bullet::handleBulletEvents(SDL_Event& e,Tank& tank,Map**walls,SDL_Renderer *g_screen)
+	void Bullet::handleBulletEvents(SDL_Event& e,Tank& tank,Map**walls,SDL_Renderer *g_screen,AudioManager &sound)
 	{
 		if (e.type == SDL_KEYDOWN && e.key.repeat==0)
 		{
@@ -143,10 +143,7 @@
 							std::cout << "can not load bullet";
 						}
 						ap(tank);
-						Mix_Init(MIX_INIT_MP3);
-						Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-						Mix_Chunk* sound = Mix_LoadWAV("sound/gun10.wav");
-						Mix_PlayChannel(-1, sound, 0);
+						sound.playSoundNoRepeat();
 						setVx(v_bullet);
 						setStatus(tank);
 				}
@@ -166,9 +163,7 @@
 						std::cout << "can not load bullet";
 					}
 						ap(tank);
-						Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-						Mix_Chunk* sound = Mix_LoadWAV("sound/gun10.wav");
-						Mix_PlayChannel(-1, sound, 0);
+						sound.playSoundNoRepeat();
 						setVx(-v_bullet);
 						setStatus(tank);
 				}
@@ -188,9 +183,7 @@
 						std::cout << "can not load bullet";
 					}
 						ap(tank);
-						Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-						Mix_Chunk* sound = Mix_LoadWAV("sound/gun10.wav");
-						Mix_PlayChannel(-1, sound, 0);
+						sound.playSoundNoRepeat();
 						setVy(-v_bullet);
 						setStatus(tank);
 				}
@@ -210,16 +203,14 @@
 						std::cout << "can not load bullet";
 					}
 						ap(tank);
-						Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-						Mix_Chunk* sound = Mix_LoadWAV("sound/gun10.wav");
-						Mix_PlayChannel(-1, sound, 0);
+						sound.playSoundNoRepeat();
 						setVy(v_bullet);
 						setStatus(tank);
 				}
 			}
 		}
 	}
-	void Bullet::move(Map**walls,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank,SDL_Renderer *g_screen,bool &gameOver)
+	void Bullet::move(Map**walls,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank,SDL_Renderer *g_screen,bool &gameOver,AudioManager &sound_collision,AudioManager &sound_tank)
 	{
 		if (status == 1)
 		{
@@ -231,18 +222,14 @@
 				{
 					if (walls[i][j].getValue() != 0)
 					{
-						handleTankMapCollision(walls[i][j],tank,sizeEnemyTank,this_tank,g_screen,gameOver);
+						handleTankMapCollision(walls[i][j],tank,sizeEnemyTank,this_tank,g_screen,gameOver,sound_collision);
 					}
 				}
 			}
 			for (int i = 0; i < sizeEnemyTank; i++)
 			{
-				handleTankEnemy(tank[i],g_screen);
+				handleTankEnemy(tank[i],g_screen,sound_tank);
 			}
-			/*for (int i = 0; i < enemySize; i++)
-			{
-				handleTankEnemy(tankEnemys[i]);
-			}*/
 			if (rect_.x <= 0 || rect_.x > screenWidth)
 			{
 				this->free();
@@ -258,15 +245,8 @@
 				{
 					if (walls[i][j].getValue() != 0)
 					{
-						handleTankMapCollision(walls[i][j],tank,sizeEnemyTank,this_tank,g_screen,gameOver);
+						handleTankMapCollision(walls[i][j],tank,sizeEnemyTank,this_tank,g_screen,gameOver,sound_collision);
 					}
-					// else
-					// {
-					// 	if (getChoiceWeapon()>=1)
-					// 	{
-					// 		handleTankMapCollision(walls[i][j]);
-					// 	}
-					// }
 				}
 			}
 			if (rect_.y > scrennHeight || rect_.y < 0)
@@ -275,12 +255,8 @@
 			}
 			for (int i = 0; i < sizeEnemyTank; i++)
 			{
-				handleTankEnemy(tank[i],g_screen);
+				handleTankEnemy(tank[i],g_screen,sound_tank);
 			}
-			/*for (int i = 0; i < enemySize; i++)
-			{
-				handleTankEnemy(tankEnemys[i]);
-			}*/
 		}
 	}
 	bool Bullet::checkCollision(SDL_Rect rect1, SDL_Rect rect2)
@@ -304,7 +280,7 @@
 			return true;
 		}
 	}
-	void Bullet::handleTankMapCollision(Map& tankEnemy,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank,SDL_Renderer *g_screen,bool &gameOver)
+	void Bullet::handleTankMapCollision(Map& tankEnemy,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank,SDL_Renderer *g_screen,bool &gameOver,AudioManager &sound_collision)
 	{
 
 		SDL_Rect bulletRect = { getXpos(), getYpos(), getWidth(), getHeight() };
@@ -322,10 +298,7 @@
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
 				Effect.free();
-				Mix_Init(MIX_INIT_MP3);
-				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
-				Mix_PlayChannel(-1, sound, 0);
+				sound_collision.playSoundNoRepeat();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -343,17 +316,14 @@
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
 				Effect.free();
-				Mix_Init(MIX_INIT_MP3);
-				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
-				Mix_PlayChannel(-1, sound, 0);
+				sound_collision.playSoundNoRepeat();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
 				this->free();
 				tankEnemy.setXYpos(2000, 2000);
 				tankEnemy.free();
-				//gameOver=true;
+				gameOver=true;
 				this_tank.setIsTankAlive(false);
 				time_turn_restart=5000;
 				std::cout << gameOver << std::endl;
@@ -368,10 +338,7 @@
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
 				Effect.free();
-				Mix_Init(MIX_INIT_MP3);
-				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
-				Mix_PlayChannel(-1, sound, 0);
+				sound_collision.playSoundNoRepeat();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -389,10 +356,7 @@
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
 				Effect.free();
-				Mix_Init(MIX_INIT_MP3);
-				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
-				Mix_PlayChannel(-1, sound, 0);
+				sound_collision.playSoundNoRepeat();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -442,10 +406,7 @@
 				}
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
-				Mix_Init(MIX_INIT_MP3);
-				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
-				Mix_PlayChannel(-1, sound, 0);
+				sound_collision.playSoundNoRepeat();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -465,10 +426,7 @@
 				{
 					tank[i].checkBoomEffect(Effect.getXpos(),Effect.getYpos());
 				}
-				Mix_Init(MIX_INIT_MP3);
-				Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-				Mix_Chunk* sound = Mix_LoadWAV("sound/gun9.wav");
-				Mix_PlayChannel(-1, sound, 0);
+				sound_collision.playSoundNoRepeat();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -479,7 +437,7 @@
 			}
 		}
 	}
-	void Bullet::handleTankEnemy(EnemyTank& tankEnemy,SDL_Renderer *g_screen)
+	void Bullet::handleTankEnemy(EnemyTank& tankEnemy,SDL_Renderer *g_screen,AudioManager &sound_tank)
 	{
 
 		SDL_Rect bulletRect = { getXpos(), getYpos(), getWidth(), getHeight() };
@@ -494,10 +452,7 @@
 			}
 			Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 			Effect.render(g_screen, NULL);
-			Mix_Init(MIX_INIT_MP3);
-			Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-			Mix_Chunk* sound = Mix_LoadWAV("sound/exp.wav");
-			Mix_PlayChannel(-1, sound, 0);
+			sound_tank.playSoundNoRepeat();
 			setVx(0);
 			setVy(0);
 			setXYpos(2000, 2000);

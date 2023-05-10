@@ -69,6 +69,13 @@ void AudioManager::restartSound() {
     }
 }
 
+void AudioManager::restartSoundNoRepeat() {
+    if (m_channel!=-1)
+    {
+        Mix_PlayChannel(m_channel,m_sound,0);
+    }
+}
+
 bool AudioManager::IsMusicPlaying() {
     return (Mix_PlayingMusic() == 1);
 }

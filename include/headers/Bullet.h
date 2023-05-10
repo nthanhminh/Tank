@@ -6,6 +6,7 @@
 #include "Map.h"
 #include "Tank.h"
 #include "EnemyTank.h"
+#include "Music.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -41,10 +42,10 @@ public:
 	double getBulletAngle();
 	void setBulletAngle(double x);
 	void ap(Tank &tank);
-	void handleBulletEvents(SDL_Event& e,Tank& tank,Map**walls,SDL_Renderer *g_screen);
-	void move(Map**walls,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank,SDL_Renderer *g_screen,bool &gameOver);
+	void handleBulletEvents(SDL_Event& e,Tank& tank,Map**walls,SDL_Renderer *g_screen,AudioManager &sound);
+	void move(Map**walls,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank,SDL_Renderer *g_screen,bool &gameOver,AudioManager &sound_collision,AudioManager &sound_tank);
 	bool checkCollision(SDL_Rect rect1, SDL_Rect rect2);
-	void handleTankMapCollision(Map& tankEnemy,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank,SDL_Renderer *g_screen,bool &gameOver);
-	void handleTankEnemy(EnemyTank& tankEnemy,SDL_Renderer *g_screen);
+	void handleTankMapCollision(Map& tankEnemy,EnemyTank *tank,int sizeEnemyTank,Tank &this_tank,SDL_Renderer *g_screen,bool &gameOver,AudioManager &sound_collistion);
+	void handleTankEnemy(EnemyTank& tankEnemy,SDL_Renderer *g_screen,AudioManager &sound_tank);
 };
 #endif

@@ -43,7 +43,7 @@ static bool waiting=true;
 static bool turnChoseTank=false;
 static int choiceOfmenu=0;
 static int changeYposHoverBtn=5;
-static int time_turn_restart = 10000;
+static int time_turn_restart = 6000;
 
 #define TITLE_SIZE 64
 #define maxMapX 400

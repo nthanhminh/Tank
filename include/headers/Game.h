@@ -26,6 +26,9 @@ private:
     AudioManager musicGameWin;
     AudioManager musicGameOver;
     AudioManager musicClick;
+    AudioManager sound_gun;
+    AudioManager sound_collision;
+    AudioManager sound_tank;
     baseObject gBackground;
     baseObject waitingBg;
     baseObject gameOverBg;
@@ -61,6 +64,9 @@ public:
     bool loadGameOverBg(SDL_Renderer *g_screen);
     bool loadGameWinBg(SDL_Renderer *g_screen);
     bool loadEndGame(SDL_Renderer *g_screen);
+    bool loadSoundGun();
+    bool loadSoundCollision();
+    bool loadSoundTank();
     bool checkListEnemyTankAlive(EnemyTank *list,int size);
     bool loadMusicMenu();
     bool loadMusicRestart();

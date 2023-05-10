@@ -29,6 +29,27 @@
         }
         return false;
     }
+    bool Game::loadSoundGun()
+    {
+        bool ret=sound_gun.loadSound("sound/gun10.wav");
+        if(ret)
+            return true;
+        return false;
+    }
+    bool Game::loadSoundCollision()
+    {
+        bool ret=sound_collision.loadSound("sound/gun9.wav");
+        if(ret)
+            return true;
+        return false;
+    }
+    bool Game::loadSoundTank()
+    {
+        bool ret=sound_tank.loadSound("sound/exp.wav");
+        if(ret)
+            return true;
+        return false;
+    }
     bool Game::loadBlock(SDL_Renderer *g_screen)
     {
         for (int i=0;i<5;i++)
@@ -316,6 +337,18 @@
         {
             std::cout << "can not load block png" << std::endl;
         }
+        if(!loadSoundGun())
+        {
+            std::cout << "can not load sound gun" << std::endl;
+        }
+        if(!loadSoundCollision())
+        {
+            std::cout << "can not load sound collistion" << std:: endl;
+        }
+        if(!loadSoundTank())
+        {
+            std::cout << "can not load sound tank" << std:: endl;
+        }
     }
     void Game::renderBlocks(SDL_Renderer *g_screen)
     {
@@ -446,7 +479,7 @@
                             menu[4].initTank(g_screen);
                             menu[4].InitMap(g_screen);
                         }
-                        else if (x>=925 && x<=1045 && y>=390 && y<=515)
+                        else if (x>=925 && x<=1045 && y>=390 && y<=515 && check[4])
                         {
                             musicClick.playSoundNoRepeat();
                             choiceOfmenu=5;
@@ -624,7 +657,7 @@
                     menu[choiceOfmenu].tank.handleEvents(g_event,menu[choiceOfmenu].walls);
                     if (menu[choiceOfmenu].tank.getIsTankAlive())
                     {
-                        menu[choiceOfmenu].Bullets[menu[choiceOfmenu].sizeTankBullet].handleBulletEvents(g_event, menu[choiceOfmenu].tank, menu[choiceOfmenu].walls,g_screen);
+                        menu[choiceOfmenu].Bullets[menu[choiceOfmenu].sizeTankBullet].handleBulletEvents(g_event, menu[choiceOfmenu].tank, menu[choiceOfmenu].walls,g_screen,sound_gun);
                         menu[choiceOfmenu].sizeTankBullet+= 1;
                     }
                 }
@@ -711,6 +744,7 @@
                     turnGameStart=true;
                     gameOver=false;
                     gameStart = false;
+                    time_turn_restart=6000;
                 }
                 else
                 {
@@ -719,7 +753,8 @@
             }
             else if (gameWin == true)
             {
-                check[choiceOfmenu]=true;
+                if(choiceOfmenu<5)
+                    check[choiceOfmenu]=true;
                 if(Mix_Paused(musicGameWin.getChannel()))
                 {
                     musicGameWin.restartSound();
@@ -746,6 +781,7 @@
                     }
                     gameWin=false;
                     gameStart = false;
+                    time_turn_restart=6000;
                 }
                 else
                 {
@@ -804,7 +840,7 @@
                }
                if (menu[choiceOfmenu].listEnemyTank[i].getBulletActive() && menu[choiceOfmenu].listEnemyTank[i].getIsTankAlive() && gameOver==false)
                {
-                   menu[choiceOfmenu].EnemyBullets[i][menu[choiceOfmenu].sizeEnemyTankBulluets[i]].handleAutomatic(menu[choiceOfmenu].listEnemyTank[i],g_screen);
+                   menu[choiceOfmenu].EnemyBullets[i][menu[choiceOfmenu].sizeEnemyTankBulluets[i]].handleAutomatic(menu[choiceOfmenu].listEnemyTank[i],g_screen,sound_gun);
                    menu[choiceOfmenu].sizeEnemyTankBulluets[i]++;
                    if (menu[choiceOfmenu].sizeEnemyTankBulluets[i]>=1000)
                    {
@@ -852,7 +888,7 @@
             {
                 for (int i = 0; i < menu[choiceOfmenu].sizeTankBullet; i++)
                 {
-                    menu[choiceOfmenu].Bullets[i].move(menu[choiceOfmenu].walls, menu[choiceOfmenu].listEnemyTank,menu[choiceOfmenu].numberOfEnemyTank,menu[choiceOfmenu].tank,g_screen,gameOver);
+                    menu[choiceOfmenu].Bullets[i].move(menu[choiceOfmenu].walls, menu[choiceOfmenu].listEnemyTank,menu[choiceOfmenu].numberOfEnemyTank,menu[choiceOfmenu].tank,g_screen,gameOver,sound_collision,sound_tank);
                     menu[choiceOfmenu].Bullets[i].renderRouteThink(g_screen, menu[choiceOfmenu].Bullets[i].getBulletAngle(), NULL);
                 }
             }
@@ -868,7 +904,7 @@
                 {
                     for (int j = 0; j < menu[choiceOfmenu].sizeEnemyTankBulluets[i]; j++)
                     {
-                        menu[choiceOfmenu].EnemyBullets[i][j].moveAuto(menu[choiceOfmenu].tank, menu[choiceOfmenu].walls,menu[choiceOfmenu].listEnemyTank[i],g_screen,gameOver);
+                        menu[choiceOfmenu].EnemyBullets[i][j].moveAuto(menu[choiceOfmenu].tank, menu[choiceOfmenu].walls,menu[choiceOfmenu].listEnemyTank[i],g_screen,gameOver,sound_collision,sound_tank);
                         menu[choiceOfmenu].EnemyBullets[i][j].renderRouteThink(g_screen, menu[choiceOfmenu].EnemyBullets[i][j].getBulletAngle(), NULL);
                     }
                 }

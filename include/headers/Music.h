@@ -15,6 +15,7 @@ public:
     void stopSound();
     void resumeSound();
     void restartSound();
+    void restartSoundNoRepeat();
     bool IsMusicPlaying();
     bool IsMusicPaused();
     Mix_Chunk* getSound();
