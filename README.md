@@ -38,7 +38,7 @@
 #### Có 6 levels để người chơi có thể khám phá và trải nghiệm
 ####
 
-
+![menuBg](imgForReadme/4.png)
 
 
 #### Bạn cũng có thể lựa chọn xe Tank theo ý mình
