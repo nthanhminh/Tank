@@ -138,14 +138,14 @@
 						this->setPath("img/bullets_1.png");
 					}
 					setChoiceWeapon(tank.getWeapon());
-						if (!loadImg(path, g_screen))
-						{
-							std::cout << "can not load bullet";
-						}
-						ap(tank);
-						sound.playSoundNoRepeat();
-						setVx(v_bullet);
-						setStatus(tank);
+					if (!loadImg(path, g_screen))
+					{
+						std::cout << "can not load bullet";
+					}
+					ap(tank);
+					sound.playSoundNoRepeat();
+					setVx(v_bullet);
+					setStatus(tank);
 				}
 				else if (tank.getAngle()==270 && tank.getIsTankAlive()==true )
 				{

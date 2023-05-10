@@ -147,11 +147,6 @@
 	}
 	void Menu::free()
 	{
-		sizeTankBullet=0;
-		for (int i=0;i<numberOfEnemyTank;i++)
-		{
-			sizeEnemyTankBulluets[i]=0;
-		}
 		for (int i = 0; i < sizeTankBullet; i++)
 		{
 			Bullets[i].setXYpos(2000,2000);
@@ -168,6 +163,11 @@
 				EnemyBullets[i][j].setVx(0);
 				EnemyBullets[i][j].setVy(0);
 			}
+		}
+		sizeTankBullet=0;
+		for (int i=0;i<numberOfEnemyTank;i++)
+		{
+			sizeEnemyTankBulluets[i]=0;
 		}
 		for (int i = 0; i < mapRows; i++)
 		{
