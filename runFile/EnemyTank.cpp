@@ -824,7 +824,7 @@
 					}
 				if (x == 0)
 				{
-					enemy_move_count = 20;
+					enemy_move_count = 5;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -998,7 +998,7 @@
 					}
 				if (x == 0)
 				{
-					enemy_move_count = 20;
+					enemy_move_count = 6;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -1172,7 +1172,7 @@
 					}
 				if (x == 0)
 				{
-					enemy_move_count = 20;
+					enemy_move_count = 8;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -1346,7 +1346,7 @@
 					}
 				if (x == 0)
 				{
-					enemy_move_count = 20;
+					enemy_move_count = 10;
 					setBulletActive(false);
 				}
 				else if (x == 1)
