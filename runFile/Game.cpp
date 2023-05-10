@@ -256,6 +256,22 @@
 
     void Game::loadData(SDL_Renderer *g_screen)
     {
+        menu[0].setBgPath("img/grass.png");
+        menu[0].setMapPath("data/data.txt");
+        menu[1].setBgPath("img/background_1.png");
+        menu[1].setMapPath("data/data_1.txt");
+        menu[2].setBgPath("img/background_2.png");
+        menu[2].setMapPath("data/data_2.txt");
+        menu[3].setBgPath("img/background_3.png");
+        menu[3].setMapPath("data/data_3.txt");
+        menu[4].setBgPath("img/background_4.png");
+        menu[4].setMapPath("data/data_4.txt");
+        menu[5].setBgPath("img/background_5.png");
+        menu[5].setMapPath("data/data_5.txt");
+        for (int i=0;i<5;i++)
+        {
+            check[i]=false;
+        }
         if (loadWaitingBg(g_screen) == false)
         {
             std::cout << "Can not load waitingBg" << std::endl;
@@ -394,6 +410,7 @@
             if (g_event.type == SDL_QUIT)
             {
                 isQuit = true;
+                exit(0);
             }
             else if (g_event.type==SDL_MOUSEBUTTONDOWN)
             {
