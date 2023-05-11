@@ -51,6 +51,10 @@
 			{
 				this->setPath("img/bullets_1.png");
 			}
+			else
+			{
+				setPath("img/bulletdark2.png");
+			}
 			setChoiceWeapon(enemyTank.getWeapon());
 			if (!loadImg(getPath(), g_screen))
 			{
@@ -70,6 +74,10 @@
 			else if (enemyTank.getWeapon() == 2)
 			{
 				this->setPath("img/bullets_1.png");
+			}
+			else
+			{
+				setPath("img/bulletdark2.png");
 			}
 			setChoiceWeapon(enemyTank.getWeapon());
 			if (!loadImg(getPath(), g_screen))
@@ -91,6 +99,10 @@
 			{
 				this->setPath("img/bullets_1.png");
 			}
+			else
+			{
+				setPath("img/bulletdark2.png");
+			}
 			setChoiceWeapon(enemyTank.getWeapon());
 			if (!loadImg(getPath(), g_screen))
 			{
@@ -110,6 +122,10 @@
 			else if (enemyTank.getWeapon() == 2)
 			{
 				this->setPath("img/bullets_1.png");
+			}
+			else
+			{
+				setPath("img/bulletdark2.png");
 			}
 			setChoiceWeapon(enemyTank.getWeapon());
 			if (!loadImg(getPath(), g_screen))
