@@ -702,9 +702,9 @@
 	void EnemyTank::handleTankAI_2(Map **walls,Tank& tank)
 	{
 		int x=rand()%3;
-		if(enemy_move_count>0)
+		if(enemy_move_count_2>0)
 		{
-			enemy_move_count--;
+			enemy_move_count_2--;
 			if (getAngle() == 0)
 			{
 				setvY(-vNormal);
@@ -712,7 +712,7 @@
 				{
 					rect_.x = getOriginalXpos();
 					rect_.y = vNormal;
-					enemy_move_count = 0;
+					enemy_move_count_2 = 0;
 				}
 			}
 			else if (getAngle() == 180)
@@ -721,7 +721,7 @@
 				if (rect_.y + rect_.h >= scrennHeight)
 				{
 					rect_.y = scrennHeight - rect_.h;
-					enemy_move_count = 0;
+					enemy_move_count_2 = 0;
 				}
 			}
 			else if (getAngle() == 90)
@@ -731,7 +731,7 @@
 				{
 					rect_.x = 0;
 					rect_.y = getOriginalYpos();
-					enemy_move_count = 0;
+					enemy_move_count_2 = 0;
 				}
 			}
 			else if (getAngle() == 270)
@@ -740,7 +740,7 @@
 				if (rect_.x + rect_.w >= screenWidth)
 				{
 					rect_.x = screenWidth - rect_.w;
-					enemy_move_count = 0;
+					enemy_move_count_2 = 0;
 				}
 			}
 		}
@@ -772,7 +772,7 @@
 				{
 					setBulletActive(true);
 				}	
-				enemy_move_count=1;
+				enemy_move_count_2=1;
 				//}
 			}
 			else 
@@ -794,11 +794,11 @@
 						if(enemy_count_bullet==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet=2;
+							enemy_count_bullet_2=2;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							enemy_count_bullet_2--;
 							setBulletActive(false); 
 						}
 					}
@@ -811,20 +811,20 @@
 						else{
 							setAngle(90);
 						}
-						if(enemy_count_bullet==0)
+						if(enemy_count_bullet_2==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet=2;
+							enemy_count_bullet_2=2;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							enemy_count_bullet_2--;
 							setBulletActive(false); 
 						}
 					}
 				if (x == 0)
 				{
-					enemy_move_count = 5;
+					enemy_move_count_2 = 5;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -858,17 +858,17 @@
 				{
 					setvX(0);
 					setvY(0);
-					if(enemy_count_bullet==0)
+					if(enemy_count_bullet_2==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet=2;
+						enemy_count_bullet_2=2;
 					}
 					else
 					{
-						enemy_count_bullet--;
+						enemy_count_bullet_2--;
 						setBulletActive(false); 
 					}
-					enemy_move_count = 0;
+					enemy_move_count_2 = 0;
 				}
 			}
 		}
@@ -876,9 +876,9 @@
 	void EnemyTank::handleTankAI_4(Map **walls,Tank& tank)
 	{
 		int x=rand()%3;
-		if(enemy_move_count>0)
+		if(enemy_move_count_4>0)
 		{
-			enemy_move_count--;
+			enemy_move_count_4--;
 			if (getAngle() == 0)
 			{
 				setvY(-vNormal);
@@ -886,7 +886,7 @@
 				{
 					rect_.x = getOriginalXpos();
 					rect_.y = vNormal;
-					enemy_move_count = 0;
+					enemy_move_count_4 = 0;
 				}
 			}
 			else if (getAngle() == 180)
@@ -895,7 +895,7 @@
 				if (rect_.y + rect_.h >= scrennHeight)
 				{
 					rect_.y = scrennHeight - rect_.h;
-					enemy_move_count = 0;
+					enemy_move_count_4 = 0;
 				}
 			}
 			else if (getAngle() == 90)
@@ -905,7 +905,7 @@
 				{
 					rect_.x = 0;
 					rect_.y = getOriginalYpos();
-					enemy_move_count = 0;
+					enemy_move_count_4 = 0;
 				}
 			}
 			else if (getAngle() == 270)
@@ -914,7 +914,7 @@
 				if (rect_.x + rect_.w >= screenWidth)
 				{
 					rect_.x = screenWidth - rect_.w;
-					enemy_move_count = 0;
+					enemy_move_count_4 = 0;
 				}
 			}
 		}
@@ -946,7 +946,7 @@
 				{
 					setBulletActive(true);
 				}	
-				enemy_move_count=1;
+				enemy_move_count_4=1;
 				//}
 			}
 			else 
@@ -968,11 +968,11 @@
 						if(enemy_count_bullet==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet=4;
+							enemy_count_bullet_4=4;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							enemy_count_bullet_4--;
 							setBulletActive(false); 
 						}
 					}
@@ -985,20 +985,20 @@
 						else{
 							setAngle(90);
 						}
-						if(enemy_count_bullet==0)
+						if(enemy_count_bullet_4==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet=4;
+							enemy_count_bullet_4=4;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							enemy_count_bullet_4--;
 							setBulletActive(false); 
 						}
 					}
 				if (x == 0)
 				{
-					enemy_move_count = 6;
+					enemy_move_count_4 = 6;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -1032,17 +1032,17 @@
 				{
 					setvX(0);
 					setvY(0);
-					if(enemy_count_bullet==0)
+					if(enemy_count_bullet_4==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet=4;
+						enemy_count_bullet_4=4;
 					}
 					else
 					{
-						enemy_count_bullet--;
+						enemy_count_bullet_4--;
 						setBulletActive(false); 
 					}
-					enemy_move_count = 0;
+					enemy_move_count_4 = 0;
 				}
 			}
 		}
@@ -1050,9 +1050,9 @@
 	void EnemyTank::handleTankAI_6(Map **walls,Tank& tank)
 	{
 		int x=rand()%3;
-		if(enemy_move_count>0)
+		if(enemy_move_count_6>0)
 		{
-			enemy_move_count--;
+			enemy_move_count_6--;
 			if (getAngle() == 0)
 			{
 				setvY(-vNormal);
@@ -1060,7 +1060,7 @@
 				{
 					rect_.x = getOriginalXpos();
 					rect_.y = vNormal;
-					enemy_move_count = 0;
+					enemy_move_count_6 = 0;
 				}
 			}
 			else if (getAngle() == 180)
@@ -1069,7 +1069,7 @@
 				if (rect_.y + rect_.h >= scrennHeight)
 				{
 					rect_.y = scrennHeight - rect_.h;
-					enemy_move_count = 0;
+					enemy_move_count_6 = 0;
 				}
 			}
 			else if (getAngle() == 90)
@@ -1079,7 +1079,7 @@
 				{
 					rect_.x = 0;
 					rect_.y = getOriginalYpos();
-					enemy_move_count = 0;
+					enemy_move_count_6 = 0;
 				}
 			}
 			else if (getAngle() == 270)
@@ -1088,7 +1088,7 @@
 				if (rect_.x + rect_.w >= screenWidth)
 				{
 					rect_.x = screenWidth - rect_.w;
-					enemy_move_count = 0;
+					enemy_move_count_6 = 0;
 				}
 			}
 		}
@@ -1120,7 +1120,7 @@
 				{
 					setBulletActive(true);
 				}	
-				enemy_move_count=1;
+				enemy_move_count_6=1;
 				//}
 			}
 			else 
@@ -1142,11 +1142,11 @@
 						if(enemy_count_bullet==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet=6;
+							enemy_count_bullet_6=6;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							enemy_count_bullet_6--;
 							setBulletActive(false); 
 						}
 					}
@@ -1159,20 +1159,20 @@
 						else{
 							setAngle(90);
 						}
-						if(enemy_count_bullet==0)
+						if(enemy_count_bullet_6==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet=6;
+							enemy_count_bullet_6=6;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							enemy_count_bullet_6--;
 							setBulletActive(false); 
 						}
 					}
 				if (x == 0)
 				{
-					enemy_move_count = 8;
+					enemy_move_count_6 = 8;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -1206,17 +1206,17 @@
 				{
 					setvX(0);
 					setvY(0);
-					if(enemy_count_bullet==0)
+					if(enemy_count_bullet_6==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet=6;
+						enemy_count_bullet_6=6;
 					}
 					else
 					{
-						enemy_count_bullet--;
+						enemy_count_bullet_6--;
 						setBulletActive(false); 
 					}
-					enemy_move_count = 0;
+					enemy_move_count_6 = 0;
 				}
 			}
 		}
@@ -1224,9 +1224,9 @@
 	void EnemyTank::handleTankAI_8(Map **walls,Tank& tank)
 	{
 		int x=rand()%3;
-		if(enemy_move_count>0)
+		if(enemy_move_count_8>0)
 		{
-			enemy_move_count--;
+			enemy_move_count_8--;
 			if (getAngle() == 0)
 			{
 				setvY(-vNormal);
@@ -1234,7 +1234,7 @@
 				{
 					rect_.x = getOriginalXpos();
 					rect_.y = vNormal;
-					enemy_move_count = 0;
+					enemy_move_count_8 = 0;
 				}
 			}
 			else if (getAngle() == 180)
@@ -1243,7 +1243,7 @@
 				if (rect_.y + rect_.h >= scrennHeight)
 				{
 					rect_.y = scrennHeight - rect_.h;
-					enemy_move_count = 0;
+					enemy_move_count_8 = 0;
 				}
 			}
 			else if (getAngle() == 90)
@@ -1253,7 +1253,7 @@
 				{
 					rect_.x = 0;
 					rect_.y = getOriginalYpos();
-					enemy_move_count = 0;
+					enemy_move_count_8 = 0;
 				}
 			}
 			else if (getAngle() == 270)
@@ -1262,7 +1262,7 @@
 				if (rect_.x + rect_.w >= screenWidth)
 				{
 					rect_.x = screenWidth - rect_.w;
-					enemy_move_count = 0;
+					enemy_move_count_8 = 0;
 				}
 			}
 		}
@@ -1294,7 +1294,7 @@
 				{
 					setBulletActive(true);
 				}	
-				enemy_move_count=1;
+				enemy_move_count_8=1;
 				//}
 			}
 			else 
@@ -1313,14 +1313,14 @@
 						{
 							setAngle(180);
 						}
-						if(enemy_count_bullet==0)
+						if(enemy_count_bullet_8==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet=8;
+							enemy_count_bullet_8=8;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							enemy_count_bullet_8--;
 							setBulletActive(false); 
 						}
 					}
@@ -1333,20 +1333,20 @@
 						else{
 							setAngle(90);
 						}
-						if(enemy_count_bullet==0)
+						if(enemy_count_bullet_8==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet=8;
+							enemy_count_bullet_8=8;
 						}
 						else
 						{
-							enemy_count_bullet--;
+							enemy_count_bullet_8--;
 							setBulletActive(false); 
 						}
 					}
 				if (x == 0)
 				{
-					enemy_move_count = 10;
+					enemy_move_count_8 = 10;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -1380,17 +1380,17 @@
 				{
 					setvX(0);
 					setvY(0);
-					if(enemy_count_bullet==0)
+					if(enemy_count_bullet_8==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet=8;
+						enemy_count_bullet_8=8;
 					}
 					else
 					{
-						enemy_count_bullet--;
+						enemy_count_bullet_8--;
 						setBulletActive(false); 
 					}
-					enemy_move_count = 0;
+					enemy_move_count_8 = 0;
 				}
 			}
 		}

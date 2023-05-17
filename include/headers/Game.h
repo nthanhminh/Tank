@@ -46,6 +46,7 @@ private:
     bool changePlayBtn=true;
     bool changeHelpBtn=true;
     std::string tankPathChoose="img/tank_1.png";
+    int menuIsOpen=0;
     bool isQuit = false;
     bool check[5];
     Menu menu[6];

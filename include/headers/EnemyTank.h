@@ -10,8 +10,16 @@
 class EnemyTank :public Tank {
 private:
 	int enemy_move_count = 0;
+	int enemy_move_count_2 = 0;
+	int enemy_move_count_4 = 0;
+	int enemy_move_count_6 = 0;
+	int enemy_move_count_8 = 0;
 	int enemyStep=0;
 	int enemy_count_bullet = 0;
+	int enemy_count_bullet_2 = 0;
+	int enemy_count_bullet_4 = 0;
+	int enemy_count_bullet_6 = 0;
+	int enemy_count_bullet_8 = 0;
 	int enemy_count_angleTime=0;
 	bool bulletActive = 0;
 	bool is_enemy_tank_alive = true;

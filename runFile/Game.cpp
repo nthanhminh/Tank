@@ -258,17 +258,41 @@
     {
         menu[0].setBgPath("img/grass.png");
         menu[0].setMapPath("data/data.txt");
+        menu[0].setNumberOfEnemyTank(8);
         menu[1].setBgPath("img/background_1.png");
         menu[1].setMapPath("data/data_1.txt");
+        menu[1].setNumberOfEnemyTank(8);
         menu[2].setBgPath("img/background_2.png");
         menu[2].setMapPath("data/data_2.txt");
+        menu[2].setNumberOfEnemyTank(8);
         menu[3].setBgPath("img/background_3.png");
         menu[3].setMapPath("data/data_3.txt");
+        menu[3].setNumberOfEnemyTank(8);
         menu[4].setBgPath("img/background_4.png");
         menu[4].setMapPath("data/data_4.txt");
+        menu[4].setNumberOfEnemyTank(8);
         menu[5].setBgPath("img/background_5.png");
         menu[5].setMapPath("data/data_5.txt");
-        for (int i=0;i<5;i++)
+        menu[5].setNumberOfEnemyTank(8);
+        for (int i=menuIsOpen;i<5;i++)
+        {
+            check[i]=true;
+        }
+        std::ifstream outputFile("data/output.txt");
+        if (outputFile.is_open()) {
+        // Write data to the file
+        while(outputFile>>menuIsOpen) {
+            std::cout << "read data" << std::endl;
+        }
+        // Close the file
+        outputFile.close();
+        } 
+        else 
+        {
+            std::cout << "Unable to open the file." << std::endl;
+        }
+        std::cout << menuIsOpen << std::endl;
+        for (int i=menuIsOpen;i<5;i++)
         {
             check[i]=false;
         }
@@ -403,6 +427,11 @@
         musicGameWin.pauseSound();
         musicGameOver.playSound();
         musicGameOver.pauseSound();
+        sound_gun.playSound();
+        sound_gun.pauseSound();
+        sound_collision.playSound();
+        sound_collision.pauseSound();
+        sound_tank.pauseSound();
         while (!isQuit) 
     {
         while (SDL_PollEvent(&g_event) != 0)
@@ -410,6 +439,27 @@
             if (g_event.type == SDL_QUIT)
             {
                 isQuit = true;
+                std::ofstream outputFile("data/output.txt");
+                int tmp=0;
+                for (int i=0;i<5;i++)
+                {
+                    if (check[i]==true)
+                    {
+                        tmp=i;
+                    }
+                }
+                if (outputFile.is_open())
+                {
+    
+                    std::cout << "This is line 1" << std::endl;
+                    outputFile<<(tmp+1);
+                    std::cout << tmp;
+                    outputFile.close();
+                }
+                else
+                {
+                    std::cout << "can not load output file" << std::endl;
+                }
                 exit(0);
             }
             else if (g_event.type==SDL_MOUSEBUTTONDOWN)

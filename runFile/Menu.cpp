@@ -78,6 +78,7 @@
 	}
 	void Menu::initTank(SDL_Renderer *g_screen)
 	{
+		numberOfEnemyTank = 8;
 		tank.setPath(this->tankPath);
 		tank.setIsTankAlive(true);
 		tank.setTankHp(health);

@@ -13,6 +13,7 @@ AudioManager::~AudioManager() {
 }
 
 bool AudioManager::loadSound(std::string filePath) {
+    this-> m_filePath = filePath;
     m_sound = Mix_LoadWAV(filePath.c_str());
     if (m_sound == nullptr) {
         std::cout << "Error: Failed to load sound file: " << filePath << std::endl;
@@ -28,7 +29,7 @@ void AudioManager::playSound() {
     }
     m_channel = Mix_PlayChannel(-1, m_sound, -1);
     if (m_channel == -1) {
-        std::cout << "Error: Failed to play sound" << std::endl;
+        std::cout << "Error: Failed to play sound" << " " << m_filePath << std::endl;
     }
 }
 
@@ -39,7 +40,18 @@ void AudioManager::playSoundNoRepeat() {
     }
     m_channel = Mix_PlayChannel(-1, m_sound, 0);
     if (m_channel == -1) {
-        std::cout << "Error: Failed to play sound" << std::endl;
+        std::cout << "Error: Failed to play sound" << " " << m_filePath << std::endl;
+    }
+}
+
+void AudioManager::playSoundNoRepeatNew() {
+    if (m_sound == nullptr) {
+        std::cout << "Error: No sound loaded" << std::endl;
+        return;
+    }
+    m_channel = Mix_PlayChannel(m_channel, m_sound, 0);
+    if (m_channel == -1) {
+        std::cout << "Error: Failed to play sound" << " " << m_filePath << std::endl;
     }
 }
 

@@ -147,7 +147,7 @@
 						std::cout << "can not load bullet";
 					}
 					ap(tank);
-					sound.playSoundNoRepeat();
+					sound.playSoundNoRepeatNew();
 					setVx(v_bullet);
 					setStatus(tank);
 				}
@@ -171,7 +171,7 @@
 						std::cout << "can not load bullet";
 					}
 						ap(tank);
-						sound.playSoundNoRepeat();
+						sound.playSoundNoRepeatNew();
 						setVx(-v_bullet);
 						setStatus(tank);
 				}
@@ -195,7 +195,7 @@
 						std::cout << "can not load bullet";
 					}
 						ap(tank);
-						sound.playSoundNoRepeat();
+						sound.playSoundNoRepeatNew();
 						setVy(-v_bullet);
 						setStatus(tank);
 				}
@@ -219,7 +219,7 @@
 						std::cout << "can not load bullet";
 					}
 						ap(tank);
-						sound.playSoundNoRepeat();
+						sound.playSoundNoRepeatNew();
 						setVy(v_bullet);
 						setStatus(tank);
 				}
@@ -314,7 +314,7 @@
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
 				Effect.free();
-				sound_collision.playSoundNoRepeat();
+				sound_collision.playSoundNoRepeatNew();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -332,7 +332,7 @@
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
 				Effect.free();
-				sound_collision.playSoundNoRepeat();
+				sound_collision.playSoundNoRepeatNew();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -354,7 +354,7 @@
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
 				Effect.free();
-				sound_collision.playSoundNoRepeat();
+				sound_collision.playSoundNoRepeatNew();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -372,7 +372,7 @@
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
 				Effect.free();
-				sound_collision.playSoundNoRepeat();
+				sound_collision.playSoundNoRepeatNew();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -422,7 +422,7 @@
 				}
 				Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 				Effect.render(g_screen, NULL);
-				sound_collision.playSoundNoRepeat();
+				sound_collision.playSoundNoRepeatNew();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -442,7 +442,7 @@
 				{
 					tank[i].checkBoomEffect(Effect.getXpos(),Effect.getYpos());
 				}
-				sound_collision.playSoundNoRepeat();
+				sound_collision.playSoundNoRepeatNew();
 				setVx(0);
 				setVy(0);
 				this->setXYpos(2000, 2000);
@@ -468,7 +468,7 @@
 			}
 			Effect.setXYpos(getXpos() - Effect.getWidth() / 2, getYpos() - Effect.getHeight() / 2);
 			Effect.render(g_screen, NULL);
-			sound_tank.playSoundNoRepeat();
+			sound_tank.playSoundNoRepeatNew();
 			setVx(0);
 			setVy(0);
 			setXYpos(2000, 2000);

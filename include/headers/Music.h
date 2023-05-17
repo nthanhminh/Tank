@@ -10,7 +10,9 @@ public:
 
     bool loadSound(std::string filePath);
     void playSound();
+    void playSoundNew();
     void playSoundNoRepeat();
+    void playSoundNoRepeatNew();
     void pauseSound();
     void stopSound();
     void resumeSound();
@@ -24,6 +26,7 @@ public:
 private:
     Mix_Chunk* m_sound;
     int m_channel;
+    std::string m_filePath;
 };
 
 #endif /* MUSIC_H */
