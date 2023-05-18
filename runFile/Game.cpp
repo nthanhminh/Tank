@@ -258,22 +258,22 @@
     {
         menu[0].setBgPath("img/grass.png");
         menu[0].setMapPath("data/data.txt");
-        menu[0].setNumberOfEnemyTank(8);
+        menu[0].setNumberOfEnemyTank(6);
         menu[1].setBgPath("img/background_1.png");
         menu[1].setMapPath("data/data_1.txt");
-        menu[1].setNumberOfEnemyTank(8);
+        menu[1].setNumberOfEnemyTank(6);
         menu[2].setBgPath("img/background_2.png");
         menu[2].setMapPath("data/data_2.txt");
-        menu[2].setNumberOfEnemyTank(8);
+        menu[2].setNumberOfEnemyTank(6);
         menu[3].setBgPath("img/background_3.png");
         menu[3].setMapPath("data/data_3.txt");
-        menu[3].setNumberOfEnemyTank(8);
+        menu[3].setNumberOfEnemyTank(6);
         menu[4].setBgPath("img/background_4.png");
         menu[4].setMapPath("data/data_4.txt");
-        menu[4].setNumberOfEnemyTank(8);
+        menu[4].setNumberOfEnemyTank(6);
         menu[5].setBgPath("img/background_5.png");
         menu[5].setMapPath("data/data_5.txt");
-        menu[5].setNumberOfEnemyTank(8);
+        menu[5].setNumberOfEnemyTank(6);
         for (int i=menuIsOpen;i<5;i++)
         {
             check[i]=true;
@@ -897,9 +897,9 @@
                      if (i==0)
                         menu[choiceOfmenu].listEnemyTank[i].handleTankAI_4(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
                     else if (i==1)
-                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_6(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
+                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_2(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
                     else if (i==3)
-                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_8(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
+                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_2(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
                     else if (i==4 || i==5)
                         menu[choiceOfmenu].listEnemyTank[i].handleAtiveTankEnemyB(menu[choiceOfmenu].tank);
                     else 

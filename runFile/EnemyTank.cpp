@@ -794,7 +794,7 @@
 						if(enemy_count_bullet==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet_2=2;
+							enemy_count_bullet_2=6;
 						}
 						else
 						{
@@ -814,7 +814,7 @@
 						if(enemy_count_bullet_2==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet_2=2;
+							enemy_count_bullet_2=6;
 						}
 						else
 						{
@@ -861,7 +861,7 @@
 					if(enemy_count_bullet_2==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet_2=2;
+						enemy_count_bullet_2=6;
 					}
 					else
 					{
@@ -968,7 +968,7 @@
 						if(enemy_count_bullet==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet_4=4;
+							enemy_count_bullet_4=8;
 						}
 						else
 						{
@@ -988,7 +988,7 @@
 						if(enemy_count_bullet_4==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet_4=4;
+							enemy_count_bullet_4=8;
 						}
 						else
 						{
@@ -1035,7 +1035,7 @@
 					if(enemy_count_bullet_4==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet_4=4;
+						enemy_count_bullet_4=8;
 					}
 					else
 					{
@@ -1142,7 +1142,7 @@
 						if(enemy_count_bullet==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet_6=6;
+							enemy_count_bullet_6=10;
 						}
 						else
 						{
@@ -1162,7 +1162,7 @@
 						if(enemy_count_bullet_6==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet_6=6;
+							enemy_count_bullet_6=10;
 						}
 						else
 						{
@@ -1209,7 +1209,7 @@
 					if(enemy_count_bullet_6==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet_6=6;
+						enemy_count_bullet_6=10;
 					}
 					else
 					{
@@ -1316,7 +1316,7 @@
 						if(enemy_count_bullet_8==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet_8=8;
+							enemy_count_bullet_8=12;
 						}
 						else
 						{
@@ -1336,7 +1336,7 @@
 						if(enemy_count_bullet_8==0)
 						{
 							setBulletActive(true); 
-							enemy_count_bullet_8=8;
+							enemy_count_bullet_8=12;
 						}
 						else
 						{
@@ -1383,7 +1383,7 @@
 					if(enemy_count_bullet_8==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet_8=8;
+						enemy_count_bullet_8=12;
 					}
 					else
 					{

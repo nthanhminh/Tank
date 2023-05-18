@@ -3,7 +3,7 @@
     Menu::Menu()
 	{
 		srand(time(0));
-		setNumberOfEnemyTank(8);
+		setNumberOfEnemyTank(6);
 		tankPath="img//tank_test.png";
 		mapPath="data/data_1.txt";
 		numberOfMenu=0;
@@ -78,11 +78,11 @@
 	}
 	void Menu::initTank(SDL_Renderer *g_screen)
 	{
-		numberOfEnemyTank = 8;
 		tank.setPath(this->tankPath);
 		tank.setIsTankAlive(true);
 		tank.setTankHp(health);
 		tank.setWeapon(0);
+		tank.setTankIsProtected(false);
 		if (!tank.loadTank(g_screen))
 		{
 			std::cout << "Can not load tank";
@@ -94,9 +94,10 @@
 		}
 		for (int i = 0; i < this->numberOfEnemyTank; i++)
 		{
-			listEnemyTank[i].setXYpos(screenWidth/numberOfEnemyTank*i, 0);
-			listEnemyTank[i].setPath("img//enemy_tank_test.png");
 			listEnemyTank[i].setIsTankAlive(true);
+			listEnemyTank[i].setPath("img//enemy_tank_test.png");
+			listEnemyTank[i].setXYpos(1500/numberOfEnemyTank*i+5, 2);
+			listEnemyTank[i].setTankIsProtected(false);
 			listEnemyTank[i].setTankHp(health);
 			listEnemyTank[i].setWeapon(0);
 		}
@@ -148,6 +149,10 @@
 	}
 	void Menu::free()
 	{
+		for (int i = 0; i < this->numberOfEnemyTank; i++)
+		{
+			listEnemyTank[i].setIsTankAlive(false);
+		}
 		for (int i = 0; i < sizeTankBullet; i++)
 		{
 			Bullets[i].setXYpos(2000,2000);
