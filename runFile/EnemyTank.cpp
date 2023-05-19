@@ -763,16 +763,17 @@
 			if(check_map_collision)
 			{
 				int choice=rand()%100;
-				if(choice<60)
+				if(choice<80)
 				{	
 					int randomAngle=rand()%4;
 					setAngle(randomAngle*90);
+					enemy_move_count_2=5;
 				}
 				else
 				{
 					setBulletActive(true);
 				}	
-				enemy_move_count_2=1;
+				
 				//}
 			}
 			else 
@@ -781,25 +782,37 @@
 					int thisEnemyTankPosY = getYpos();
 					int TankPosX = tank.getXpos();
 					int TankPosY = tank.getYpos();
+				// if(x==3)
+				// {
 					if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
 					{
 						if (thisEnemyTankPosY>=TankPosY)
 						{
 							setAngle(0);
+							if(enemy_count_bullet_2==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_2=6;
+							}
+							else
+							{
+								enemy_count_bullet_2--;
+								setBulletActive(false); 
+							}
 						}
 						else
 						{
 							setAngle(180);
-						}
-						if(enemy_count_bullet==0)
-						{
-							setBulletActive(true); 
-							enemy_count_bullet_2=6;
-						}
-						else
-						{
-							enemy_count_bullet_2--;
-							setBulletActive(false); 
+							if(enemy_count_bullet_2==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_2=6;
+							}
+							else
+							{
+								enemy_count_bullet_2--;
+								setBulletActive(false); 
+							}
 						}
 					}
 					if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY)
@@ -807,19 +820,29 @@
 						if (thisEnemyTankPosX>=TankPosX)
 						{
 							setAngle(270);
+							if(enemy_count_bullet_2==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_2=6;
+							}
+							else
+							{
+								enemy_count_bullet_2--;
+								setBulletActive(false); 
+							}
 						}
 						else{
 							setAngle(90);
-						}
-						if(enemy_count_bullet_2==0)
-						{
-							setBulletActive(true); 
-							enemy_count_bullet_2=6;
-						}
-						else
-						{
-							enemy_count_bullet_2--;
-							setBulletActive(false); 
+							if(enemy_count_bullet_2==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_2=6;
+							}
+							else
+							{
+								enemy_count_bullet_2--;
+								setBulletActive(false); 
+							}
 						}
 					}
 				if (x == 0)
@@ -875,7 +898,7 @@
 	}
 	void EnemyTank::handleTankAI_4(Map **walls,Tank& tank)
 	{
-		int x=rand()%3;
+		int x=rand()%4;
 		if(enemy_move_count_4>0)
 		{
 			enemy_move_count_4--;
@@ -937,16 +960,16 @@
 			if(check_map_collision)
 			{
 				int choice=rand()%100;
-				if(choice<60)
+				if(choice<80)
 				{	
 					int randomAngle=rand()%4;
 					setAngle(randomAngle*90);
+					enemy_move_count_4=5;
 				}
 				else
 				{
 					setBulletActive(true);
 				}	
-				enemy_move_count_4=1;
 				//}
 			}
 			else 
@@ -955,25 +978,36 @@
 					int thisEnemyTankPosY = getYpos();
 					int TankPosX = tank.getXpos();
 					int TankPosY = tank.getYpos();
-					if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
+				if(x==3)
+				{	if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
 					{
 						if (thisEnemyTankPosY>=TankPosY)
 						{
 							setAngle(0);
+							if(enemy_count_bullet_4==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_4 = 7;
+							}
+							else
+							{
+								enemy_count_bullet_4--;
+								setBulletActive(false); 
+							}
 						}
 						else
 						{
 							setAngle(180);
-						}
-						if(enemy_count_bullet==0)
-						{
-							setBulletActive(true); 
-							enemy_count_bullet_4=8;
-						}
-						else
-						{
-							enemy_count_bullet_4--;
-							setBulletActive(false); 
+							if(enemy_count_bullet_4==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_4 = 7;
+							}
+							else
+							{
+								enemy_count_bullet_4--;
+								setBulletActive(false); 
+							}
 						}
 					}
 					if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY)
@@ -981,22 +1015,33 @@
 						if (thisEnemyTankPosX>=TankPosX)
 						{
 							setAngle(270);
+							if(enemy_count_bullet_4==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_4 = 7;
+							}
+							else
+							{
+								enemy_count_bullet_4--;
+								setBulletActive(false); 
+							}
 						}
 						else{
 							setAngle(90);
-						}
-						if(enemy_count_bullet_4==0)
-						{
-							setBulletActive(true); 
-							enemy_count_bullet_4=8;
-						}
-						else
-						{
-							enemy_count_bullet_4--;
-							setBulletActive(false); 
+							if(enemy_count_bullet_4==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_4 = 7;
+							}
+							else
+							{
+								enemy_count_bullet_4--;
+								setBulletActive(false); 
+							}
 						}
 					}
-				if (x == 0)
+				}
+				else if (x == 0)
 				{
 					enemy_move_count_4 = 6;
 					setBulletActive(false);
@@ -1035,7 +1080,7 @@
 					if(enemy_count_bullet_4==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet_4=8;
+						enemy_count_bullet_4 = 7;
 					}
 					else
 					{
@@ -1049,7 +1094,7 @@
 	}
 	void EnemyTank::handleTankAI_6(Map **walls,Tank& tank)
 	{
-		int x=rand()%3;
+		int x=rand()%4;
 		if(enemy_move_count_6>0)
 		{
 			enemy_move_count_6--;
@@ -1111,16 +1156,16 @@
 			if(check_map_collision)
 			{
 				int choice=rand()%100;
-				if(choice<60)
+				if(choice<80)
 				{	
 					int randomAngle=rand()%4;
 					setAngle(randomAngle*90);
+					enemy_move_count_6=5;
 				}
 				else
 				{
 					setBulletActive(true);
 				}	
-				enemy_move_count_6=1;
 				//}
 			}
 			else 
@@ -1129,25 +1174,36 @@
 					int thisEnemyTankPosY = getYpos();
 					int TankPosX = tank.getXpos();
 					int TankPosY = tank.getYpos();
-					if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
+				if(x==3)
+				{	if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
 					{
 						if (thisEnemyTankPosY>=TankPosY)
 						{
 							setAngle(0);
+							if(enemy_count_bullet_6==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_6=8;
+							}
+							else
+							{
+								enemy_count_bullet_6--;
+								setBulletActive(false); 
+							}
 						}
 						else
 						{
 							setAngle(180);
-						}
-						if(enemy_count_bullet==0)
-						{
-							setBulletActive(true); 
-							enemy_count_bullet_6=10;
-						}
-						else
-						{
-							enemy_count_bullet_6--;
-							setBulletActive(false); 
+							if(enemy_count_bullet_6==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_6=8;
+							}
+							else
+							{
+								enemy_count_bullet_6--;
+								setBulletActive(false); 
+							}
 						}
 					}
 					if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY)
@@ -1155,24 +1211,35 @@
 						if (thisEnemyTankPosX>=TankPosX)
 						{
 							setAngle(270);
+							if(enemy_count_bullet_6==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_6=8;
+							}
+							else
+							{
+								enemy_count_bullet_6--;
+								setBulletActive(false); 
+							}
 						}
 						else{
 							setAngle(90);
-						}
-						if(enemy_count_bullet_6==0)
-						{
-							setBulletActive(true); 
-							enemy_count_bullet_6=10;
-						}
-						else
-						{
-							enemy_count_bullet_6--;
-							setBulletActive(false); 
+							if(enemy_count_bullet_6==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_6=8;
+							}
+							else
+							{
+								enemy_count_bullet_6--;
+								setBulletActive(false); 
+							}
 						}
 					}
-				if (x == 0)
+				}
+				else if (x == 0)
 				{
-					enemy_move_count_6 = 8;
+					enemy_move_count_6=8;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -1209,7 +1276,7 @@
 					if(enemy_count_bullet_6==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet_6=10;
+						enemy_count_bullet_6=8;
 					}
 					else
 					{
@@ -1223,7 +1290,7 @@
 	}
 	void EnemyTank::handleTankAI_8(Map **walls,Tank& tank)
 	{
-		int x=rand()%3;
+		int x=rand()%4;
 		if(enemy_move_count_8>0)
 		{
 			enemy_move_count_8--;
@@ -1285,16 +1352,16 @@
 			if(check_map_collision)
 			{
 				int choice=rand()%100;
-				if(choice<60)
+				if(choice<80)
 				{	
 					int randomAngle=rand()%4;
 					setAngle(randomAngle*90);
+					enemy_move_count_8=5;
 				}
 				else
 				{
 					setBulletActive(true);
 				}	
-				enemy_move_count_8=1;
 				//}
 			}
 			else 
@@ -1303,25 +1370,36 @@
 					int thisEnemyTankPosY = getYpos();
 					int TankPosX = tank.getXpos();
 					int TankPosY = tank.getYpos();
-					if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
+				if (x==3)
+				{	if (thisEnemyTankPosX<=TankPosX+tank.getWidth()/2 && thisEnemyTankPosX>=TankPosX)
 					{
 						if (thisEnemyTankPosY>=TankPosY)
 						{
 							setAngle(0);
+							if(enemy_count_bullet_8==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_8=9;
+							}
+							else
+							{
+								enemy_count_bullet_8--;
+								setBulletActive(false); 
+							}
 						}
 						else
 						{
 							setAngle(180);
-						}
-						if(enemy_count_bullet_8==0)
-						{
-							setBulletActive(true); 
-							enemy_count_bullet_8=12;
-						}
-						else
-						{
-							enemy_count_bullet_8--;
-							setBulletActive(false); 
+							if(enemy_count_bullet_8==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_8=9;
+							}
+							else
+							{
+								enemy_count_bullet_8--;
+								setBulletActive(false); 
+							}
 						}
 					}
 					if (thisEnemyTankPosY<=TankPosY+tank.getHeight()/2 && thisEnemyTankPosY>=TankPosY)
@@ -1329,24 +1407,35 @@
 						if (thisEnemyTankPosX>=TankPosX)
 						{
 							setAngle(270);
+							if(enemy_count_bullet_8==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_8=9;
+							}
+							else
+							{
+								enemy_count_bullet_8--;
+								setBulletActive(false); 
+							}
 						}
 						else{
 							setAngle(90);
-						}
-						if(enemy_count_bullet_8==0)
-						{
-							setBulletActive(true); 
-							enemy_count_bullet_8=12;
-						}
-						else
-						{
-							enemy_count_bullet_8--;
-							setBulletActive(false); 
+							if(enemy_count_bullet_8==0)
+							{
+								setBulletActive(true); 
+								enemy_count_bullet_8=9;
+							}
+							else
+							{
+								enemy_count_bullet_8--;
+								setBulletActive(false); 
+							}
 						}
 					}
-				if (x == 0)
+				}
+				else if (x == 0)
 				{
-					enemy_move_count_8 = 10;
+					enemy_move_count_8=10;
 					setBulletActive(false);
 				}
 				else if (x == 1)
@@ -1383,7 +1472,7 @@
 					if(enemy_count_bullet_8==0)
 					{
 						setBulletActive(true); 
-						enemy_count_bullet_8=12;
+						enemy_count_bullet_8=9;
 					}
 					else
 					{

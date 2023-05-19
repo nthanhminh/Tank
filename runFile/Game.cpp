@@ -894,13 +894,13 @@
             {
                if (menu[choiceOfmenu].listEnemyTank[i].getIsTankAlive())
                {
-                     if (i==0)
+                    if (i==0)
                         menu[choiceOfmenu].listEnemyTank[i].handleTankAI_4(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
                     else if (i==1)
-                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_2(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
+                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_6(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
+                    else if (i==2)
+                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_8(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
                     else if (i==3)
-                        menu[choiceOfmenu].listEnemyTank[i].handleTankAI_2(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
-                    else if (i==4 || i==5)
                         menu[choiceOfmenu].listEnemyTank[i].handleAtiveTankEnemyB(menu[choiceOfmenu].tank);
                     else 
                         menu[choiceOfmenu].listEnemyTank[i].handleTankAI_2(menu[choiceOfmenu].walls,menu[choiceOfmenu].tank);
@@ -967,14 +967,14 @@
             // bullet enemy render
             for (int i = 0; i < menu[choiceOfmenu].numberOfEnemyTank; i++)
             {
-                if (menu[choiceOfmenu].listEnemyTank[i].getIsTankAlive())
-                {
+                // if (menu[choiceOfmenu].listEnemyTank[i].getIsTankAlive())
+                // {
                     for (int j = 0; j < menu[choiceOfmenu].sizeEnemyTankBulluets[i]; j++)
                     {
                         menu[choiceOfmenu].EnemyBullets[i][j].moveAuto(menu[choiceOfmenu].tank, menu[choiceOfmenu].walls,menu[choiceOfmenu].listEnemyTank[i],g_screen,gameOver,sound_collision,sound_tank);
                         menu[choiceOfmenu].EnemyBullets[i][j].renderRouteThink(g_screen, menu[choiceOfmenu].EnemyBullets[i][j].getBulletAngle(), NULL);
                     }
-                }
+                //}
             }
             for (int i = 0; i < mapRows; i++)
             {
